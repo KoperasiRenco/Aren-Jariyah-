@@ -269,6 +269,21 @@ th{text-transform:none;letter-spacing:0;font-size:12.5px}
 .vtl b{display:block;font-size:15px}
 .vtl small{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:99px;background:var(--green-soft);color:var(--green-ink);font-size:11.5px;font-weight:700}
 .vtl span{display:block;margin-top:2px;font-size:13px;color:var(--muted)}
+.vhero .muted.vtxt{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden}
+.vhero{position:relative}
+.vhero .muted.vtxt.open{position:absolute;top:-6px;left:-8px;right:-8px;z-index:30;display:block;-webkit-line-clamp:unset;line-clamp:unset;overflow:visible;margin:0;padding:6px 8px 8px;border-radius:12px;background:#fff;color:var(--fg);font-size:13px;line-height:inherit;box-shadow:0 10px 26px -10px rgba(40,10,60,.4),0 0 0 .5px rgba(0,0,0,.08);animation:vtlin .2s ease}
+.vtxt{cursor:pointer}
+.vhero .vtw{display:block;position:relative}
+.vmore{margin-top:6px;padding:0;border:0;background:none;font:inherit;font-size:13px;font-weight:700;color:var(--green-ink);cursor:pointer}
+.vban{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.vhint{display:inline-block;margin-top:10px;font-size:12px;font-weight:600;color:var(--green-ink);opacity:.85}
+.vban[aria-expanded="true"] .vhint{opacity:.55}
+.vtlw{margin-top:14px;padding:18px 16px;border-radius:24px;background:linear-gradient(135deg,var(--green-soft),#fff 70%);animation:vtlin .35s ease}
+.vtlw[hidden]{display:none}
+.vtlw h2{margin:0 0 4px;font-size:18px}
+.vtlp{margin:0 0 6px;font-size:13px}
+@keyframes vtlin{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.vtlw{animation:none}}
 .vpil .ps{padding:12px 14px;gap:12px;border-radius:18px;background:var(--surface);box-shadow:0 6px 18px -12px rgba(122,44,140,.5)}
 .vpil .ps b{font-size:15px;line-height:1.25}
 .vpil .ps .muted{font-size:12.5px;line-height:1.35}
@@ -1780,26 +1795,35 @@ const PUBI={
  heart:HAND+'<path d="M20 21c-7-4.5-10-8-10-11.5a5.5 5.5 0 0 1 10-3 5.5 5.5 0 0 1 10 3c0 3.5-3 7-10 11.5z"/>',
  doc:'<g fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"><path d="M9 4h16l7 7v25H9z"/><path d="M24 4v8h8M14 15h7"/></g><rect x="14" y="26" width="4" height="6"/><rect x="20" y="22" width="4" height="10"/><rect x="26" y="18" width="4" height="14"/>',
  cal:'<g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><rect x="5" y="8" width="30" height="28" rx="5"/><path d="M13 4v8M27 4v8"/></g><rect x="11" y="19" width="5" height="5" rx="1"/><rect x="17.5" y="19" width="5" height="5" rx="1"/><rect x="24" y="19" width="5" height="5" rx="1"/><rect x="11" y="26" width="5" height="5" rx="1"/><rect x="17.5" y="26" width="5" height="5" rx="1"/><rect x="24" y="26" width="5" height="5" rx="1"/>',
+ cs:'<g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 23v-5a13 13 0 0 1 26 0v5"/><path d="M33 23v4a4 4 0 0 1-4 4h-6"/></g><rect x="4" y="21" width="6" height="10" rx="3"/><rect x="30" y="21" width="6" height="10" rx="3"/><rect x="18" y="29" width="6" height="4" rx="2"/>',
  coin:'<ellipse cx="20" cy="9" rx="13" ry="5"/><path d="M7 14c0 3 6 5 13 5s13-2 13-5v5c0 3-6 5-13 5S7 22 7 19z"/><path d="M7 24c0 3 6 5 13 5s13-2 13-5v5c0 3-6 5-13 5S7 32 7 29z"/>'};
 const pic=k=>'<svg class="pic" viewBox="0 0 40 40" fill="currentColor" aria-hidden="true">'+PUBI[k]+'</svg>';
+function visiTl(){
+ const fase=[
+  ['2027–2030','Menanam Benih','Empat tahun pertama adalah masa menanam. Kita rapikan pencatatan, kenali aset yang dimiliki bersama, dan saling percaya lewat laporan yang terbuka untuk semua warga. Pelan-pelan tidak apa-apa, yang penting dimulai bersama.'],
+  ['2031–2034','Bertumbuh Bersama','Partisipan bertambah, aset bersama makin beragam, dan Dana Abadi mulai terkumpul sebagai tabungan jangka panjang. Pemuda belajar mengelola, warga belajar saling menguatkan, dan hasilnya mulai terasa di sekitar kita.'],
+  ['2035–2038','Berbuah dan Berbagi','Hasil kelolaan mulai kembali ke warga lewat beasiswa, bantuan sesama, dan dukungan bagi UMKM. Pohon yang kita tanam mulai rindang, bank sampah berjalan rutin, dan ruang hijau menjadi tempat berkumpul keluarga.'],
+  ['2039–2042','Estafet ke Generasi Muda','Kepengurusan perlahan diteruskan kepada anak-anak muda yang tumbuh bersama gerakan ini. Kita mendampingi, mereka melangkah. Nilai amanah dan kebersamaan tetap dijaga agar tidak terputus.'],
+  ['2043–2045','Mandiri dan Lestari','Hasil kelolaan cukup untuk membiayai program sosial dan lingkungan Renco secara mandiri. Inilah janji kita: apa yang dibangun hari ini tetap hidup dan memberi manfaat bagi generasi setelah kita.']
+ ];
+ const th=new Date().getFullYear();
+ return '<section class="sec vtlw" id="visi-tl" aria-label="Perjalanan menuju 2045"'+(S.vtl?'':' hidden')+'><h2>Perjalanan menuju 2045</h2><p class="muted vtlp">Lima fase, masing-masing empat tahun, kita lalui bersama dengan sabar dan hangat.</p>'+
+ '<ol class="vtl">'+fase.map(x=>{const y=+x[0].slice(0,4),z=+x[0].slice(5),now=th>=y&&th<=z;return '<li'+(now?' class="now"':'')+'><b>'+x[0]+' · '+x[1]+(now?'<small>Sekarang</small>':'')+'</b><span>'+x[2]+'</span></li>'}).join('')+'</ol></section>';
+}
 function visiSec(n){
  const th=new Date().getFullYear(),sisa=Math.max(0,2045-th);
- const pil=[['coin','Ekonomi warga','Aset dikelola bersama dan hasilnya kembali ke warga.'],['leaf','Lingkungan lestari','Pohon, bank sampah, dan ruang hijau yang terjaga.'],['people','Sosial berkelanjutan','Beasiswa, bantuan, dan UMKM yang terus berjalan.']];
- const tl=[[th,'Fondasi','Aset bersama pertama dikelola, dicatat, dan dilaporkan terbuka.'],['2030-an','Tumbuh','Partisipan dan aset bertambah, Dana Abadi menguat.'],['2045','Mandiri','Hasil kelolaan membiayai program sosial dan lingkungan Renco.']];
- return '<section class="sec" id="visi"><h2>RencoVision 2045</h2>'+
- '<div class="vhero"><span class="vyr">2045</span><div><b>Renco mandiri, lestari, dan saling menguatkan</b><span class="muted">'+(sisa?sisa+' tahun lagi. ':'')+'Aren Jariyah adalah langkah pertamanya: aset bersama yang dikelola warga dan dilaporkan terbuka.</span></div></div>'+
- '<div class="vpil">'+pil.map(x=>'<div class="ps dec"><span class="pi">'+pic(x[0])+'</span><div><b>'+x[1]+'</b><span class="muted">'+x[2]+'</span></div></div>').join('')+'</div>'+
- '<ol class="vtl" aria-label="Tahapan menuju 2045">'+tl.map((x,i)=>'<li'+(i===0?' class="now"':'')+'><b>'+x[0]+' · '+x[1]+(i===0?'<small>Sekarang</small>':'')+'</b><span>'+x[2]+'</span></li>').join('')+'</ol>'+
- '<div class="vcta"><button type="button" class="btn btn-green btn-sm" data-act="formGabung">Gabung Pemuda</button><button type="button" class="btn btn-line btn-sm" data-act="publicReport">Lihat laporan terbuka</button></div></section>';
+ return '<section class="sec" id="visi">'+
+ '<div class="vhero"><span class="vyr">2045</span><div><b>SALING MENGUATKAN, MENYIAPKAN MASA DEPAN UNTUK GENERASI.</b></div></div>'+
+ '</section>';
 }
 function viewPublic(){
  const t=totals(),n=aktif().length;
- const tiles=[['gabung','Gabung Pemuda','people'],['lahan','Ajukan Aset','leaf'],['laporan','Laporan','doc']];
+ const tiles=[['gabung','Gabung Pemuda','people'],['lahan','Ajukan Aset','leaf'],['laporan','Laporan','doc'],['cs','Layanan','cs']];
  const prog=[['aset','Aset Bersama','Lapangan, kebun, kios, dan taman bersama.',''],['leaf','Lingkungan','Tanam pohon dan bank sampah.','gold'],['heart','Sosial','Beasiswa, bantuan, dan UMKM warga.',''],['abadi','Dana Abadi','Dana pokok dijaga, hasilnya untuk program sosial.','gold']];
  const PI={aset:'coin',leaf:'leaf',heart:'people',abadi:'heart'},pc=()=>prog.map(p=>'<div class="ps dec"><span class="pi">'+pic(PI[p[0]])+'</span><div><b>'+p[1]+'</b><span class="muted">'+p[2]+'</span></div></div>').join('');
  const st=(k,l,v,x)=>'<div class="ps'+(x?'':' dec')+'"><span class="pi">'+pic(k)+'</span><div><span class="muted">'+l+'</span><b class="num">'+v+'</b></div>'+(x||'')+'</div>';
  return topbar('<button class="btn btn-line btn-sm" data-act="login">Masuk '+chevR+'</button>')+
- '<main class="wrap"><section class="hero hero2"><div class="ht"><p class="pill">Bagian dari RencoVision 2045</p><div class="hslides"><div class="hs'+(HS===0?' on':'')+'"><h2 class="hl"><span class="k1">Mari bangun</span> <span class="k2">aset</span> <span class="k6">bersama</span><span class="k5">.</span></h2></div><div class="hs'+(HS===1?' on':'')+'"><h1><span class="k2">Lingkungan Lestari,</span> <span class="k3">Sosial</span> <span class="k4">Berkelanjutan</span><span class="k5">.</span></h1></div><div class="hs'+(HS===2?' on':'')+'"><h2 class="hl"><span class="k1">Lahan Bersama,</span> <span class="k2">Manfaat</span> <span class="k4">Bersama</span><span class="k5">.</span></h2></div></div><i class="rule"></i><p class="d">Gerakan pemuda Renco membangun aset bersama, menjaga lingkungan, dan menguatkan sosial warga.</p></div></section>'+
+ '<main class="wrap"><section class="hero hero2 vban" role="button" tabindex="0" data-act="visiTl" aria-controls="visi-tl" aria-expanded="'+(S.vtl?'true':'false')+'"><div class="ht"><p class="pill">Bagian dari RencoVision 2045</p><div class="hslides"><div class="hs'+(HS===0?' on':'')+'"><h2 class="hl"><span class="k1">Mari bangun</span> <span class="k2">aset</span> <span class="k6">bersama</span><span class="k5">.</span></h2></div><div class="hs'+(HS===1?' on':'')+'"><h1><span class="k2">Lingkungan Lestari,</span> <span class="k3">Sosial</span> <span class="k4">Berkelanjutan</span><span class="k5">.</span></h1></div><div class="hs'+(HS===2?' on':'')+'"><h2 class="hl"><span class="k1">Lahan Bersama,</span> <span class="k2">Manfaat</span> <span class="k4">Bersama</span><span class="k5">.</span></h2></div></div><i class="rule"></i><p class="d">Gerakan pemuda Renco membangun aset bersama, menjaga lingkungan, dan menguatkan sosial warga.</p><span class="vhint">Ketuk untuk melihat perjalanan menuju 2045</span></div></section>'+visiTl()+
  '<div class="cta acts" role="group" aria-label="Aksi">'+tiles.map(x=>'<button class="at" aria-pressed="false" data-act="pick" data-v="'+x[0]+'">'+pic(x[2])+'<i class="dv"></i><span class="lbl">'+x[1]+'</span></button>').join('')+'</div><div class="pickp" id="pick" hidden></div>'+
 '<section class="sec"><div class="gbar tg" role="group" aria-label="Program dan progres"><button type="button" class="gb" aria-pressed="'+(S.pub!=='progres')+'" data-act="pubTab" data-v="program">Program</button><button type="button" class="gb" aria-pressed="'+(S.pub==='progres')+'" data-act="pubTab" data-v="progres">Progres</button></div>'+
  (S.pub==='progres'?'<div class="pgrid marq"><div class="ptrack">'+st('cal','Partisipan Aktif',n+' dari 100',bar(n))+st('coin','Aset Bersama',ASET.length+' Aset')+st('heart','Dana Abadi',rp(t.abadi))+st('leaf','Pohon Ditanam',LING.pohon)+'<span class="dup" aria-hidden="true">'+st('cal','Partisipan Aktif',n+' dari 100',bar(n))+st('coin','Aset Bersama',ASET.length+' Aset')+st('heart','Dana Abadi',rp(t.abadi))+st('leaf','Pohon Ditanam',LING.pohon)+'</span></div></div>':'<div class="pgrid marq"><div class="ptrack">'+pc()+'<span class="dup" aria-hidden="true">'+pc()+'</span></div></div>')+'</section>'+
@@ -1881,7 +1905,15 @@ const A={
  akKelola:()=>{if(S.role!=='admin')return;sheet(head('Akun dan peran','Satu orang satu akun. Centang peran yang dimiliki. Perubahan berlaku saat orang itu masuk kembali.')+'<form data-form="akperan">'+AKUN.map(a=>'<details class="item" style="margin-bottom:8px"'+(akGanda(a)?' open':'')+'><summary><b>'+esc(a.nama)+'</b> <span class="muted">\u00b7 '+esc(a.hp)+' \u00b7 '+a.roles.length+' peran</span>'+(akGanda(a)?' <span class="chip bad">HP ganda</span>':'')+'</summary>'+(akGanda(a)&&a.id!==S.acc?'<div class="note" style="margin-top:8px">Nomor HP ini dipakai lebih dari satu akun. Pastikan pemilik sebenarnya, lalu hapus akun yang tidak sah. <button type="button" class="btn btn-line btn-sm" style="color:var(--bad);border-color:var(--bad)" data-act="akHapus" data-v="'+a.id+'">Hapus akun ini</button></div>':'')+'<div style="display:grid;gap:6px;margin-top:10px">'+ROLES.map(r=>'<label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="ar-'+a.id+'-'+r.id+'"'+(a.roles.includes(r.id)?' checked':'')+'> '+esc(r.n)+'</label>').join('')+'</div></details>').join('')+'<div class="row" style="margin-top:12px"><button class="btn btn-green" type="submit">Simpan</button><button type="button" class="btn btn-line" data-act="closeSheet">Batal</button></div></form>')},
  tab:v=>{S.filter={};go('app-'+v)},
  foto:()=>{const i=document.getElementById('foto-in');if(i)i.click()},
+ layananCS:()=>{const wa=PENG.wa||'',jam='Senin–Sabtu, 08.00–17.00',pesan='Assalamu’alaikum wr.wb\nHalo Batur Renco, saya ingin bertanya atau menyampaikan sesuatu terkait layanan Aren Jariyah. Mohon bantuannya. Terima kasih.';
+  sheet(head('Layanan','Kami siap membantu pertanyaan seputar pendaftaran, partisipasi, dan laporan.')+(wa?'<div class="note" style="margin-bottom:12px">Layanan dibuka melalui WhatsApp. Jam layanan: '+jam+'. Di luar jam itu, pesan tetap kami balas pada hari layanan berikutnya.</div><a class="btn btn-green" style="width:100%;text-align:center" target="_blank" rel="noopener" href="'+waLink(wa,pesan)+'">Chat WhatsApp CS</a>':'<div class="note" style="margin-bottom:12px">Nomor WhatsApp layanan belum diatur admin. Silakan hubungi pengurus, lalu coba lagi.</div>')+'<button class="btn btn-line" style="width:100%;margin-top:10px" data-act="closeSheet">Tutup</button>')},
+ visiMore:()=>{const t=document.getElementById('vtxt'),bt=document.querySelector('.vmore');if(!t)return;const w=t.parentNode;
+  const close=()=>{t.classList.remove('open');w.style.height='';if(bt)bt.setAttribute('aria-expanded','false')};
+  if(t.classList.contains('open')){close();return}
+  w.style.height=t.offsetHeight+'px';t.classList.add('open');if(bt)bt.setAttribute('aria-expanded','true');
+  setTimeout(()=>{const off=e=>{if(e.target.closest&&e.target.closest('.vmore,.vtxt'))return;close();document.removeEventListener('click',off,true)};document.addEventListener('click',off,true)},0)},
  pubTab:v=>{S.pub=v;rerender()},
+ visiTl:()=>{S.vtl=!S.vtl;const t=document.getElementById('visi-tl'),b=document.querySelector('.vban');if(t)t.hidden=!S.vtl;if(b)b.setAttribute('aria-expanded',S.vtl?'true':'false');if(S.vtl&&t)setTimeout(()=>{try{t.scrollIntoView({behavior:'smooth',block:'nearest'})}catch(e){}},60)},
  grup:v=>{const g=document.querySelector('.gbar:not(.tg)');if(!g){S.filter.grup=v;rerender();return}
   const on=g.querySelector('.gb[aria-pressed="true"]');if(on&&on.dataset.v===v)return;
   S.filter.grup=v;
@@ -1901,7 +1933,7 @@ const A={
     if(el&&el.textContent==='Sembunyikan'){rekAdmHide(v);return}
     if(!akCur()){toast('Masuk dengan akun untuk melihat nomor lengkap.');return}
     sheet(FORMS.pinrekP(x));const o=document.querySelector('#sheet-root .sheet');if(o)o.classList.add('blur');const i=document.getElementById('pr-p');if(i)i.focus()},
-  pick:v=>{const C={gabung:['Daftar dengan kode undangan admin atau konfirmasi WhatsApp.','Isi formulir','formGabung'],lahan:['Aset tetap milik Anda.','Isi formulir','formLahan'],laporan:['Ringkasan keuangan dan progres aset.','Buka laporan','publicReport']}[v];
+  pick:v=>{const C={gabung:['Daftar dengan kode undangan admin atau konfirmasi WhatsApp.','Isi formulir','formGabung'],lahan:['Aset tetap milik Anda.','Isi formulir','formLahan'],laporan:['Ringkasan keuangan dan progres aset.','Buka laporan','publicReport'],cs:['Pertanyaan dan masukan seputar layanan.','Buka layanan','layananCS']}[v];
     const cur=document.querySelector('.cta [aria-pressed=true]');if(cur&&cur.dataset.v===v){A[C[2]]();return}
     document.querySelectorAll('.cta [data-act=pick]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v))},
  formRek:()=>{if(S.role!=='partisipan'||!ME)return;sheet(FORMS.rek(ME));const b=document.getElementById('rk-b');if(b&&ME.rek)b.value=ME.rek.b},
@@ -2392,6 +2424,7 @@ document.addEventListener('change',e=>{
   im.src=u;
 });
 document.addEventListener('input',e=>{if(e.target.id!=='pr-q')return;S.filter.pq=e.target.value;const l=document.getElementById('pr-list');if(l)l.innerHTML=prList()});
+document.addEventListener('keydown',e=>{const v=e.target.closest&&e.target.closest('.vban');if(v&&(e.key==='Enter'||e.key===' ')){e.preventDefault();A.visiTl()}});
 document.addEventListener('keydown',e=>{const h=e.target.closest&&e.target.closest('.prh');if(h&&(e.key==='Enter'||e.key===' ')){e.preventDefault();A.prToggle(h.dataset.v)}});
 document.addEventListener('change',e=>{
   const k=e.target.dataset.change; if(!k)return;
