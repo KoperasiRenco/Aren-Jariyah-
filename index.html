@@ -1041,7 +1041,7 @@ function topbar(right){
 
 /* ---------- halaman publik ---------- */
 function viewPublicReport(){
-  const t=totals();
+  prgMuat(()=>{try{rerender()}catch(e){}});const t=totals();t.abadi+=PRG.abadi||0;
   return topbar('<button class="btn btn-line btn-sm" data-act="home">Kembali</button>')+
   '<main class="wrap main" style="padding-bottom:40px"><h1>Laporan Transparansi</h1><p class="lead">Ringkasan publik per '+bulanIni()+'. Dokumen tanah dan data pribadi tidak ditampilkan.</p>'+
   '<div class="stats"><div class="stat"><span class="label">Pemasukan bulan ini</span><b class="num">'+rp(t.masuk)+'</b></div>'+
@@ -1253,6 +1253,17 @@ async function pdnMuat(a,cb){
     ch=JSON.stringify(by)!==JSON.stringify(PDN.by);PDN.by=by;PDN.ok=true;
   }catch(e){PDN.ok=false}
   if(ch||prev!==PDN.ok){if(a&&document.querySelector('#sheet-root [data-pdn="'+a.id+'"]'))sheet(akuiDetail(a.id));else if(cb)cb()}
+}
+/* Progres dari RencoPay: ringkasan agregat (tanpa data pribadi) dibaca lewat fungsi progres_renco() di Supabase bersama (lihat supabase_partisipasi.sql). */
+const PRG={ok:null,t:0,peserta:0,abadi:0,aset:0};
+async function prgMuat(cb){
+  if(!pdnOn()||Date.now()-PRG.t<20000)return;PRG.t=Date.now();const prev=[PRG.ok,PRG.peserta,PRG.abadi,PRG.aset].join();
+  try{
+    const r=await fetch(SUPA.url.replace(/\/$/,'')+'/rest/v1/rpc/progres_renco',{method:'POST',headers:{apikey:SUPA.key,Authorization:'Bearer '+SUPA.key,'Content-Type':'application/json'},body:'{}'});
+    if(!r.ok)throw new Error(r.status);
+    const j=await r.json();PRG.peserta=+j.peserta_aset||0;PRG.abadi=+j.total_abadi||0;PRG.aset=+j.total_aset||0;PRG.ok=true;
+  }catch(e){PRG.ok=false}
+  if(cb&&prev!==[PRG.ok,PRG.peserta,PRG.abadi,PRG.aset].join())cb();
 }
 const prReal=p=>(+p.real||0)+(PDN.by[p.id]||0);
 const akDana=a=>sum(TX.filter(t=>t.ref===a.n&&t.j==='masuk'&&t.kat==='Dana Pembangunan Aset'&&!/Menunggu|Ditolak/.test(t.st)),t=>t.n)+(PDN.by[a.id]||0);
@@ -1817,7 +1828,8 @@ function visiSec(n){
  '</section>';
 }
 function viewPublic(){
- const t=totals(),n=aktif().length;
+ prgMuat(()=>{try{rerender()}catch(e){}});
+ const t=totals(),n=Math.max(aktif().length,PRG.peserta||0);t.abadi+=PRG.abadi||0;
  const tiles=[['gabung','Gabung Pemuda','people'],['lahan','Ajukan Aset','leaf'],['laporan','Laporan','doc'],['cs','Layanan','cs']];
  const prog=[['aset','Aset Bersama','Lapangan, kebun, kios, dan taman bersama.',''],['leaf','Lingkungan','Tanam pohon dan bank sampah.','gold'],['heart','Sosial','Beasiswa, bantuan, dan UMKM warga.',''],['abadi','Dana Abadi','Dana pokok dijaga, hasilnya untuk program sosial.','gold']];
  const PI={aset:'coin',leaf:'leaf',heart:'people',abadi:'heart'},pc=()=>prog.map(p=>'<div class="ps dec"><span class="pi">'+pic(PI[p[0]])+'</span><div><b>'+p[1]+'</b><span class="muted">'+p[2]+'</span></div></div>').join('');
