@@ -1324,7 +1324,7 @@ const SB=(()=>{
     const r=await raw('/auth/v1/signup',{method:'POST',headers:JH,body:JSON.stringify({email:mail(hp),password:pn,data:{nama:n,hp,kode,via:wa?'wa':'undangan'}})});
     if(!r.ok||!r.j||!r.j.access_token){
       const m=String((r.j&&(r.j.msg||r.j.message||r.j.error_description))||'');
-      toast(/already|terdaftar/i.test(m)?'Nomor HP sudah terdaftar. Silakan masuk.':(r.ok?'Pendaftaran perlu pengaturan Supabase: matikan "Confirm email".':'Pendaftaran ditolak. Periksa kode undangan dan nomor HP.'));return}
+      const kd=r.j&&(r.j.error_code||r.j.code)||'';console.warn('signup',r.s,r.j);toast(/already|terdaftar/i.test(m)?'Nomor HP sudah terdaftar. Silakan masuk.':(r.ok?'Pendaftaran perlu pengaturan Supabase: matikan "Confirm email".':'Pendaftaran ditolak ['+r.s+(kd?' '+kd:'')+']: '+(m||'tanpa pesan').slice(0,120)));return}
     keep(mk(r.j));
     if(k==='akawal'){SB.ada=true;toast('Akun admin dibuat. Selamat datang, '+n.split(' ')[0]+'.');await enter(null,true)}
     else{toast(wa?'Akun dibuat. Admin perlu memverifikasi nomor Anda sebelum data bisa dibuka.':'Akun dibuat. Selamat datang, '+n.split(' ')[0]+'.');await enter({dom:v('rg-d').trim()})}
