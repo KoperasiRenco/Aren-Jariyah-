@@ -980,7 +980,7 @@ function gagalCatat(hp,ok){const o=gagalGet();
   const g=o[hp]||{n:0};if(g.until&&g.until<=Date.now()){g.n=0;g.until=0}
   g.n++;if(g.n>=MAXG){g.until=Date.now()+KUNCI;g.n=0}o[hp]=g;gagalSet(o);return g}
 window.addEventListener('storage',e=>{if(e.key===AKEY)akFresh()});
-const akSave=()=>{if(SB_AUTH)return;try{localStorage.setItem(AKEY,JSON.stringify(AKUN))}catch(e){}};
+const akSave=()=>{if(SB_AUTH){try{SB.saveAkun()}catch(e){}return}try{localStorage.setItem(AKEY,JSON.stringify(AKUN))}catch(e){}};
 const akSes=v=>{if(SB_AUTH)return;try{v?localStorage.setItem(ASES,v):localStorage.removeItem(ASES)}catch(e){}};
 function akInit(){
   if(SB_AUTH){AKUN=[];return}
@@ -1132,8 +1132,8 @@ function viewLogin(){
     return wrap('<h1>Pilih peran</h1><p class="lead">Akun Anda memiliki lebih dari satu peran. Geser lalu ketuk peran yang ingin dipakai sekarang. Peran bisa diganti kapan saja.</p>'+roleGrid(acc.last,acc.roles),'rpg');
   }
   if(S.lg&&S.lg.step==='lupa'){
-    return wrap('<h1>Lupa PIN</h1><p class="lead">Masukkan nomor HP akun dan PIN baru. Lalu kirim satu pesan WhatsApp dari nomor itu agar pengurus dapat mencocokkannya.</p>'+
-      '<form data-form="aklupa" autocomplete="off">'+F('lp-h','Nomor HP','tel','required inputmode="tel" placeholder="0812xxxxxxxx"')+F('lp-p','PIN baru (6 angka)','password','required inputmode="numeric" minlength="6" maxlength="6" pattern="\\d{6}"')+F('lp-p2','Ulangi PIN baru','password','required inputmode="numeric" minlength="6" maxlength="6" pattern="\\d{6}"')+
+    return wrap('<h1>Lupa PIN</h1><p class="lead">'+(SB_AUTH?'Masukkan nomor HP akun. Lalu kirim satu pesan WhatsApp dari nomor itu. Setelah dicocokkan, admin mengirim PIN sementara lewat WhatsApp.':'Masukkan nomor HP akun dan PIN baru. Lalu kirim satu pesan WhatsApp dari nomor itu agar pengurus dapat mencocokkannya.')+'</p>'+
+      '<form data-form="aklupa" autocomplete="off">'+F('lp-h','Nomor HP','tel','required inputmode="tel" placeholder="0812xxxxxxxx"')+(SB_AUTH?'':F('lp-p','PIN baru (6 angka)','password','required inputmode="numeric" minlength="6" maxlength="6" pattern="\\d{6}"')+F('lp-p2','Ulangi PIN baru','password','required inputmode="numeric" minlength="6" maxlength="6" pattern="\\d{6}"'))+
       '<div class="row" style="margin-top:12px"><button class="btn btn-green" type="submit">Lanjutkan</button><button class="btn btn-line" type="button" data-act="akDaftar" data-v="masuk">Kembali</button></div></form>');
   }
   if(S.lg&&S.lg.step==='daftar'){
@@ -1253,10 +1253,10 @@ const supaHdr=(x)=>Object.assign({apikey:SUPA.key},SUPA.key.startsWith('eyJ')?{A
    Tanpa pustaka luar: memakai REST Supabase langsung. Sesi di localStorage; data TIDAK lagi disalin ke localStorage. */
 const SB=(()=>{
   const SK='aren-jariyah:sb',U=SUPA.url.replace(/\/$/,''),mail=h=>normHp(h)+'@aren-jariyah.app',JH={apikey:SUPA.key,'Content-Type':'application/json'};
-  let ses=null,ready=false,SNAP={},tm=0,busy=false,again=false,warned=false;
+  let ses=null,ready=false,SNAP={},SNAPA={},tm=0,busy=false,again=false,warned=false;
   try{ses=JSON.parse(localStorage.getItem(SK)||'null')}catch(e){}
   const keep=s=>{ses=s;try{s?localStorage.setItem(SK,JSON.stringify(s)):localStorage.removeItem(SK)}catch(e){}};
-  const mk=j=>({at:j.access_token,rt:j.refresh_token,exp:Date.now()+(j.expires_in-30)*1000,uid:j.user.id});
+  const mk=j=>({at:j.access_token,rt:j.refresh_token,exp:Date.now()+(j.expires_in-30)*1000,uid:j.user.id,gp:!!(j.user&&j.user.user_metadata&&j.user.user_metadata.ganti_pin)});
   async function raw(p,o){try{const r=await fetch(U+p,o);let j=null;try{j=await r.json()}catch(e){}return{ok:r.ok,s:r.status,j}}catch(e){return{ok:false,s:0,j:null}}}
   async function tok(){
     if(!ses)return null;
@@ -1267,14 +1267,39 @@ const SB=(()=>{
   const authPw=(hp,pn)=>raw('/auth/v1/token?grant_type=password',{method:'POST',headers:JH,body:JSON.stringify({email:mail(hp),password:pn})});
   const kid=r=>String(r.id!=null?r.id:(r._k||(r._k=Math.random().toString(36).slice(2,10)+Date.now().toString(36))));
   const TT=()=>DB.col;
+  /* data alur akun yang bukan bagian profil server: kode verifikasi, permintaan reset, permintaan peran */
+  const extOf=a=>{const o={};['vk','vts','rst','req','vby','vtgl','und','via'].forEach(k=>{if(a[k]!==undefined)o[k]=a[k]});if(a.hpv&&a.hpv!=='ok')o.hpv=a.hpv;return o};
+  const srvOf=a=>({roles:a.roles,last_role:a.last||null,hp_terverifikasi:a.hpv==='ok'});
   async function loadProfil(){
     const r=await rest('profil?select=*&order=dibuat');if(!r.ok||!Array.isArray(r.j)||!r.j.length)return false;
-    AKUN=r.j.map(p=>({id:p.id,nama:p.nama,hp:p.hp,roles:p.roles||[],pid:'',last:p.last_role||(p.roles||[])[0]||'',hpv:p.hp_terverifikasi?'ok':'belum'}));
+    const e=await rest('koleksi?kolom=eq.AKUN&select=id,data'),X={};
+    (e.ok&&Array.isArray(e.j)?e.j:[]).forEach(x=>{X[x.id]=x.data||{}});
+    AKUN=r.j.map(p=>{const x=X[p.id]||{};return{...x,id:p.id,nama:p.nama,hp:p.hp,roles:p.roles||[],pid:'',last:p.last_role||(p.roles||[])[0]||'',hpv:p.hp_terverifikasi?'ok':(x.hpv==='menunggu'?'menunggu':'belum')}});
+    SNAPA={};AKUN.forEach(a=>{SNAPA[a.id]=JSON.stringify([srvOf(a),extOf(a)])});
     return AKUN.some(a=>a.id===ses.uid);
+  }
+  async function saveAkun(){
+    if(!ses||!ready)return;
+    const me=AKUN.find(a=>a.id===ses.uid);if(!me)return;
+    const adm=me.roles.includes('admin'),pgr=adm||me.roles.includes('pengurus');
+    for(const a of AKUN){
+      const own=a.id===ses.uid;if(!own&&!pgr)continue;
+      const srv=srvOf(a),ext=extOf(a),sg=JSON.stringify([srv,ext]);if(SNAPA[a.id]===sg)continue;
+      const old=SNAPA[a.id]?JSON.parse(SNAPA[a.id]):[{},{}];
+      if(adm&&JSON.stringify(old[0])!==JSON.stringify(srv)){
+        const r=await rest('profil?id=eq.'+a.id,{method:'PATCH',headers:{Prefer:'return=minimal'},body:JSON.stringify(srv)});
+        if(!r.ok){toast('Perubahan peran atau verifikasi gagal disimpan.');continue}
+      }
+      if(JSON.stringify(old[1])!==JSON.stringify(ext)){
+        const r=await rest('koleksi?on_conflict=kolom,id',{method:'POST',headers:{Prefer:'resolution=merge-duplicates,return=minimal'},body:JSON.stringify({kolom:'AKUN',id:a.id,data:ext})});
+        if(!r.ok){toast('Data akun gagal disimpan ke server.');continue}
+      }
+      SNAPA[a.id]=sg;
+    }
   }
   async function pull(){
     const rows=[];
-    for(let o=0;;o+=1000){const r=await rest('koleksi?select=kolom,id,data&order=kolom,id&limit=1000&offset='+o);if(!r.ok||!Array.isArray(r.j))return false;rows.push(...r.j);if(r.j.length<1000)break}
+    for(let o=0;;o+=1000){const r=await rest('koleksi?select=kolom,id,data&kolom=neq.AKUN&order=kolom,id&limit=1000&offset='+o);if(!r.ok||!Array.isArray(r.j))return false;rows.push(...r.j);if(r.j.length<1000)break}
     const T=TT(),by={};rows.forEach(x=>(by[x.kolom]=by[x.kolom]||[]).push(x.data));
     SNAP={};
     for(const k in T){const a=(by[k]||[]).sort((p,q)=>(p._t||0)-(q._t||0));if(k==='INFO'||k==='AUDIT')a.reverse();T[k].splice(0,T[k].length,...a);T[k].forEach(r=>{SNAP[k+'|'+kid(r)]=JSON.stringify(r)})}
@@ -1284,28 +1309,63 @@ const SB=(()=>{
   async function doPush(){
     if(!ready)return;if(busy){again=true;return}busy=true;
     try{
-      const T=TT(),up=[],cur={};
+      const T=TT(),up=[],cur={},bad=new Set();
       for(const k in T){const n=T[k].length;T[k].forEach((r,i)=>{const id=kid(r);if(r._t==null)r._t=Date.now()+((k==='INFO'||k==='AUDIT')?(n-i):i)/1000;const s=JSON.stringify(r);cur[k+'|'+id]=1;if(SNAP[k+'|'+id]!==s)up.push({kolom:k,id,data:r,s})})}
-      let fail=false;
       for(let i=0;i<up.length;i+=200){const ch=up.slice(i,i+200);
         const r=await rest('koleksi?on_conflict=kolom,id',{method:'POST',headers:{Prefer:'resolution=merge-duplicates,return=minimal'},body:JSON.stringify(ch.map(x=>({kolom:x.kolom,id:x.id,data:x.data})))});
-        if(r.ok)ch.forEach(x=>{SNAP[x.kolom+'|'+x.id]=x.s});else fail=true}
+        if(r.ok)ch.forEach(x=>{SNAP[x.kolom+'|'+x.id]=x.s});else ch.forEach(x=>bad.add(x.kolom))}
       const del={};for(const key in SNAP)if(!cur[key]){const j=key.indexOf('|');(del[key.slice(0,j)]=del[key.slice(0,j)]||[]).push(key.slice(j+1))}
       for(const k in del)for(let i=0;i<del[k].length;i+=50){const ids=del[k].slice(i,i+50);
         const r=await rest('koleksi?kolom=eq.'+k+'&id=in.('+ids.map(x=>'"'+x.replace(/"/g,'')+'"').join(',')+')',{method:'DELETE'});
-        if(r.ok)ids.forEach(x=>{delete SNAP[k+'|'+x]});else fail=true}
-      if(fail&&!warned){warned=true;toast('Sebagian perubahan belum tersimpan ke server (hak akses atau jaringan).')}
-      if(!fail)warned=false;
+        if(r.ok)ids.forEach(x=>{delete SNAP[k+'|'+x]});else bad.add(k)}
+      if(bad.size&&!warned){warned=true;toast('Belum tersimpan ke server: '+[...bad].join(', ')+' (hak akses atau jaringan).')}
+      if(!bad.size)warned=false;
     }finally{busy=false;if(again){again=false;push()}}
   }
   function push(){clearTimeout(tm);tm=setTimeout(doPush,300)}
+  function gantiSheet(){
+    sheet('<div class="shead"><h2 style="margin:0">Buat PIN baru</h2></div><p class="muted" style="margin:6px 0 12px;font-size:14px">Anda masuk dengan PIN sementara. Buat PIN baru sekarang.</p>'+
+      '<form data-form="gantipin" autocomplete="off">'+F('gp-p','PIN baru (6 angka)','password','required inputmode="numeric" minlength="6" maxlength="6" pattern="\\d{6}"')+F('gp-p2','Ulangi PIN baru','password','required inputmode="numeric" minlength="6" maxlength="6" pattern="\\d{6}"')+
+      '<div class="row" style="margin-top:12px"><button class="btn btn-green" type="submit">Simpan PIN</button></div></form>');
+  }
   async function enter(x,first){
     if(!(await loadProfil())){keep(null);toast('Akun belum punya profil. Hubungi admin.');return}
     if(!first&&!(await pull())){toast('Gagal memuat data dari server. Coba lagi.');return}
     ready=true;S.acc=ses.uid;const a=akCur();link();akMasuk(a,x);if(first)push();
+    if(ses.gp)setTimeout(gantiSheet,300);
+  }
+  async function resetPin(a){
+    const t=await tok();if(!t){toast('Sesi berakhir. Masuk lagi.');return}
+    const r=await raw('/functions/v1/reset-pin',{method:'POST',headers:{...JH,Authorization:'Bearer '+t},body:JSON.stringify({uid:a.id})});
+    if(!r.ok||!r.j||!r.j.pin){toast(r.s===404?'Fungsi reset-pin belum dipasang di Supabase.':'Reset PIN gagal ('+r.s+').');return}
+    delete a.rst;akSave();try{DB.audit('Mereset PIN '+a.nama+' ('+a.hp+')')}catch(e){}
+    const txt='PIN sementara Aren Jariyah Anda: '+r.j.pin+'\nMasuk dengan PIN ini, lalu buat PIN baru.';
+    sheet('<div class="shead"><h2 style="margin:0">PIN sementara</h2><button type="button" class="xbtn" data-act="closeSheet" aria-label="Tutup">'+XSVG+'</button></div><p class="muted" style="margin:6px 0 0;font-size:14px">Kirim PIN ini ke <b>'+esc(a.nama)+'</b> lewat WhatsApp. PIN hanya tampil sekali.</p>'+
+      '<div class="item" style="text-align:center;margin:12px 0"><b style="font-size:28px;letter-spacing:.12em;font-family:ui-monospace,monospace">'+esc(r.j.pin)+'</b></div>'+
+      '<a class="btn btn-green" style="width:100%" href="'+esc(waLink(hpIntl(a.hp),txt))+'" target="_blank" rel="noopener">Kirim lewat WhatsApp</a>');
   }
   async function form(k,v){
-    if(k==='aklupa'){toast('Reset PIN dilakukan oleh admin. Hubungi pengurus lewat WhatsApp komunitas.');return}
+    if(k==='gantipin'){
+      const pn=v('gp-p'),a=akCur();
+      if(!/^\d{6}$/.test(pn)){toast('PIN harus 6 angka.');return}
+      if(pn!==v('gp-p2')){toast('Ulangi PIN dengan sama.');return}
+      const lm=pinLemah(pn,a?a.hp:'');if(lm){toast(lm);return}
+      const t=await tok();if(!t){toast('Sesi berakhir. Masuk lagi.');return}
+      const r=await raw('/auth/v1/user',{method:'PUT',headers:{...JH,Authorization:'Bearer '+t},body:JSON.stringify({password:pn,data:{ganti_pin:false}})});
+      if(!r.ok){toast('PIN gagal diganti'+(r.j&&r.j.msg?': '+String(r.j.msg).slice(0,80):'.'));return}
+      ses.gp=false;keep(ses);closeSheet();toast('PIN baru tersimpan.');return;
+    }
+    if(k==='aklupa'){
+      const hp=normHp(v('lp-h')),kk='reset:'+hp;
+      if(!/^08\d{8,12}$/.test(hp)){toast('Nomor HP tidak valid. Contoh: 0812xxxxxxxx.');return}
+      if(kunciSisa(kk)){toast('Terlalu banyak permintaan. Coba lagi dalam '+kunciSisa(kk)+' menit.');return}
+      if(!PENG.wa){toast('Nomor WhatsApp komunitas belum diatur admin. Hubungi pengurus.');return}
+      const r=await raw('/rest/v1/rpc/minta_reset',{method:'POST',headers:JH,body:JSON.stringify({p_hp:hp})});
+      if(!r.ok){toast('Permintaan gagal. Pastikan patch SQL reset PIN sudah dijalankan.');return}
+      if(!r.j){toast('Nomor HP belum terdaftar.');return}
+      gagalCatat(kk,false);
+      AKUN=[{id:'rst-tmp',nama:r.j.nama,hp,roles:[],rst:{k:r.j.k,ts:r.j.ts,st:'menunggu'}}];S.rstAcc='rst-tmp';rstSheet();return;
+    }
     const id=k==='login'?['lg-h','lg-p']:k==='akawal'?['aw-h','aw-p']:['rg-h','rg-p'],hp=normHp(v(id[0])),pn=v(id[1]);
     if(k==='login'){
       const sisa=kunciSisa(hp);if(sisa){toast('Terlalu banyak percobaan. Coba lagi dalam '+sisa+' menit.');return}
@@ -1324,7 +1384,8 @@ const SB=(()=>{
     const r=await raw('/auth/v1/signup',{method:'POST',headers:JH,body:JSON.stringify({email:mail(hp),password:pn,data:{nama:n,hp,kode,via:wa?'wa':'undangan'}})});
     if(!r.ok||!r.j||!r.j.access_token){
       const m=String((r.j&&(r.j.msg||r.j.message||r.j.error_description))||'');
-      const kd=r.j&&(r.j.error_code||r.j.code)||'';console.warn('signup',r.s,r.j);toast(/already|terdaftar/i.test(m)?'Nomor HP sudah terdaftar. Silakan masuk.':(r.ok?'Pendaftaran perlu pengaturan Supabase: matikan "Confirm email".':'Pendaftaran ditolak ['+r.s+(kd?' '+kd:'')+']: '+(m||'tanpa pesan').slice(0,120)));return}
+      const kd=r.j&&(r.j.error_code||r.j.code)||'';console.warn('signup',r.s,r.j);
+      toast(/already|terdaftar/i.test(m)?'Nomor HP sudah terdaftar. Silakan masuk.':(r.ok?'Pendaftaran perlu pengaturan Supabase: matikan "Confirm email".':'Pendaftaran ditolak ['+r.s+(kd?' '+kd:'')+']: '+(m||'tanpa pesan').slice(0,120)));return}
     keep(mk(r.j));
     if(k==='akawal'){SB.ada=true;toast('Akun admin dibuat. Selamat datang, '+n.split(' ')[0]+'.');await enter(null,true)}
     else{toast(wa?'Akun dibuat. Admin perlu memverifikasi nomor Anda sebelum data bisa dibuka.':'Akun dibuat. Selamat datang, '+n.split(' ')[0]+'.');await enter({dom:v('rg-d').trim()})}
@@ -1336,14 +1397,15 @@ const SB=(()=>{
       if(S.role&&!(a&&a.roles.includes(S.role))){S.role=null;DB.setRole(null)}
     }
     render();
+    if(ready&&ses.gp)setTimeout(gantiSheet,300);
   }
-  async function refresh(){if(!ready)return;clearTimeout(tm);await doPush();if(await pull()){link();if(!document.querySelector('#sheet-root .sheet'))render()}}
+  async function refresh(){if(!ready)return;clearTimeout(tm);await saveAkun();await doPush();const okA=await loadProfil();if(okA&&await pull()){link();if(!document.querySelector('#sheet-root .sheet'))render()}}
   function out(){
     const t=ses&&ses.at;if(t)raw('/auth/v1/logout',{method:'POST',headers:{...JH,Authorization:'Bearer '+t}});
-    keep(null);ready=false;SNAP={};AKUN=[];const T=TT();for(const k in T)T[k].length=0;ME=null;
+    keep(null);ready=false;SNAP={};SNAPA={};AKUN=[];const T=TT();for(const k in T)T[k].length=0;ME=null;
   }
   document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')refresh()});
-  return{ada:null,form,boot,push,out,refresh,
+  return{ada:null,form,boot,push,out,refresh,saveAkun,resetPin,
     peran:v=>{rest('rpc/ganti_peran_aktif',{method:'POST',body:JSON.stringify({r:v})})},
     cekPin:async(hp,pn)=>(await authPw(hp,pn)).ok};
 })();
@@ -2273,7 +2335,7 @@ function rstSheet(){
   const txt='Reset PIN Aren Jariyah\nKode: RP-'+r.k+'\nNama: '+a.nama;
   sheet('<div class="shead"><h2 style="margin:0">Reset PIN</h2><button type="button" class="xbtn" data-act="closeSheet" aria-label="Tutup">'+XSVG+'</button></div><p class="muted" style="margin:4px 0 12px;font-size:13px">Nomor akun: <b>'+esc(a.hp)+'</b></p>'+
   '<div class="item" style="text-align:center;margin-bottom:10px"><span class="label">Kode reset Anda</span><b style="font-size:28px;letter-spacing:.12em;font-family:ui-monospace,monospace">RP-'+esc(r.k)+'</b><span class="muted" style="font-size:12px">Berlaku 48 jam</span></div>'+
-  '<ol style="padding-left:18px;margin:0 0 12px;font-size:14px;line-height:1.6"><li>Ketuk tombol di bawah. WhatsApp terbuka dengan pesan sudah terisi.</li><li>Kirim tanpa mengubah kode, <b>dari nomor '+esc(a.hp)+'</b>.</li><li>Setelah pengurus mencocokkan, masuk dengan PIN baru Anda.</li></ol>'+
+  '<ol style="padding-left:18px;margin:0 0 12px;font-size:14px;line-height:1.6"><li>Ketuk tombol di bawah. WhatsApp terbuka dengan pesan sudah terisi.</li><li>Kirim tanpa mengubah kode, <b>dari nomor '+esc(a.hp)+'</b>.</li><li>'+(SB_AUTH?'Setelah pengurus mencocokkan, Anda menerima PIN sementara lewat WhatsApp, lalu membuat PIN baru saat masuk.':'Setelah pengurus mencocokkan, masuk dengan PIN baru Anda.')+'</li></ol>'+
   '<a class="btn btn-green" style="width:100%" href="'+esc(waLink(wa,txt))+'" target="_blank" rel="noopener" data-act="rstKirim" data-v="'+esc(a.id)+'">Kirim lewat WhatsApp</a>'+
   '<p class="muted" style="font-size:13px;margin:10px 0 0">Status: '+(r.st==='menunggu'?'<b>menunggu pengurus</b>.':'belum dikirim.')+'</p>');
 }
@@ -2315,6 +2377,7 @@ Object.assign(A,{
     if(!a||a.id===S.acc||!a.rst||a.rst.st!=='menunggu'||Date.now()-a.rst.ts>=VEXP){toast('Permintaan sudah kedaluwarsa atau status berubah.');rerender();return}
     if((a.roles.includes('admin')||a.roles.includes('pengurus'))&&S.role!=='admin'){toast('Reset PIN akun admin atau pengurus hanya oleh admin.');return}
     if(!confirm('Konfirmasi: pesan berisi kode RP-'+a.rst.k+' benar-benar masuk ke WhatsApp komunitas dari nomor '+a.hp+'?'))return;
+    if(SB_AUTH){SB.resetPin(a);return}
     a.salt=a.rst.salt;a.pin=a.rst.pin;a.v=2;delete a.rst;akSave();gagalCatat(normHp(a.hp),true);gagalCatat('reset:'+normHp(a.hp),true);
     DB.audit('Mereset PIN '+a.nama+' ('+a.hp+')');toast('PIN direset. Pengguna dapat masuk dengan PIN baru.');rerender();
   },
@@ -2559,7 +2622,7 @@ document.addEventListener('input',e=>{
 document.addEventListener('submit',e=>{
   const k=e.target.dataset.form; if(!k)return; e.preventDefault();
   const v=id=>(document.getElementById(id)||{}).value||'';
-  if(SB_AUTH&&['login','akawal','akdaftar','aklupa'].includes(k)){SB.form(k,v);return}
+  if(SB_AUTH&&['login','akawal','akdaftar','aklupa','gantipin'].includes(k)){SB.form(k,v);return}
   if(k==='login'){
     const hp=normHp(v('lg-h')),pn=v('lg-p'),sisa=kunciSisa(hp);
     if(sisa){toast('Terlalu banyak percobaan. Coba lagi dalam '+sisa+' menit.');return}
