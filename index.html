@@ -60,7 +60,28 @@
 @keyframes spFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @keyframes spFloat{from{transform:translateY(0)}to{transform:translateY(5px)}}
 @media(prefers-reduced-motion:reduce){#splash .sp-w{animation:none;stroke-dashoffset:0}#splash .sp-n,#splash .sp-bg{animation:none;opacity:1}}
-</style></head><body>
+.pmap{position:relative;height:240px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#e8e4ee;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+.pm-t{position:absolute;inset:0}
+.pm-t img{position:absolute;left:0;top:0;width:256px;height:256px;max-width:none;pointer-events:none;transform-origin:0 0}
+.pm-pin{position:absolute;left:0;top:0;width:0;height:0;display:none;pointer-events:none}
+.pm-pin svg{position:absolute;left:-13px;top:-34px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.35))}
+.pm-ctl{position:absolute;right:8px;top:8px;display:grid;gap:4px}
+.pm-ctl button{width:34px;height:34px;border:1px solid var(--line);border-radius:8px;background:var(--surface);font:700 18px/1 inherit;cursor:pointer}
+.pm-at{position:absolute;left:6px;bottom:4px;font-size:10px;background:rgba(255,255,255,.8);color:#333;padding:1px 5px;border-radius:4px}
+.pm-off-msg{display:none;position:absolute;inset:0;place-items:center;text-align:center;padding:20px;font-size:13px;color:#555;pointer-events:none}
+.pmap.pm-off .pm-off-msg{display:grid}
+#l-ll{font-size:13px}
+.dokv{font-family:Georgia,"Times New Roman",serif;font-size:13px;line-height:1.5;padding:14px;border:1px solid var(--line);border-radius:12px;background:#fff;color:#111}
+@media print{#print-root .dokv{border:0;font-size:12pt}}
+.pmap.full{position:fixed;inset:0;z-index:90;height:auto;border:0;border-radius:0}
+.pmap.full .pm-ctl{top:calc(10px + env(safe-area-inset-top,0px));right:10px}
+.pmap.full .pm-ctl button{width:42px;height:42px}
+.pmap.full .pm-at{bottom:calc(6px + env(safe-area-inset-bottom,0px))}
+#print-root{display:none}@media print{body>*:not(#print-root){display:none!important}#print-root{display:block!important;color:#000;padding:8px}#print-root .item{break-inside:avoid}}/* kartu menyesuaikan isi: tidak terpotong di layar sempit */
+.mcard{display:grid}
+.mc-in{position:relative;inset:auto;display:grid}
+.mc-f,.mc-b{position:relative;inset:auto;grid-area:1/1;overflow:hidden;overflow:clip;min-height:min-content}
+@media(max-width:380px){.mc-f,.mc-b{padding:12px 14px}.mc-b .mc-stripe{margin:12px -14px 0;height:28px}.mc-bk{margin-top:8px}.mc-bk h3{margin-bottom:6px}.mc-kv{gap:4px 10px}.mc-kv b{font-size:12px}.mc-logo{max-width:150px}.mc-emv{width:38px;height:29px}.mc-mid{gap:10px}}</style></head><body>
 <title>Aren Jariyah</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%22270 70 990 600%22%3E%3Cdefs%3E%3ClinearGradient id=%22lgC%22 gradientUnits=%22userSpaceOnUse%22 x1=%22800%22 y1=%22600%22 x2=%221250%22 y2=%2280%22%3E%3Cstop offset=%220.0%22 stop-color=%22%2323029c%22/%3E%3Cstop offset=%220.1%22 stop-color=%22%230e0eab%22/%3E%3Cstop offset=%220.2%22 stop-color=%22%230128b7%22/%3E%3Cstop offset=%220.3%22 stop-color=%22%230047c6%22/%3E%3Cstop offset=%220.4%22 stop-color=%22%230067d3%22/%3E%3Cstop offset=%220.5%22 stop-color=%22%230189d4%22/%3E%3Cstop offset=%220.6%22 stop-color=%22%2301a5c7%22/%3E%3Cstop offset=%220.7%22 stop-color=%22%2301b9b4%22/%3E%3Cstop offset=%220.8%22 stop-color=%22%2325cb7d%22/%3E%3Cstop offset=%220.9%22 stop-color=%22%2381de2f%22/%3E%3Cstop offset=%221.0%22 stop-color=%22%23bdeb03%22/%3E%3C/linearGradient%3E%3ClinearGradient id=%22lgB%22 gradientUnits=%22userSpaceOnUse%22 x1=%22620%22 y1=%22250%22 x2=%22800%22 y2=%22570%22%3E%3Cstop offset=%220.1%22 stop-color=%22%23460176%22/%3E%3Cstop offset=%220.2%22 stop-color=%22%234e0183%22/%3E%3Cstop offset=%220.3%22 stop-color=%22%235c0196%22/%3E%3Cstop offset=%220.4%22 stop-color=%22%236c01a3%22/%3E%3Cstop offset=%220.5%22 stop-color=%22%237801aa%22/%3E%3Cstop offset=%220.6%22 stop-color=%22%238902af%22/%3E%3Cstop offset=%220.7%22 stop-color=%22%239d0ab5%22/%3E%3Cstop offset=%220.8%22 stop-color=%22%23b214bd%22/%3E%3Cstop offset=%220.9%22 stop-color=%22%23c91dc4%22/%3E%3Cstop offset=%221.0%22 stop-color=%22%23d61fc7%22/%3E%3C/linearGradient%3E%3ClinearGradient id=%22lgA%22 gradientUnits=%22userSpaceOnUse%22 x1=%22400%22 y1=%22210%22 x2=%22380%22 y2=%22632%22%3E%3Cstop offset=%220.0%22 stop-color=%22%23fe9f01%22/%3E%3Cstop offset=%220.1%22 stop-color=%22%23fe8904%22/%3E%3Cstop offset=%220.2%22 stop-color=%22%23fe6c20%22/%3E%3Cstop offset=%220.3%22 stop-color=%22%23fe463b%22/%3E%3Cstop offset=%220.4%22 stop-color=%22%23fd2057%22/%3E%3Cstop offset=%220.5%22 stop-color=%22%23fa056d%22/%3E%3Cstop offset=%220.6%22 stop-color=%22%23e50278%22/%3E%3Cstop offset=%220.7%22 stop-color=%22%23c6017c%22/%3E%3Cstop offset=%220.8%22 stop-color=%22%239f0180%22/%3E%3Cstop offset=%220.9%22 stop-color=%22%23740181%22/%3E%3Cstop offset=%221.0%22 stop-color=%22%235c0181%22/%3E%3C/linearGradient%3E%3CradialGradient id=%22lgS%22%3E%3Cstop offset=%220%22 stop-color=%22%231c2150%22 stop-opacity=%22.6%22/%3E%3Cstop offset=%221%22 stop-color=%22%231c2150%22 stop-opacity=%220%22/%3E%3C/radialGradient%3E%3C/defs%3E%3Cellipse cx=%22800%22 cy=%22622%22 rx=%22310%22 ry=%2224%22 fill=%22url%28%23lgS%29%22/%3E%3Cpath fill=%22url%28%23lgC%29%22 stroke=%22url%28%23lgC%29%22 stroke-width=%222%22 stroke-linejoin=%22round%22 d=%22M1041 83L1241 83L1245 92C1228 130 1205 190 1183 241C1160 295 1130 355 1100 405C1070 455 1030 505 985 535C940 565 890 580 845 587C810 590 775 586 752 580C746 577 748 574 755 572C790 568 825 553 855 532C895 500 930 450 960 380C990 305 1018 190 1041 83Z%22/%3E%3Cpath fill=%22url%28%23lgB%29%22 stroke=%22url%28%23lgB%29%22 stroke-width=%222%22 stroke-linejoin=%22round%22 d=%22M645 252C625 258 600 295 570 358C568 368 570 378 580 395C605 440 640 505 700 548C725 566 745 573 770 570C805 565 840 545 869 516C840 510 815 492 790 468C760 440 735 400 712 358C695 322 675 280 664 259C658 250 650 249 645 252Z%22/%3E%3Cpath fill=%22url%28%23lgA%29%22 stroke=%22url%28%23lgA%29%22 stroke-width=%222%22 stroke-linejoin=%22round%22 d=%22M289 629C300 600 330 545 360 490C395 425 430 360 470 305C510 255 545 228 585 214C615 206 645 216 656 242C640 252 622 266 604 292C585 322 570 350 555 385C535 430 520 480 500 545C490 580 480 610 470 630Z%22/%3E%3C/svg%3E">
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -257,7 +278,7 @@ th{text-transform:none;letter-spacing:0;font-size:12.5px}
 /* RencoVision 2045 di beranda */
 .vhero{display:flex;gap:14px;align-items:center;padding:18px;border-radius:24px;background:linear-gradient(135deg,var(--green-soft),#fff 58%,var(--gold-soft));box-shadow:0 8px 24px -14px rgba(122,44,140,.45)}
 .vyr{flex:none;font-family:var(--f-display);font-size:clamp(40px,13vw,56px);font-weight:800;line-height:1;letter-spacing:-.02em;background:linear-gradient(120deg,#F68A33,#EE4363 40%,#7A2C8C 75%,#1386B3);-webkit-background-clip:text;background-clip:text;color:transparent}
-.vhero b{display:block;font-size:16px;line-height:1.25}
+.vhero b{display:block;font-size:12.5px;font-weight:600;letter-spacing:.03em;line-height:1.4}
 .vhero .muted{display:block;margin-top:4px;font-size:13px}
 .vpil{display:grid;gap:10px;margin-top:12px}
 @media(min-width:620px){.vpil{grid-template-columns:repeat(3,minmax(0,1fr))}}
@@ -450,10 +471,10 @@ h1,h2,h3{letter-spacing:-.02em}
 .avt .cam .ico{width:14px;height:14px;stroke-width:2.2}
 .mc-who{display:flex;align-items:center;gap:10px;min-width:0}
 .mc-ph{position:relative;flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.18);color:#fff;font-weight:800;font-size:15px;box-shadow:0 0 0 2px rgba(255,255,255,.55)}
-/* teks bisa dipilih dan disalin */
-html,body,body *{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}
-button,.btn,.at,.mt,.brand,[data-act]{-webkit-user-select:text;user-select:text}
-img,svg{-webkit-user-select:none;user-select:none}
+/* teks tidak dapat dipilih atau disalin; kolom isian tetap bisa diketik */
+html,body,body *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+input,textarea,select,[contenteditable],pre.out,pre.out *{-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}
+img{-webkit-user-drag:none}
 body::before{pointer-events:none}
 
 /* tanpa sorotan biru saat diketuk */
@@ -731,6 +752,32 @@ body:has(.shell) .tabs,body:has(.shell) .side,body:has(.shell) .tab,body:has(.sh
 .hero2~.sec .gbar.tg{margin:0 0 12px}
 .hero2~.tncw{margin-top:16px}
 .tnc{width:100%;min-height:52px;border-radius:16px;font-weight:700}
+/* pil tombol perjalanan + kartu fase geser */
+.hero.hero2 .pill.pbtn{display:inline-flex;align-items:center;gap:8px;max-width:100%;text-align:left;border-radius:99px;padding:5px 12px;font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.pbtn b{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.pbtn em{font-style:normal;font-size:11.5px;font-weight:500;opacity:.85}
+.pbtn i{font-style:normal;font-size:16px;line-height:1;transform:rotate(90deg);transition:transform .3s}
+.pbtn[aria-expanded="true"] i{transform:rotate(-90deg)}
+.pbtn:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.pcar{position:relative;display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:12px -16px 0;padding:2px 16px 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.pcar::-webkit-scrollbar{display:none}
+.vtlw:not([hidden]) .pcar{animation:phCar .7s cubic-bezier(.22,.7,.2,1)}
+.pcard{flex:0 0 86%;max-width:340px;scroll-snap-align:center;background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 10px 24px -16px rgba(122,44,140,.6)}
+.pimg{display:block;width:100%;height:auto;aspect-ratio:320/150}
+.pbody{padding:12px 14px 16px}
+.pyr{display:block;font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--gold-ink)}
+.pyr small{margin-left:6px;padding:1px 8px;border-radius:99px;background:var(--green-soft);color:var(--green-ink);font-size:10.5px;letter-spacing:0}
+.pcard h3{margin:4px 0 6px;font-size:17px;line-height:1.25;color:var(--green-ink)}
+.pcard p{margin:0;font-size:13px;line-height:1.5;color:var(--muted)}
+.pcard{transform:scale(.94);opacity:.9;transition:transform .45s cubic-bezier(.22,.7,.2,1),opacity .45s;will-change:transform}
+.pcard.in{transform:none;opacity:1}
+@keyframes phCar{from{transform:translateX(70px)}to{transform:none}}
+.pdots{display:flex;justify-content:center;gap:6px;margin-top:6px}
+.pdots button{width:8px;height:8px;padding:0;border:0;border-radius:99px;background:#d9c8ee;cursor:pointer;transition:width .3s,background .3s}
+.pdots button[aria-current="true"]{width:22px;background:linear-gradient(90deg,#7A2C8C,#F68A33)}
+@media(prefers-reduced-motion:reduce){.pcar{animation:none!important}.pcard{transition:none}.pcar{scroll-behavior:auto}.pbtn i,.pdots button{transition:none}}
+.tncw .btn.tnc{min-height:44px;font-size:12.5px;font-weight:400;letter-spacing:.015em}
+
 .sheet.blur{background:rgba(20,10,30,.28);-webkit-backdrop-filter:blur(14px) saturate(120%);backdrop-filter:blur(14px) saturate(120%)}
 .tcl{margin:0 0 14px;padding-left:20px;font-size:14.5px;line-height:1.55}
 .tcl li{margin:0 0 10px}
@@ -792,6 +839,20 @@ html{scroll-behavior:smooth}
 .mc-eye{flex:0 0 auto;width:30px;height:30px;padding:0;margin:-3px 0;display:grid;place-items:center;border-radius:50%;border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.14);color:#fff;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .mc-eye svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .mc-eye:focus{outline:none}.mc-eye:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+/* perbaikan: nama pada kartu anggota tidak terpotong di layar sempit */
+.mc-bot{flex-wrap:wrap;row-gap:6px;align-items:flex-end}
+.mc-bot .mc-who{flex:1 1 150px;min-width:0;max-width:100%}
+.mc-bot .mc-who>div{min-width:0;max-width:100%}
+.mc-bot b#mc-role,.mc-bot b{white-space:normal;overflow-wrap:anywhere;word-break:break-word;line-height:1.25;font-size:clamp(12px,3.9vw,14px);letter-spacing:.01em}
+.mc-bot small{white-space:normal;overflow-wrap:anywhere;letter-spacing:.12em}
+.mc-bot .mc-no{flex:0 1 auto;margin-left:auto;white-space:nowrap}
+@media(max-width:380px){.mc-bot .mc-no{flex:1 1 100%;text-align:left;margin-left:0;font-size:9px;letter-spacing:.12em}}
+.mc-kv b,.mc-nr b{overflow-wrap:anywhere;word-break:break-word}
+/* tagline 2045: tepat 2 baris, ukuran menyesuaikan lebar layar */
+.vhero{gap:clamp(8px,3vw,14px)}
+.vhero .vyr{font-size:clamp(34px,10.5vw,52px)}
+.vhero .vtag{min-width:0;font-size:clamp(8.5px,2.8vw,12.5px);letter-spacing:.01em;line-height:1.45}
+.vhero .vtag span{display:block;white-space:nowrap}
 </style>
 <div id="app"></div>
 <div id="toast-root"></div>
@@ -805,10 +866,14 @@ const TODAY=new Date(todayISO()+'T00:00:00');
 const BLN=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
 const bulanIni=()=>BLN[TODAY.getMonth()]+' '+TODAY.getFullYear();
 const rp=n=>'Rp'+Math.round(n).toLocaleString('id-ID');
+const rpc=n=>{n=Math.round(+n||0);const a=Math.abs(n),sg=n<0?'-':'',full=rp(n);if(a<1e6)return full;
+  const u=a>=1e12?[1e12,' T']:a>=1e9?[1e9,' M']:[1e6,' jt'];
+  const t=(Math.round(a/u[0]*100)/100).toLocaleString('id-ID',{maximumFractionDigits:2});
+  return '<span title="'+full+'">'+sg+'Rp'+t+u[1]+'</span>'};
 const tgl=s=>new Date(s).toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'});
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const ROLES=[
- {id:'partisipan',n:'Partisipan Aren Jariyah',d:'Lihat kontribusi, ikut kegiatan, terima manfaat'},
+ {id:'partisipan',n:'Partisipan Aren Jariyah',d:'Lihat profil, ikut kegiatan, terima manfaat'},
  {id:'pemilik',n:'Pemilik Aset',d:'Ajukan aset untuk dikelola dan pantau statusnya'},
  {id:'admin',n:'Admin Aren Jariyah',d:'Kelola partisipan, kegiatan, proyek, aset'},
  {id:'pengurus',n:'Pengurus Aren Jariyah',d:'Setujui program, proyek, pembagian manfaat'},
@@ -878,7 +943,7 @@ const UNDANGAN=[];
 const FORUM=[];
 const VOTING=[];
 const ASET=[];
-const LAHAN=[];
+const LAHAN=[];const ARSIP=[];
 const PROYEK=[];
 const KEG=[];
 let TX=[];
@@ -902,7 +967,7 @@ const PENG=(()=>{const o={alih:'0',wa:WA_DEFAULT};try{const j=JSON.parse(localSt
 const pengSave=()=>{try{localStorage.setItem(PKEY,JSON.stringify(PENG))}catch(e){}};
 const DB=(()=>{
   const KEY='aren-jariyah:data',SES='aren-jariyah:sesi',VER=2,MEKEY='aren-jariyah:saya';
-  const T={P,TX,LAHAN,ABADI,HASILPAKAI,INFO,AUDIT,ASET,PROYEK,KEG,AKUI,BAGI,ALIH,UNDANGAN,FORUM,VOTING};
+  const T={P,TX,LAHAN,ABADI,HASILPAKAI,INFO,AUDIT,ASET,PROYEK,KEG,AKUI,BAGI,ALIH,UNDANGAN,FORUM,VOTING,ARSIP};
   const store=(()=>{try{const s=window.localStorage;s.setItem('__t','1');s.removeItem('__t');return s}catch(e){return null}})();
   let timer=0;
   const stamp=()=>{const n=new Date();return n.toISOString().slice(0,10)+' '+n.toTimeString().slice(0,5)};
@@ -999,8 +1064,155 @@ function akProfil(a,x){
   if(!a||!a.roles.includes('partisipan'))return;
   if(a.pid&&P.some(r=>r.id===a.pid))return;
   const id=DB.nextId('AJ','P',3);
-  DB.add('P',{id,nama:a.nama,hp:a.hp,dom:(x&&x.dom)||'Belum diisi',status:'Calon',skill:'-',dana:0,jam:0,tugas:0,poin:0,kop:'Bukan anggota',kat:'Dana'},'Profil partisipan '+id+' dibuat otomatis untuk akun '+a.id);
+  DB.add('P',{id,nama:a.nama,hp:a.hp,dom:(x&&x.dom)||'Belum diisi',status:'Calon',gabung:todayISO(),skill:'-',dana:0,kop:'Bukan anggota',kat:'Dana'},'Profil partisipan '+id+' dibuat otomatis untuk akun '+a.id);
   a.pid=id;akSave();
+}
+/* ---- login biometrik (WebAuthn perangkat) ----
+   Sidik jari / Face ID hanya membuka kunci di perangkat ini. PIN disimpan terenkripsi (AES-GCM, kunci tidak dapat diekspor di IndexedDB)
+   lalu dikirim lewat alur login biasa, jadi batas percobaan dan validasi server tetap berlaku. */
+const BKEY='aren-jariyah:bio',BNO='aren-jariyah:bio-no';let BIO_OK=false,BP=null;
+const b64=b=>btoa(String.fromCharCode(...new Uint8Array(b))),ub64=t=>Uint8Array.from(atob(t),c=>c.charCodeAt(0));
+const bioRand=n=>crypto.getRandomValues(new Uint8Array(n));
+const bioData=()=>{try{return JSON.parse(localStorage.getItem(BKEY)||'null')}catch(e){return null}};
+const bioOn=()=>BIO_OK&&!!bioData();
+const idb=(m,k,v)=>new Promise((ok,no)=>{const q=indexedDB.open('aren-jariyah-bio',1);q.onupgradeneeded=()=>q.result.createObjectStore('k');q.onerror=()=>no(q.error);
+  q.onsuccess=()=>{const t=q.result.transaction('k',m==='r'?'readonly':'readwrite'),o=t.objectStore('k'),r=m==='r'?o.get(k):m==='w'?o.put(v,k):o.delete(k);t.oncomplete=()=>{q.result.close();ok(r.result)};t.onerror=()=>no(t.error)}});
+function bioClear(){try{localStorage.removeItem(BKEY)}catch(e){}idb('d','k').catch(()=>{})}
+(async()=>{try{BIO_OK=!!(window.isSecureContext&&window.PublicKeyCredential&&crypto.subtle&&indexedDB&&await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable())}catch(e){}
+  if(BIO_OK){const h=document.getElementById('lg-h');if(h&&!h.value&&!document.getElementById('lg-p').value)try{rerender()}catch(e){}}})();
+async function bioEnable(hp,pin){
+  const cr=await navigator.credentials.create({publicKey:{challenge:bioRand(32),rp:{name:'Aren Jariyah'},user:{id:bioRand(16),name:hp,displayName:hp},
+    pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required',residentKey:'discouraged'},timeout:60000,attestation:'none'}});
+  const key=await crypto.subtle.generateKey({name:'AES-GCM',length:256},false,['encrypt','decrypt']),iv=bioRand(12);
+  const ct=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,new TextEncoder().encode(JSON.stringify({hp,pin})));
+  await idb('w','k',key);localStorage.setItem(BKEY,JSON.stringify({hp,cid:b64(cr.rawId),iv:b64(iv),ct:b64(ct)}));
+}
+async function bioLogin(){
+  const d=bioData();if(!d){toast('Biometrik belum diaktifkan.');return}
+  try{
+    await navigator.credentials.get({publicKey:{challenge:bioRand(32),allowCredentials:[{type:'public-key',id:ub64(d.cid),transports:['internal']}],userVerification:'required',timeout:60000}});
+    const key=await idb('r','k');if(!key)throw new Error('kunci');
+    const o=JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:ub64(d.iv)},key,ub64(d.ct))));
+    const h=document.getElementById('lg-h'),p=document.getElementById('lg-p');if(!h||!p)return;
+    h.value=o.hp;p.value=o.pin;window.__bioTry=1;
+    const f=h.closest('form');f.requestSubmit?f.requestSubmit():f.dispatchEvent(new Event('submit',{cancelable:true,bubbles:true}));
+    setTimeout(()=>{try{p.value=''}catch(e){}},1500);
+  }catch(e){
+    if(e&&(e.name==='NotAllowedError'||e.name==='AbortError')){toast('Verifikasi biometrik dibatalkan.');return}
+    bioClear();toast('Data biometrik tidak valid. Masuk dengan PIN lalu aktifkan lagi.');try{rerender()}catch(_){}
+  }
+}
+function bioOffer(hp,pin){
+  try{if(!BIO_OK||window.__bioTry){window.__bioTry=0;return}if(bioOn()&&bioData().hp===hp)return;if(localStorage.getItem(BNO)===hp)return}catch(e){return}
+  BP={hp,pin};
+  setTimeout(()=>sheet(head('Login biometrik','Masuk lebih cepat dengan sidik jari atau Face ID di perangkat ini.')+
+   '<p class="muted" style="font-size:13px;margin:0 0 12px">PIN Anda disimpan terenkripsi di perangkat ini dan hanya dibuka setelah verifikasi biometrik. Anda tetap bisa masuk dengan PIN kapan saja.</p>'+
+   '<div class="row"><button type="button" class="btn btn-green" data-act="bioYes">Aktifkan</button><button type="button" class="btn btn-line" data-act="bioNo">Nanti saja</button></div>'),700);
+}
+const bioBtn=()=>bioOn()?'<button type="button" class="btn btn-line" data-act="bioLogin" style="width:100%;margin-top:12px;display:flex;gap:8px;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 11v3c0 2.5-.6 4.4-1.6 6"/><path d="M8.5 20c1.3-1.8 2-4 2-6.5V11a1.5 1.5 0 0 1 3 0v2.5c0 2.2-.4 4-1.2 5.6"/><path d="M5 17c.7-1.6 1-3.4 1-5.5a6 6 0 0 1 12 0c0 1.8-.1 3.2-.5 4.6"/><path d="M15.5 20c.9-1.5 1.5-3 1.8-4.8"/></svg>Masuk dengan Biometrik</button><p style="text-align:center;margin:8px 0 0"><button type="button" data-act="bioOff" style="background:none;border:0;color:var(--muted);font-size:12px;cursor:pointer;padding:4px 8px">Matikan biometrik di perangkat ini</button></p>':'';
+/* ================= DOKUMEN PERJANJIAN: dibuat, ditandatangani, dan diarsipkan otomatis ================= */
+const PLT='Koperasi Renco (Platform Aren Jariyah)',PLW='Pengurus Aren Jariyah';
+const KODEP={partisipan:'PP',pemilik:'PL',pengelolaan:'PG'};
+function perjTpl(j,d){
+  const T=tgl(d.tgl||todayISO()),pas=(n,t,x)=>[['h','Pasal '+n,t],['p',x]],kv=(a,b)=>['kv',[a,b]],lt=d.lat!=null&&d.lat!==''?Number(d.lat).toFixed(6)+', '+Number(d.lng).toFixed(6):'-';
+  const buka=a=>['p','Pada hari ini, '+T+', di Renco, dibuat '+a+' antara:'];
+  if(j==='partisipan')return{kode:'PP',judul:'Perjanjian Partisipan',isi:[buka('perjanjian partisipasi'),kv('Pihak Pertama',PLT+', diwakili oleh '+PLW),kv('Pihak Kedua','Nama: '+d.nama),kv('Nomor HP',d.hp),kv('Domisili',d.dom||'-'),['p','Para pihak sepakat atas ketentuan berikut.'],
+    ...pas(1,'Maksud dan Tujuan','Partisipasi bertujuan membangun aset bersama, menjaga lingkungan, dan menguatkan sosial warga Renco secara gotong royong.'),
+    ...pas(2,'Sifat Partisipasi','Partisipasi bersifat sukarela dan atas kesadaran sendiri. Partisipasi bukan produk investasi, tabungan, atau simpanan berbunga.'),
+    ...pas(3,'Manfaat Partisipasi','Manfaat dibagikan sesuai peraturan pengurus. Besarnya tidak dijanjikan dan tidak tetap. Tidak ada jaminan keuntungan, hasil, atau pengembalian dana dengan jumlah tertentu. Hasil bergantung pada pengelolaan aset bersama dan kondisi yang sebenarnya.'),
+    ...pas(4,'Pengelolaan dan Keterbukaan','Dana dan aset dikelola pengurus secara amanah dan transparan. Pencatatan serta laporan dapat dilihat Pihak Kedua sesuai ketentuan.'),
+    ...pas(5,'Data Pribadi','Pihak Kedua wajib memberikan data yang benar dan lengkap. Pihak Pertama menjaga data pribadi dan dokumen, serta tidak membagikannya kepada pihak luar tanpa izin, kecuali diwajibkan oleh hukum.'),
+    ...pas(6,'Ahli Waris dan Rekening','Pihak Kedua melengkapi data ahli waris agar hak partisipasi dapat dilanjutkan sesuai peraturan pengurus. Manfaat hanya disalurkan ke rekening bank atas nama Pihak Kedua sendiri.'),
+    ...pas(7,'Perubahan Peraturan','Peraturan pengurus dapat diperbarui. Perubahan diumumkan melalui saluran resmi dan berlaku sejak diumumkan.'),
+    ...pas(8,'Penyelesaian Perselisihan','Perselisihan diselesaikan dengan musyawarah untuk mufakat melalui pengurus.'),
+    ...pas(9,'Persetujuan','Pihak Kedua menyatakan telah membaca, memahami, dan menyetujui perjanjian ini. Tanda tangan Pihak Kedua berupa nama akunnya yang dibubuhkan secara elektronik sebagai tanda persetujuan.')]};
+  const obj=[kv('Pemilik',d.pemilik),kv('Jenis aset',d.jenis||'Lahan'),kv('Lokasi',d.lok),kv('Luas',Number(d.luas||0).toLocaleString('id-ID')+' m\u00b2'),kv('Status kepemilikan',d.tanah||'-'),kv('Titik denah',lt),kv('Skema kerja sama',d.skema||'-'),kv('Jangka waktu',(d.tahun||'-')+' tahun')];
+  if(j==='pemilik')return{kode:'PL',judul:'Perjanjian Pemilik Lahan',isi:[buka('perjanjian pemilik lahan'),kv('Pihak Pertama',PLT+', diwakili oleh '+PLW),kv('Pihak Kedua (Pemilik)',d.pemilik),['p','Objek perjanjian:'],...obj,['p','Para pihak sepakat atas ketentuan berikut.'],
+    ...pas(1,'Pernyataan Pemilik','Pemilik menyatakan bahwa data aset di atas benar, bahwa Pemilik adalah pemilik atau pihak yang berwenang atas aset tersebut, dan bahwa aset tidak sedang dalam sengketa.'),
+    ...pas(2,'Kepemilikan Tetap','Aset tetap milik Pemilik. Aset tidak menjadi Aset Bersama dan tidak berpindah kepemilikan karena perjanjian ini.'),
+    ...pas(3,'Verifikasi','Pihak Pertama memeriksa data dan status aset sebelum kerja sama disetujui. Pemilik bersedia melengkapi dokumen yang diminta, seperti bukti hak, PBB, foto, dan denah.'),
+    ...pas(4,'Pembagian Hasil','Potensi dan pembagian hasil dinilai saat verifikasi dan disepakati tertulis dalam Perjanjian Pengelolaan. Besarnya tidak dijanjikan dan tidak tetap.'),
+    ...pas(5,'Dokumen Asli','Dokumen asli aset disimpan oleh kustodian ('+KUSTODIAN+'). Salinan digital hanya dapat dilihat peran yang berwenang.'),
+    ...pas(6,'Pembatalan','Pemilik dapat menarik pengajuan sebelum kerja sama disetujui. Pihak Pertama dapat menolak pengajuan jika data tidak benar atau tidak lengkap.'),
+    ...pas(7,'Penyelesaian Perselisihan','Perselisihan diselesaikan dengan musyawarah untuk mufakat melalui pengurus.'),
+    ...pas(8,'Persetujuan','Pemilik menyatakan telah membaca, memahami, dan menyetujui perjanjian ini. Tanda tangan Pemilik berupa nama akunnya yang dibubuhkan secara elektronik sebagai tanda persetujuan.')]};
+  return{kode:'PG',judul:'Perjanjian Pengelolaan',isi:[buka('perjanjian pengelolaan aset'),kv('Pihak Pertama (Pengelola)',PLT+', diwakili oleh '+PLW),kv('Pihak Kedua (Pemilik)',d.pemilik),kv('Merujuk pada',d.refNomor?'Perjanjian Pemilik Lahan nomor '+d.refNomor:'Pengajuan aset '+(d.ref||'-')),['p','Objek pengelolaan:'],...obj,['p','Kerja sama disetujui pada '+T+'. Para pihak sepakat atas ketentuan berikut.'],
+    ...pas(1,'Ruang Lingkup','Pihak Pertama mengelola aset untuk kegiatan Aren Jariyah sesuai skema kerja sama di atas, dengan tetap menghormati hak milik Pemilik.'),
+    ...pas(2,'Jangka Waktu','Pengelolaan berlaku '+(d.tahun?d.tahun+' tahun sejak tanggal persetujuan':'selama jangka waktu yang disepakati')+' dan dapat diperpanjang dengan kesepakatan tertulis.'),
+    ...pas(3,'Pembagian Hasil',(d.persen&&!/Dibahas/i.test(d.persen)?'Pembagian hasil: '+d.persen+'. ':'Pembagian hasil disepakati tertulis oleh para pihak dan dicatat sebagai lampiran perjanjian ini. ')+'Besarnya tidak dijanjikan dan bergantung pada hasil pengelolaan yang sebenarnya.'),
+    ...pas(4,'Pemeliharaan','Pihak Pertama menyisihkan dana pemeliharaan dan menjadwalkan pemeriksaan aset secara berkala. Perubahan besar pada aset memerlukan persetujuan Pemilik.'),
+    ...pas(5,'Pelaporan','Pihak Pertama mencatat pendapatan dan pengeluaran aset serta menyampaikan laporan yang dapat dilihat Pemilik.'),
+    ...pas(6,'Kustodi Dokumen','Dokumen asli aset disimpan oleh kustodian ('+KUSTODIAN+') dan hanya dikeluarkan atas persetujuan tertulis Pemilik.'),
+    ...pas(7,'Berakhirnya Perjanjian','Perjanjian berakhir karena jangka waktu habis, kesepakatan para pihak, atau pelanggaran berat yang tidak diperbaiki setelah diingatkan. Aset dikembalikan kepada Pemilik dalam keadaan terpelihara.'),
+    ...pas(8,'Penyelesaian Perselisihan','Perselisihan diselesaikan dengan musyawarah untuk mufakat melalui pengurus.'),
+    ...pas(9,'Persetujuan','Pemilik menyatakan menyetujui perjanjian ini sebagaimana persetujuannya pada saat pengajuan aset. Tanda tangan Pemilik berupa nama akunnya yang dibubuhkan secara elektronik.')]};
+}
+function perjBuat(j,d,who){
+  const t=perjTpl(j,{...d,tgl:todayISO()}),n=ARSIP.filter(x=>x.jenis===j).length+1;
+  const row={id:DB.nextId('DK','ARSIP',3),jenis:j,judul:t.judul,nomor:t.kode+'/'+new Date().getFullYear()+'/'+String(n).padStart(3,'0'),tgl:todayISO(),aid:who.aid||'',pid:who.pid||'',ref:d.ref||'',pihak2:who.nama,ttd:who.nama,isi:t.isi,oleh:roleName()};
+  DB.add('ARSIP',row,'Dokumen '+row.judul+' '+row.nomor+' ditandatangani dan diarsipkan otomatis');
+  (async()=>{try{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify([row.nomor,row.judul,row.tgl,row.ttd,row.isi])));DB.update('ARSIP',row.id,{sha:hex2(b)})}catch(e){}})();
+  return row;
+}
+const arsipVis=()=>DOCROLES.includes(S.role)?ARSIP.slice():ARSIP.filter(r=>(S.acc&&r.aid===S.acc)||(ME&&r.pid===ME.id));
+const arsipN=()=>arsipVis().length;
+/* tanda tangan: nama akun dengan huruf sambung; stempel platform digambar di kanvas agar sama di layar dan PDF */
+function sigURL(nama){
+  const c=document.createElement('canvas');c.width=640;c.height=190;const x=c.getContext('2d'),F=n=>n+'px "Segoe Script","Snell Roundhand","Lucida Handwriting","Apple Chancery","Bradley Hand","Brush Script MT","Dancing Script","URW Chancery L",cursive';
+  let fs=84;x.font=F(fs);while(x.measureText(nama).width>600&&fs>28){fs-=4;x.font=F(fs)}
+  x.fillStyle=x.strokeStyle='#1b2a6b';x.textBaseline='middle';x.fillText(nama,20,84);
+  x.lineWidth=3;x.lineCap='round';x.beginPath();x.moveTo(24,150);x.quadraticCurveTo(300,128,610,160);x.stroke();return c.toDataURL('image/png');
+}
+function stampURL(){
+  const c=document.createElement('canvas'),Z=420;c.width=c.height=Z;const x=c.getContext('2d'),col='#7a2c8c';
+  x.translate(Z/2,Z/2);x.rotate(-.21);x.globalAlpha=.9;x.strokeStyle=x.fillStyle=col;
+  [[196,8],[183,2.5],[116,3]].forEach(a=>{x.lineWidth=a[1];x.beginPath();x.arc(0,0,a[0],0,6.2832);x.stroke()});
+  function arc(t,r,top){x.save();x.font='bold 30px Georgia,serif';x.textAlign='center';x.textBaseline='middle';const w=[...t].map(ch=>x.measureText(ch).width+5),tot=w.reduce((a,b)=>a+b,0)/r;let a=top?-tot/2:Math.PI+tot/2;
+    [...t].forEach((ch,i)=>{const q=w[i]/r;a+=top?q/2:-q/2;x.save();x.rotate(a);x.translate(0,-r);if(!top)x.rotate(Math.PI);x.fillText(ch,0,0);x.restore();a+=top?q/2:-q/2});x.restore()}
+  arc('KOPERASI RENCO',150,true);arc('PLATFORM AREN JARIYAH',158,false);
+  x.save();x.translate(0,-34);x.scale(.158,.158);x.translate(-765,-370);["M1041 83L1241 83L1245 92C1228 130 1205 190 1183 241C1160 295 1130 355 1100 405C1070 455 1030 505 985 535C940 565 890 580 845 587C810 590 775 586 752 580C746 577 748 574 755 572C790 568 825 553 855 532C895 500 930 450 960 380C990 305 1018 190 1041 83Z","M645 252C625 258 600 295 570 358C568 368 570 378 580 395C605 440 640 505 700 548C725 566 745 573 770 570C805 565 840 545 869 516C840 510 815 492 790 468C760 440 735 400 712 358C695 322 675 280 664 259C658 250 650 249 645 252Z","M289 629C300 600 330 545 360 490C395 425 430 360 470 305C510 255 545 228 585 214C615 206 645 216 656 242C640 252 622 266 604 292C585 322 570 350 555 385C535 430 520 480 500 545C490 580 480 610 470 630Z"].forEach(function(dd){var pp=new Path2D(dd);x.save();x.globalCompositeOperation='destination-out';x.lineWidth=7;x.lineJoin='round';x.stroke(pp);x.restore();x.fill(pp)});x.restore();
+  x.textAlign='center';x.textBaseline='middle';
+  x.font='bold 21px Georgia,serif';x.fillText('ARSIP DIGITAL',0,38);x.font='17px Georgia,serif';x.fillText('TERVERIFIKASI',0,64);
+  return c.toDataURL('image/png');
+}
+function perjHtml(r){
+  const body=r.isi.map(b=>b[0]==='h'?'<div style="text-align:center;font-weight:700;margin:14px 0 4px">'+esc(b[1])+'<br>'+esc(b[2])+'</div>':b[0]==='kv'?'<div style="display:grid;grid-template-columns:38% 1fr;gap:2px 8px;margin:2px 0"><span>'+esc(b[1][0])+'</span><span>: '+esc(b[1][1])+'</span></div>':'<p style="margin:6px 0">'+esc(b[1])+'</p>').join('');
+  return '<div class="dokv"><div style="text-align:center"><div style="font-size:11px;font-weight:700;letter-spacing:.06em;color:#7a2c8c">KOPERASI RENCO \u00b7 PLATFORM AREN JARIYAH</div><div style="font-size:16px;font-weight:700;margin:4px 0 2px">'+esc(r.judul.toUpperCase())+'</div><div style="font-size:12px">Nomor: '+esc(r.nomor)+'</div></div><hr style="border:0;border-top:1px solid #999;margin:10px 0">'+body+
+   '<div style="text-align:right;margin:16px 0 8px">Renco, '+tgl(r.tgl)+'</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;text-align:center"><div><b>PIHAK PERTAMA</b><div style="font-size:12px">'+esc(PLT)+'</div><img src="'+stampURL()+'" alt="Stempel platform" style="width:96px;height:96px;margin:4px 0"><div style="border-top:1px solid #333;padding-top:3px;font-size:12px">'+esc(PLW)+'</div></div><div><b>PIHAK KEDUA</b><div style="font-size:12px">Ditandatangani elektronik</div><img src="'+sigURL(r.ttd)+'" alt="Tanda tangan" style="width:100%;max-width:190px;margin:22px 0 -2px"><div style="border-top:1px solid #333;padding-top:3px;font-size:12px">'+esc(r.ttd)+'</div></div></div>'+(r.sha?'<div style="font-size:10px;color:#777;margin-top:12px;word-break:break-all">Kode verifikasi: '+r.sha.slice(0,32)+'</div>':'')+'</div>';
+}
+const jsLoad=()=>window.jspdf?Promise.resolve():new Promise((ok,no)=>{const e=document.createElement('script');e.src='https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';e.onload=ok;e.onerror=()=>no(new Error('jspdf'));document.head.appendChild(e)});
+async function perjPdf(r){
+  try{await jsLoad()}catch(e){
+    /* tanpa internet: pakai cetak peramban, pilih "Simpan sebagai PDF" */
+    let pr=document.getElementById('print-root');if(!pr){pr=document.createElement('div');pr.id='print-root';document.body.appendChild(pr)}
+    pr.innerHTML=perjHtml(r);toast('Pustaka PDF tidak dapat dimuat. Pilih "Simpan sebagai PDF" pada jendela cetak.');setTimeout(()=>{try{window.print()}catch(_){}},600);return}
+  const doc=new window.jspdf.jsPDF({unit:'mm',format:'a4'}),W=210,M=20,TW=W-2*M;let y=22;
+  const need=h=>{if(y+h>278){doc.addPage();y=22}},lines=(t,w)=>doc.splitTextToSize(String(t),w);
+  doc.setTextColor(122,44,140);doc.setFont('times','bold');doc.setFontSize(10);doc.text('KOPERASI RENCO \u00b7 PLATFORM AREN JARIYAH',W/2,y,{align:'center'});y+=7;
+  doc.setTextColor(0);doc.setFontSize(15);doc.text(r.judul.toUpperCase(),W/2,y,{align:'center'});y+=6;
+  doc.setFont('times','normal');doc.setFontSize(10.5);doc.text('Nomor: '+r.nomor,W/2,y,{align:'center'});y+=4;doc.setDrawColor(150);doc.line(M,y,W-M,y);y+=7;
+  doc.setFontSize(11);
+  r.isi.forEach(b=>{
+    if(b[0]==='h'){need(16);y+=3;doc.setFont('times','bold');doc.text(b[1],W/2,y,{align:'center'});y+=5;doc.text(b[2],W/2,y,{align:'center'});y+=6;doc.setFont('times','normal')}
+    else if(b[0]==='kv'){const v=lines(': '+b[1][1],TW-48);need(5.4*v.length);doc.text(b[1][0],M,y);v.forEach((t,i)=>{doc.text(t,M+48,y);y+=5.4});}
+    else{lines(b[1],TW).forEach(t=>{need(5.4);doc.text(t,M,y);y+=5.4});y+=1.5}
+  });
+  need(70);y+=8;doc.text('Renco, '+tgl(r.tgl),W-M,y,{align:'right'});y+=8;
+  const w=TW/2-4,x1=M,x2=W/2+4;doc.setFont('times','bold');doc.text('PIHAK PERTAMA',x1+w/2,y,{align:'center'});doc.text('PIHAK KEDUA',x2+w/2,y,{align:'center'});y+=5;
+  doc.setFont('times','normal');doc.setFontSize(9.5);doc.text(lines(PLT,w),x1+w/2,y,{align:'center'});doc.text('Ditandatangani elektronik',x2+w/2,y,{align:'center'});y+=9;
+  try{doc.addImage(stampURL(),'PNG',x1+w/2-17,y,34,34)}catch(e){}
+  try{doc.addImage(sigURL(r.ttd),'PNG',x2+w/2-30,y+8,60,60*190/640)}catch(e){}
+  y+=38;doc.setDrawColor(60);doc.line(x1+4,y,x1+w-4,y);doc.line(x2+4,y,x2+w-4,y);y+=5;doc.setFontSize(10.5);doc.text(PLW,x1+w/2,y,{align:'center'});doc.text(lines(r.ttd,w-6),x2+w/2,y,{align:'center'});
+  const n=doc.getNumberOfPages();for(let i=1;i<=n;i++){doc.setPage(i);doc.setFontSize(8);doc.setTextColor(120);doc.text(r.nomor+(r.sha?' \u00b7 Kode verifikasi '+r.sha.slice(0,16):'')+' \u00b7 Dibuat dan diarsipkan otomatis oleh Aren Jariyah',M,289);doc.text('Halaman '+i+'/'+n,W-M,289,{align:'right'})}
+  doc.save(r.judul.replace(/\s+/g,'-')+'_'+r.nomor.replace(/\//g,'-')+'.pdf');
+}
+function arsipList(){
+  const L=arsipVis().slice().reverse();
+  return head('Arsip dokumen','Perjanjian ditandatangani dan tersimpan otomatis. Unduh PDF kapan saja.')+(L.length?'<div class="list">'+L.map(r=>'<div class="item"><div class="t"><b>'+esc(r.judul)+'</b><span class="chip">'+esc(r.jenis==='partisipan'?'Partisipan':r.jenis==='pemilik'?'Pemilik':'Pengelolaan')+'</span></div><span class="muted" style="font-size:13px">'+esc(r.nomor)+' \u00b7 '+tgl(r.tgl)+' \u00b7 '+esc(r.pihak2)+'</span><div class="row" style="margin-top:8px"><button type="button" class="btn btn-line btn-sm" data-act="arsipLihat" data-v="'+r.id+'">Lihat</button><button type="button" class="btn btn-green btn-sm" data-act="arsipPdf" data-v="'+r.id+'">Unduh PDF</button></div></div>').join('')+'</div>':kosong('Belum ada dokumen. Dokumen dibuat otomatis saat Anda mendaftar atau mengajukan aset.'))+'<button class="btn btn-line" style="width:100%;margin-top:12px" data-act="closeSheet">Tutup</button>';
+}
+function arsipView(id,baru){
+  const r=ARSIP.find(x=>x.id===id);if(!r)return head('Dokumen tidak ditemukan','');
+  return (baru?'<div class="note" style="margin-bottom:10px"><b>Dokumen tersimpan.</b> Perjanjian ini sudah ditandatangani dan masuk ke Arsip dokumen.</div>':'')+perjHtml(r)+'<div class="row" style="margin-top:12px"><button type="button" class="btn btn-green" data-act="arsipPdf" data-v="'+r.id+'">Unduh PDF</button><button type="button" class="btn btn-line" data-act="arsipDok">Arsip</button><button type="button" class="btn btn-line" data-act="closeSheet">Tutup</button></div>';
 }
 function akMasuk(a,x){
   akProfil(a,x);
@@ -1017,7 +1229,68 @@ function lepasBlok(a){const L=a.roles.length>1?ROLES.filter(r=>AJUKAN.includes(r
   return L.length?'<div class="label" style="margin:16px 0 6px">Lepas peran</div>'+L.map(r=>'<div class="item" style="margin-bottom:6px;display:flex;gap:8px;align-items:center;justify-content:space-between"><b>'+esc(r.n)+'</b><button type="button" class="btn btn-line btn-sm" data-act="akLepas" data-v="'+r.id+'">Lepas</button></div>').join(''):''}
 const akPending=()=>AKUN.reduce((n,a)=>n+akReqList(a).filter(q=>q.st==='menunggu').length,0);
 function toast(m){const r=$('#toast-root');r.innerHTML='<div class="toast" role="status">'+esc(m)+'</div>';clearTimeout(toast.t);toast.t=setTimeout(()=>r.innerHTML='',3200)}
-function sheet(html){$('#sheet-root').innerHTML='<div class="sheet" data-act="closeSheet"><div role="dialog" aria-modal="true" data-stop="1">'+html+'</div></div>';initRoles()}
+function petaXY(lat,lng,z){const n=256*Math.pow(2,z),r=lat*Math.PI/180;return{x:(lng+180)/360*n,y:(1-Math.log(Math.tan(r)+1/Math.cos(r))/Math.PI)/2*n}}
+function petaLL(x,y,z){const n=256*Math.pow(2,z),a=Math.PI*(1-2*y/n);return{lat:180/Math.PI*Math.atan(Math.sinh(a)),lng:x/n*360-180}}
+function initPeta(){
+ const box=document.getElementById('pmap');if(!box||box.dataset.on)return;box.dataset.on='1';
+ const inp=document.getElementById('l-ll'),tl=box.querySelector('.pm-t'),pn=box.querySelector('.pm-pin');
+ const ZMIN=3,ZMAX=21,TMAX=19;
+ let z=+box.dataset.z||15,pin=null,g=null,lastTap=null;const cache={},ptr=new Map();
+ const m=(inp.value||'').split(',').map(Number);
+ if(inp.value.trim()&&m.length===2&&isFinite(m[0])&&isFinite(m[1]))pin={lat:m[0],lng:m[1]};
+ const st=pin||{lat:-8.6565,lng:116.531};let c=petaXY(st.lat,st.lng,z);
+ const cl=v=>Math.max(ZMIN,Math.min(ZMAX,v));
+ function prune(){let ok=true;for(const k in cache)if(cache[k].need&&!cache[k].im.complete)ok=false;if(ok)for(const k in cache)if(!cache[k].need){cache[k].im.remove();delete cache[k]}}
+ function draw(){
+  const w=box.clientWidth,h=box.clientHeight,tz=Math.min(TMAX,Math.round(z)),ts=256*Math.pow(2,z-tz),n=Math.pow(2,tz),x0=c.x-w/2,y0=c.y-h/2;
+  for(const k in cache)cache[k].need=false;
+  for(let tx=Math.floor(x0/ts);tx<=Math.floor((x0+w)/ts);tx++)for(let ty=Math.floor(y0/ts);ty<=Math.floor((y0+h)/ts);ty++){
+   if(ty<0||ty>=n)continue;
+   const key=tz+'/'+tx+'/'+ty;let o=cache[key];
+   if(!o){const im=new Image();im.alt='';im.draggable=false;im.decoding='async';
+    im.onerror=()=>box.classList.add('pm-off');im.onload=()=>{box.classList.remove('pm-off');prune()};
+    im.src='https://tile.openstreetmap.org/'+tz+'/'+(((tx%n)+n)%n)+'/'+ty+'.png';tl.appendChild(im);o=cache[key]={im,tx,ty,tz}}
+   o.need=true;
+  }
+  for(const k in cache){const o=cache[k],f=Math.pow(2,z-o.tz);let X=o.tx*256*f-x0,Y=o.ty*256*f-y0;
+   if(f===1){X=Math.round(X);Y=Math.round(Y)}
+   o.im.style.transform='translate('+X+'px,'+Y+'px) scale('+f+')'}
+  if(pin){const p=petaXY(pin.lat,pin.lng,z);pn.style.display='block';pn.style.transform='translate('+Math.round(p.x-x0)+'px,'+Math.round(p.y-y0)+'px)'}else pn.style.display='none';
+  prune();
+ }
+ function setPin(la,ln){pin={lat:la,lng:ln};inp.value=la.toFixed(6)+', '+ln.toFixed(6);draw()}
+ /* zoom berporos pada titik layar (ax,ay) agar titik di bawah jari tidak bergeser */
+ function zoomAt(nz,ax,ay){nz=cl(nz);if(nz===z)return;const w=box.clientWidth,h=box.clientHeight,ll=petaLL(c.x+ax-w/2,c.y+ay-h/2,z);z=nz;const q=petaXY(ll.lat,ll.lng,z);c={x:q.x-(ax-w/2),y:q.y-(ay-h/2)};draw()}
+ function tap(e){
+  const r=box.getBoundingClientRect(),ax=e.clientX-r.left,ay=e.clientY-r.top,t=Date.now();
+  if(lastTap&&t-lastTap.t<320&&Math.hypot(ax-lastTap.x,ay-lastTap.y)<28){lastTap=null;zoomAt(Math.floor(z)+1,ax,ay);return}
+  lastTap={t,x:ax,y:ay};
+  const q=petaLL(c.x+ax-box.clientWidth/2,c.y+ay-box.clientHeight/2,z);setPin(q.lat,q.lng)}
+ box.addEventListener('pointerdown',e=>{if(e.target.closest('button'))return;ptr.set(e.pointerId,{x:e.clientX,y:e.clientY});try{box.setPointerCapture(e.pointerId)}catch(_){}
+  if(ptr.size===1)g={x:e.clientX,y:e.clientY,cx:c.x,cy:c.y,mv:false};
+  else if(ptr.size===2){const [a,b]=[...ptr.values()];g={pinch:true,d0:Math.hypot(a.x-b.x,a.y-b.y)||1,z0:z,mv:true}}
+  box.style.cursor='grabbing'});
+ box.addEventListener('pointermove',e=>{if(!ptr.has(e.pointerId))return;ptr.set(e.pointerId,{x:e.clientX,y:e.clientY});if(!g)return;
+  if(g.pinch){if(ptr.size<2)return;const [a,b]=[...ptr.values()],r=box.getBoundingClientRect(),d=Math.hypot(a.x-b.x,a.y-b.y)||1;zoomAt(g.z0+Math.log2(d/g.d0),(a.x+b.x)/2-r.left,(a.y+b.y)/2-r.top);return}
+  const dx=e.clientX-g.x,dy=e.clientY-g.y;if(Math.abs(dx)+Math.abs(dy)>6)g.mv=true;if(g.mv){c={x:g.cx-dx,y:g.cy-dy};draw()}});
+ box.addEventListener('pointerup',e=>{if(!ptr.has(e.pointerId))return;ptr.delete(e.pointerId);const o=g;
+  if(ptr.size===0){g=null;box.style.cursor='';if(o&&!o.mv&&!o.pinch)tap(e)}
+  else if(ptr.size===1&&o&&o.pinch){const a=[...ptr.values()][0];g={x:a.x,y:a.y,cx:c.x,cy:c.y,mv:true}}});
+ box.addEventListener('pointercancel',()=>{ptr.clear();g=null;box.style.cursor=''});
+ box.addEventListener('wheel',e=>{e.preventDefault();const r=box.getBoundingClientRect();zoomAt(z-e.deltaY/260,e.clientX-r.left,e.clientY-r.top)},{passive:false});
+ box.querySelectorAll('[data-pz]').forEach(b=>b.addEventListener('click',()=>zoomAt(Math.round(z)+(+b.dataset.pz),box.clientWidth/2,box.clientHeight/2)));
+ const full=on=>{box.classList.toggle('full',on);const b=box.querySelector('[data-pf]');if(b){b.textContent=on?'\u2715':'\u2922';b.setAttribute('aria-label',on?'Tutup layar penuh':'Layar penuh')}draw()};
+ box.querySelector('[data-pf]').addEventListener('click',()=>full(!box.classList.contains('full')));
+ const kd=e=>{if(!box.isConnected){document.removeEventListener('keydown',kd);window.removeEventListener('resize',draw);return}if(e.key==='Escape'&&box.classList.contains('full')){e.stopPropagation();full(false)}};
+ document.addEventListener('keydown',kd,true);window.addEventListener('resize',draw);
+ document.getElementById('pm-clr').addEventListener('click',()=>{pin=null;inp.value='';draw()});
+ document.getElementById('pm-gps').addEventListener('click',()=>{
+  if(!navigator.geolocation){toast('Perangkat tidak mendukung lokasi.');return}
+  navigator.geolocation.getCurrentPosition(p=>{z=18;c=petaXY(p.coords.latitude,p.coords.longitude,z);setPin(p.coords.latitude,p.coords.longitude)},()=>toast('Lokasi tidak dapat diambil. Ketuk peta untuk menandai titik.'),{enableHighAccuracy:true,timeout:10000})});
+ draw();
+}
+function petaParse(){const t=(document.getElementById('l-ll')||{}).value||'';const a=t.split(',').map(Number);return(t.trim()&&a.length===2&&isFinite(a[0])&&isFinite(a[1]))?{lat:a[0],lng:a[1]}:null}
+function sheet(html){akMig();$('#sheet-root').innerHTML='<div class="sheet" data-act="closeSheet"><div role="dialog" aria-modal="true" data-stop="1">'+html+'</div></div>';initRoles();initPeta()}
 function closeSheet(){$('#sheet-root').innerHTML=''}
 function go(h){location.hash=h}
 function addAudit(a){DB.audit(a)}
@@ -1145,14 +1418,14 @@ function viewLogin(){
   }
   return wrap('<h1>Masuk</h1><p class="lead">Masuk dengan nomor HP dan PIN. Satu akun untuk semua peran Anda. Jika punya lebih dari satu peran, Anda akan diminta memilih setelah masuk.</p>'+
     '<form data-form="login">'+FI('lg-h','Nomor HP','tel','required inputmode="tel" placeholder="0812xxxxxxxx" autocomplete="tel"','<path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.6 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.6 3.6a1 1 0 0 1-.25 1z"/>')+FI('lg-p','PIN','password','required inputmode="numeric" maxlength="6" autocomplete="current-password"','<path d="M7 10V8a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1zm2 0h6V8a3 3 0 0 0-6 0z"/><circle cx="12" cy="15.2" r="1.5" fill="#fff"/>')+
-    '<div class="row" style="margin-top:12px"><button class="btn btn-green" type="submit">Masuk</button><button class="btn btn-line" type="button" data-act="akDaftar" data-v="daftar">Buat akun baru</button></div></form>'+
+    '<div class="row" style="margin-top:12px"><button class="btn btn-green" type="submit">Masuk</button><button class="btn btn-line" type="button" data-act="akDaftar" data-v="daftar">Buat akun baru</button></div></form>'+bioBtn()+
     '<p style="text-align:center;margin:56px 0 0"><button type="button" data-act="akDaftar" data-v="lupa" style="background:none;border:0;color:#6b1f82;font-weight:700;font-size:15px;cursor:pointer;padding:8px 12px;text-decoration:none">Lupa PIN?</button></p>');
 }
 
 /* ---------- kerangka aplikasi ---------- */
 
 /* ---------- navigasi bagian dalam menu ---------- */
-const SUBL={'Rekening partisipan':'Rekening','Kegiatan mendatang':'Kegiatan','Pemasukan dan pengeluaran':'Arus kas','Notifikasi penting':'Notifikasi','Alur usulan':'Alur','Syarat kehati-hatian':'Syarat','Voting partisipan':'Voting','Keuntungan per aset':'Laba','Simulasi alokasi':'Simulasi','Riwayat pembagian':'Riwayat','Kalender tahunan':'Kalender','Transaksi aset ini':'Transaksi','Laporan keuangan':'Laporan','Proyek terkait':'Proyek','Per kategori dana':'Kategori','Daftar transaksi':'Transaksi','Audit trail':'Audit','Target pertumbuhan':'Target','Riwayat penambahan':'Penambahan','Riwayat penggunaan hasil':'Penggunaan','Jadwal kegiatan':'Kegiatan','Punya ide atau usulan?':'Usulan','Buat pengumuman':'Buat pengumuman','Dampak Aset Bersama':'Dampak','Manfaat Partisipasi':'Manfaat','Sertifikat dan pengalihan':'Sertifikat','Sertifikat partisipasi':'Sertifikat','Pengalihan partisipasi':'Pengalihan','Pengajuan pengalihan':'Pengalihan','Menunggu persetujuan':'Persetujuan','Verifikasi nomor HP':'Verifikasi HP'};
+const SUBL={'Rekening partisipan':'Rekening','Kegiatan mendatang':'Kegiatan','Pemasukan dan pengeluaran':'Arus kas','Notifikasi penting':'Notifikasi','Alur usulan':'Alur','Syarat kehati-hatian':'Syarat','Keuntungan per aset':'Laba','Simulasi alokasi':'Simulasi','Riwayat pembagian':'Riwayat','Kalender tahunan':'Kalender','Transaksi aset ini':'Transaksi','Laporan keuangan':'Laporan','Proyek terkait':'Proyek','Per kategori dana':'Kategori','Daftar transaksi':'Transaksi','Audit trail':'Audit','Target pertumbuhan':'Target','Riwayat penambahan':'Penambahan','Riwayat penggunaan hasil':'Penggunaan','Jadwal kegiatan':'Kegiatan','Punya ide atau usulan?':'Usulan','Buat pengumuman':'Buat pengumuman','Dampak Aset Bersama':'Dampak','Manfaat Partisipasi':'Manfaat','Sertifikat dan pengalihan':'Sertifikat','Sertifikat partisipasi':'Sertifikat','Pengalihan partisipasi':'Pengalihan','Pengajuan pengalihan':'Pengalihan','Menunggu persetujuan':'Persetujuan','Verifikasi nomor HP':'Verifikasi HP'};
 const SUB0={keuangan:'Ringkasan',abadi:'Ringkasan',proyek:'Proyek',info:'Pengumuman',partisipan:'Profil'};
 const SUBI={'Rekening':'coin','Ringkasan':'dash','Profil':'partisipan','Manfaat':'heart','Sertifikat':'cert','Proyek':'proyek','Kegiatan':'clock','Kategori':'coin','Transaksi':'receipt','Audit':'shield','Target':'target','Penambahan':'plus','Penggunaan':'list','Keuangan':'keuangan','Lingkungan':'leaf','Sosial':'heart','Dampak':'laporan','Pengumuman':'info','Usulan':'usul','Buat pengumuman':'plus','Persetujuan':'shield','Aset':'aset','Bagi hasil':'bagi','Kalender':'kal','Pengalihan':'bagi','Verifikasi HP':'shield'};
 function fsub(items){
@@ -1197,7 +1470,7 @@ document.addEventListener('keydown',e=>{
   const b=[...g.querySelectorAll('.gb')],i=b.indexOf(e.target);if(i<0)return;
   const n=b[Math.max(0,Math.min(b.length-1,i+(e.key==='ArrowRight'?1:-1)))];e.preventDefault();n.focus();gbCenter(g,n,true);
 });
-function render(){
+function render(){akMig();
   const h=location.hash.slice(1);
   let html;
   if(h==='laporan-publik') html=viewPublicReport();
@@ -1231,14 +1504,10 @@ function assetCard(a,showDocs){
   docsBlock(a.dok||[],showDocs)+'</article>';
 }
 
-const TAHAP=[['Usulan','Partisipan mengajukan aset beserta alasan, taksiran harga, dan rencana pengelolaan. Belum menjadi aset.','Partisipan aktif'],
-['Verifikasi','Pengurus memeriksa 5 syarat kehati-hatian. Semua wajib terpenuhi sebelum usulan boleh divoting.','Pengurus'],
-['Voting','Partisipan aktif memilih. Sah bila kuorum 50% partisipan aktif terpenuhi dan setuju minimal 60% dari suara setuju + tolak.','Partisipan aktif'],
-['Dewan','Dewan Pengarah meninjau kesesuaian usulan dengan nilai Aren Jariyah dan kemampuan keuangan.','Dewan Pengarah'],
+const TAHAP=[['Usulan','Partisipan mengajukan aset beserta alasan, taksiran harga, dan rencana pengelolaan. Admin atau pengurus memeriksa 5 syarat kehati-hatian lalu menyetujui. Tidak ada voting.','Admin atau pengurus'],
 ['Pendanaan','Dana dikumpulkan di Koperasi Renco lewat RencoPay dengan kode usulan ini. Progres terbaca otomatis. Pembelian hanya bila dana sudah cukup.','Bendahara dan pengurus'],
 ['Aset','Usulan resmi tercatat di daftar Aset Bersama. Setelah itu Renco Capital menerima kustodi dan dokumennya dilengkapi.','Pengurus']];
 const SYARAT=['Legalitas dan kepemilikan jelas','Bebas sengketa dan beban utang','Harga wajar (minimal 2 pembanding)','Sumber dana jelas dan halal','Rencana pengelolaan dan biaya perawatan tersedia'];
-const KUORUM=.5,AMBANG=.6;
 const KUSTODIAN='Renco Capital';
 const kustSt=a=>a.kust==='Dalam kustodi'?'Dalam kustodi':'Menunggu serah terima';
 const isP=()=>['admin','pengurus'].includes(S.role);
@@ -1370,8 +1639,8 @@ const SB=(()=>{
     if(k==='login'){
       const sisa=kunciSisa(hp);if(sisa){toast('Terlalu banyak percobaan. Coba lagi dalam '+sisa+' menit.');return}
       const r=await authPw(hp,pn);
-      if(!r.ok){const g=gagalCatat(hp,false);toast(g&&g.until?'Terlalu banyak percobaan. Dikunci 5 menit.':'Nomor HP atau PIN tidak cocok.');return}
-      gagalCatat(hp,true);keep(mk(r.j));await enter();return;
+      if(!r.ok){const g=gagalCatat(hp,false);if(window.__bioTry){window.__bioTry=0;bioClear();toast('PIN berubah, biometrik dimatikan. Masuk dengan PIN lalu aktifkan lagi.');try{rerender()}catch(e){}return}toast(g&&g.until?'Terlalu banyak percobaan. Dikunci 5 menit.':'Nomor HP atau PIN tidak cocok.');return}
+      gagalCatat(hp,true);keep(mk(r.j));await enter();bioOffer(hp,pn);window.__bioTry=0;return;
     }
     const pre=k==='akawal'?'aw':'rg',n=v(pre+'-n').trim();
     if(n.length<3){toast('Isi nama lengkap.');return}
@@ -1435,12 +1704,11 @@ async function prgMuat(cb){
 }
 const prReal=p=>(+p.real||0)+(PDN.by[p.id]||0);
 const akDana=a=>sum(TX.filter(t=>t.ref===a.n&&t.j==='masuk'&&t.kat==='Dana Pembangunan Aset'&&!/Menunggu|Ditolak/.test(t.st)),t=>t.n)+(PDN.by[a.id]||0);
-const akSuara=a=>{const v=Object.values(a.suara||{});return{s:v.filter(x=>x==='setuju').length,t:v.filter(x=>x==='tolak').length,a:v.filter(x=>x==='abstain').length}};
-const akChip=a=>a.batal?'<span class="chip bad">Ditolak</span>':'<span class="chip'+(a.tahap>=5?'':' gold')+'">'+TAHAP[a.tahap][0]+'</span>';
+const akChip=a=>a.batal?'<span class="chip bad">Ditolak</span>':'<span class="chip'+(a.tahap>=2?'':' gold')+'">'+TAHAP[a.tahap][0]+'</span>';
 const tahapTxt=i=>'<b>'+TAHAP[i][0]+'</b> \u00b7 '+TAHAP[i][2]+'<br>'+TAHAP[i][1];
 function stepper(a){
   return '<div class="stp" role="list">'+TAHAP.map((t,i)=>{
-    const st=a.batal&&i===a.tahap?'x':(i<a.tahap||a.tahap===5?'d':(i===a.tahap?'c':'f'));
+    const st=a.batal&&i===a.tahap?'x':(i<a.tahap||a.tahap===2?'d':(i===a.tahap?'c':'f'));
     return '<button type="button" role="listitem" class="stn '+st+(i===a.tahap?' sel':'')+'" data-act="tahapInfo" data-v="'+i+'" aria-label="Tahap '+(i+1)+': '+t[0]+'"><i>'+(st==='d'?'\u2713':st==='x'?'\u2715':i+1)+'</i><span>'+t[0]+'</span></button>';
   }).join('')+'</div><div id="tahap-info" class="note" aria-live="polite">'+tahapTxt(a.tahap)+'</div>';
 }
@@ -1450,37 +1718,27 @@ function ring(n,m){
 }
 function akuiDetail(id){
   const a=AKI(id);if(!a)return head('Usulan tidak ditemukan','');
-  const pg=isP(),dw=S.role==='dewan',me=akMe(),open=!a.batal&&a.tahap<5;
-  const nOk=a.cek.filter(Boolean).length,sv=akSuara(a),n=aktif().length,tot=sv.s+sv.t+sv.a,need=Math.ceil(n*KUORUM);
-  const pct=x=>n?Math.min(100,x/n*100):0,sah=sv.s+sv.t,ratio=sah?sv.s/sah:0;
+  const pg=isP(),open=!a.batal&&a.tahap<2;
+  const nOk=a.cek.filter(Boolean).length;
   const dana=akDana(a),dp=Math.min(100,Math.round(dana/a.harga*100));
   let h='<h2 style="margin:0 0 4px;font-size:20px">'+esc(a.n)+'</h2><div class="row" style="margin-bottom:6px">'+akChip(a)+'<span class="muted" style="font-size:13px">'+esc(a.j)+' \u00b7 '+esc(a.lok)+' \u00b7 Taksiran '+rp(a.harga)+'</span></div>'+
   '<p class="muted" style="font-size:13px;margin:0 0 6px">Diusulkan oleh '+esc(a.olehN)+' pada '+tgl(a.tgl)+'</p>'+
   '<div class="item"><span class="muted" style="font-size:12px">Alasan</span>'+esc(a.alasan)+'<span class="muted" style="font-size:12px;margin-top:6px">Rencana pengelolaan dan perawatan</span>'+esc(a.rencana)+'</div>'+
   (a.batal?'<div class="note" style="margin-top:8px"><b>Ditolak:</b> '+esc(a.batal)+'</div>':'')+stepper(a);
-  if(a.tahap>=1){
-    h+='<section class="sec"><h2 style="font-size:18px;margin-bottom:8px">Syarat kehati-hatian</h2><div class="row" style="align-items:center;gap:14px">'+ring(nOk,SYARAT.length)+'<span class="muted" style="font-size:13px">'+(pg&&a.tahap===1&&open?'Ketuk untuk menandai syarat yang sudah diperiksa.':nOk===SYARAT.length?'Semua syarat terpenuhi.':'Belum semua syarat terpenuhi.')+'</span></div><div class="list" style="margin-top:8px">'+
-    a.cek.map((c,i)=>{const lab='<span aria-hidden="true">'+(c?'\u2713':'\u25cb')+'</span> '+SYARAT[i];return (pg&&a.tahap===1&&open)?'<button type="button" class="item" role="checkbox" aria-checked="'+c+'" style="text-align:left;width:100%;cursor:pointer;font:inherit;color:inherit" data-act="akCek" data-v="'+id+'|'+i+'">'+lab+'</button>':'<div class="item">'+lab+'</div>'}).join('')+'</div></section>';
+  {
+    h+='<section class="sec"><h2 style="font-size:18px;margin-bottom:8px">Syarat kehati-hatian</h2><div class="row" style="align-items:center;gap:14px">'+ring(nOk,SYARAT.length)+'<span class="muted" style="font-size:13px">'+(pg&&a.tahap===0&&open?'Ketuk untuk menandai syarat yang sudah diperiksa.':nOk===SYARAT.length?'Semua syarat terpenuhi.':'Belum semua syarat terpenuhi.')+'</span></div><div class="list" style="margin-top:8px">'+
+    a.cek.map((c,i)=>{const lab='<span aria-hidden="true">'+(c?'\u2713':'\u25cb')+'</span> '+SYARAT[i];return (pg&&a.tahap===0&&open)?'<button type="button" class="item" role="checkbox" aria-checked="'+c+'" style="text-align:left;width:100%;cursor:pointer;font:inherit;color:inherit" data-act="akCek" data-v="'+id+'|'+i+'">'+lab+'</button>':'<div class="item">'+lab+'</div>'}).join('')+'</div></section>';
   }
-  if(a.tahap>=2){
-    h+='<section class="sec"><h2 style="font-size:18px;margin-bottom:8px">Voting partisipan</h2>'+(n?'<div style="position:relative;padding:4px 0"><div class="mtr" role="img" aria-label="Setuju '+sv.s+', tolak '+sv.t+', abstain '+sv.a+' dari '+n+' partisipan aktif"><i class="s" style="width:'+pct(sv.s)+'%"></i><i class="t" style="width:'+pct(sv.t)+'%"></i><i class="a" style="width:'+pct(sv.a)+'%"></i></div><span class="mk" style="left:'+KUORUM*100+'%" title="Batas kuorum"></span></div>':kosong('Belum ada partisipan aktif.'))+
-    '<p class="muted" style="font-size:13px;margin-top:6px">Setuju '+sv.s+' \u00b7 Tolak '+sv.t+' \u00b7 Abstain '+sv.a+'. Kuorum: '+tot+' dari minimal '+need+' suara (garis pada bar). Setuju: '+Math.round(ratio*100)+'% dari suara sah, perlu minimal '+AMBANG*100+'%.</p>'+
-    (me&&a.tahap===2&&open?'<div class="seg" role="group" aria-label="Suara Anda">'+[['setuju','Setuju'],['tolak','Tolak'],['abstain','Abstain']].map(c=>'<button aria-pressed="'+((a.suara||{})[me.id]===c[0])+'" data-act="akVote" data-v="'+id+'|'+c[0]+'">'+c[1]+'</button>').join('')+'</div><p class="muted" style="font-size:12px">Suara bisa diubah selama voting belum ditutup.</p>':'')+'</section>';
-  }
-  if(a.tahap>=3&&!a.batal||a.tahap>=4)h+='<section class="sec"><h2 style="font-size:18px;margin-bottom:8px">Dewan Pengarah</h2><div class="item">'+(a.tahap>=4?'Disetujui Dewan Pengarah.':'Menunggu tinjauan Dewan Pengarah.')+'</div></section>';
-  if(a.tahap>=4&&!a.batal||a.tahap===5)h+='<section class="sec" data-pdn="'+esc(a.id)+'"><h2 style="font-size:18px;margin-bottom:8px">Pendanaan</h2>'+bar(dp,'gold')+'<p class="muted" style="font-size:13px;margin-top:6px">'+rp(dana)+' dari '+rp(a.harga)+' ('+dp+'%).</p><div class="note" style="margin-top:10px">Pendanaan dilakukan di Koperasi Renco lewat RencoPay. Gunakan kode usulan <b>'+esc(a.id)+'</b> saat membayar. '+(pdnOn()?(PDN.ok===false?'Belum bisa membaca data RencoPay. Coba buka ulang beberapa saat lagi.':PDN.ok?'Total dibaca otomatis dari RencoPay.':'Memuat data RencoPay.'):'Sambungan ke RencoPay belum diatur. Total saat ini hanya dari transaksi yang dicatat bendahara.')+'</div></section>';pdnMuat(a);
+  if(a.tahap>=1&&!a.batal||a.tahap===2)h+='<section class="sec" data-pdn="'+esc(a.id)+'"><h2 style="font-size:18px;margin-bottom:8px">Pendanaan</h2>'+bar(dp,'gold')+'<p class="muted" style="font-size:13px;margin-top:6px">'+rp(dana)+' dari '+rp(a.harga)+' ('+dp+'%).</p><div class="note" style="margin-top:10px">Pendanaan dilakukan di Koperasi Renco lewat RencoPay. Gunakan kode usulan <b>'+esc(a.id)+'</b> saat membayar. '+(pdnOn()?(PDN.ok===false?'Belum bisa membaca data RencoPay. Coba buka ulang beberapa saat lagi.':PDN.ok?'Total dibaca otomatis dari RencoPay.':'Memuat data RencoPay.'):'Sambungan ke RencoPay belum diatur. Total saat ini hanya dari transaksi yang dicatat bendahara.')+'</div></section>';pdnMuat(a);
   const B=[];
   if(open&&pg){
-    if(a.tahap===0)B.push('<button class="btn btn-green" data-act="akNext" data-v="'+id+'">Mulai verifikasi</button>');
-    if(a.tahap===1)B.push('<button class="btn btn-green" data-act="akNext" data-v="'+id+'"'+(nOk<SYARAT.length?' disabled':'')+'>Lanjut ke voting</button>');
-    if(a.tahap===2)B.push('<button class="btn btn-green" data-act="akNext" data-v="'+id+'">Tutup voting dan hitung</button>');
-    if(a.tahap===4)B.push('<button class="btn btn-green" data-act="akNext" data-v="'+id+'"'+(dana<a.harga?' disabled':'')+'>Catat sebagai aset</button>');
+    if(a.tahap===0)B.push('<button class="btn btn-green" data-act="akNext" data-v="'+id+'"'+(nOk<SYARAT.length?' disabled':'')+'>Setujui usulan</button>');
+    if(a.tahap===1)B.push('<button class="btn btn-green" data-act="akNext" data-v="'+id+'"'+(dana<a.harga?' disabled':'')+'>Catat sebagai aset</button>');
+    B.push('<button class="btn btn-line" data-act="akTolak" data-v="'+id+'">Tolak usulan</button>');
   }
-  if(open&&dw&&a.tahap===3)B.push('<button class="btn btn-green" data-act="akDewan" data-v="'+id+'">Setujui</button>');
-  if(open&&((pg&&a.tahap<=4)||(dw&&a.tahap===3)))B.push('<button class="btn btn-line" data-act="akTolak" data-v="'+id+'">Tolak usulan</button>');
-  if(open&&ME&&ME.id===a.oleh&&S.role==='partisipan'&&a.tahap<=1)B.push('<button class="btn btn-line" data-act="akTarik" data-v="'+id+'">Tarik usulan</button>');
-  if(open&&pg&&a.tahap===1&&nOk<SYARAT.length)h+='<p class="muted" style="font-size:12px">Lengkapi semua syarat sebelum melanjutkan ke voting.</p>';
-  if(open&&pg&&a.tahap===4&&dana<a.harga)h+='<p class="muted" style="font-size:12px">Pencatatan sebagai aset menunggu dana mencukupi.</p>';
+  if(open&&ME&&ME.id===a.oleh&&S.role==='partisipan'&&a.tahap===0)B.push('<button class="btn btn-line" data-act="akTarik" data-v="'+id+'">Tarik usulan</button>');
+  if(open&&pg&&a.tahap===0&&nOk<SYARAT.length)h+='<p class="muted" style="font-size:12px">Lengkapi semua syarat sebelum menyetujui usulan.</p>';
+  if(open&&pg&&a.tahap===1&&dana<a.harga)h+='<p class="muted" style="font-size:12px">Pencatatan sebagai aset menunggu dana mencukupi.</p>';
   return h+'<div class="row" style="margin-top:14px">'+B.join('')+'<button class="btn btn-line" data-act="closeSheet">Tutup</button></div>';
 }
 function tUsulan(tabs){
@@ -1489,7 +1747,7 @@ function tUsulan(tabs){
   const list=AKUI.filter(a=>ft===undefined?true:ft==='x'?a.batal:(!a.batal&&a.tahap===+ft));
   const rows=TAHAP.map((t,i)=>[String(i),t[0],cnt[i]]).concat([['x','Ditolak',nb]]);
   const me=akMe();
-  return '<h1>Aset Bersama</h1><p class="lead">'+AKUI.length+' usulan akuisisi. Aset baru tidak ditambahkan langsung, tetapi melewati verifikasi, voting, dan persetujuan.</p>'+tabs+
+  return '<h1>Aset Bersama</h1><p class="lead">'+AKUI.length+' usulan akuisisi. Aset baru tidak ditambahkan langsung, tetapi diperiksa dan disetujui admin atau pengurus dulu.</p>'+tabs+
   (S.role==='partisipan'?(!MP()?'<div class="note" style="margin-bottom:12px">'+pasarMsg()+' Usulan yang sudah berjalan tetap diproses.</div>':me?'<div class="row" style="margin-bottom:12px"><button class="btn btn-green btn-sm" data-act="formAkui">Usulkan akuisisi aset</button></div>':'<div class="note" style="margin-bottom:12px">Hanya partisipan berstatus aktif yang dapat mengusulkan dan memberi suara.</div>'):'')+
   '<section class="sec"><h2 style="font-size:18px;margin-bottom:8px">Alur usulan</h2><div class="list">'+rows.map(r=>'<button type="button" class="fnr" aria-pressed="'+(ft===r[0])+'" data-act="akTahap" data-v="'+r[0]+'"><span>'+r[1]+'</span><span class="bar'+(r[0]==='x'?' gold':'')+'"><i style="width:'+(r[2]/mx*100)+'%"></i></span><b>'+r[2]+'</b></button>').join('')+'</div><p class="muted" style="font-size:12px;margin-top:6px">Ketuk tahap untuk menyaring daftar. Ketuk lagi untuk menampilkan semua.</p></section>'+
   '<div class="list">'+(list.length?list.map(a=>'<button type="button" class="item" style="text-align:left;width:100%;cursor:pointer;font:inherit;color:inherit" data-act="akBuka" data-v="'+esc(a.id)+'" aria-label="Buka usulan '+esc(a.n)+'"><div class="t"><b>'+esc(a.n)+'</b>'+akChip(a)+'</div></button>').join(''):kosong('Belum ada usulan.'))+'</div>';
@@ -1512,11 +1770,11 @@ function kalender(){
   return '<section class="sec"><h2 style="font-size:18px;margin-bottom:8px">Kalender tahunan</h2><div class="cal" role="group" aria-label="Pilih bulan">'+BLNS.map((b,i)=>'<button type="button" class="'+(i===m?'now ':'')+(i===11?'bagi ':'')+(i===0?'pasar ':'')+(i===m?'sel':'')+'" data-act="bulanInfo" data-v="'+i+'" aria-label="'+BLN[i]+(i===11?', pembagian keuntungan':i===0?', pasar akuisisi dan pengalihan':'')+'"><span>'+b+'</span>'+(i===11?'<i>Bagi</i>':i===0?'<i>Pasar</i>':'')+'</button>').join('')+'</div><div id="cal-info" class="note" aria-live="polite">'+calTxt(m)+'</div></section>';
 }
 const ALOK=[['Dana Abadi','#1386B3'],['Pemeliharaan aset','#19A69E'],['Manfaat partisipan','var(--green)'],['Dana sosial','var(--gold)']];
-let ALOKS=[30,20,40,10];
+let ALOKS=[30,20,40,10],ALOKET='';
 const labaAset=y=>ASET.map(a=>{const t=TX.filter(x=>x.ref===a.n&&!/Menunggu|Ditolak/.test(x.st)&&new Date(x.d).getFullYear()===y);return{a,l:sum(t.filter(x=>x.j==='masuk'),x=>x.n)-sum(t.filter(x=>x.j==='keluar'),x=>x.n)}});
 const labaTotal=y=>Math.max(0,sum(labaAset(y),r=>r.l));
 const bagiPos=(laba,al)=>al.map(v=>Math.floor(laba*v/100));
-function bagiShares(laba,al){const pa=aktif(),tp=sum(pa,p=>p.poin||0),man=bagiPos(laba,al)[2];return pa.map(p=>({id:p.id,nama:p.nama,n:Math.floor(tp>0?man*(p.poin||0)/tp:man/Math.max(1,pa.length))}))}
+function bagiShares(laba,al){const pa=aktif(),tp=sum(pa,p=>p.dana||0),man=bagiPos(laba,al)[2];return pa.map(p=>({id:p.id,nama:p.nama,n:Math.floor(tp>0?man*(p.dana||0)/tp:man/Math.max(1,pa.length))}))}
 function donut(al){
   const c=2*Math.PI*26;let off=0;
   return '<svg viewBox="0 0 64 64" width="120" height="120" role="img" aria-label="Alokasi: '+ALOK.map((x,i)=>x[0]+' '+al[i]+'%').join(', ')+'"><circle cx="32" cy="32" r="26" fill="none" stroke="var(--line)" stroke-width="9"/>'+al.map((v,i)=>{const d=c*v/100,o='<circle cx="32" cy="32" r="26" fill="none" stroke="'+ALOK[i][1]+'" stroke-width="9" stroke-dasharray="'+d+' '+(c-d)+'" stroke-dashoffset="'+(-off)+'" transform="rotate(-90 32 32)"/>';off+=d;return o}).join('')+'</svg>';
@@ -1538,14 +1796,15 @@ function tBagi(tabs){
   let h='<h1>Aset Bersama</h1><p class="lead">Keuntungan Aset Bersama dibagikan setiap Desember. Tahun berjalan: '+y+'.</p>'+tabs+
   (MB()?'':'<div class="note" style="margin-bottom:12px">Pembagian dibuka Desember ('+hariKe(11)+' hari lagi). Simulasi di bawah hanya gambaran, belum keputusan.</div>')+
   '<section class="sec"><h2 style="font-size:18px;margin-bottom:8px">Keuntungan per aset ('+y+')</h2><div class="list">'+(rows.length?rows.map(r=>'<div class="item"><div class="t"><b>'+esc(r.a.n)+'</b><b class="num">'+rp(r.l)+'</b></div>'+bar(Math.abs(r.l)/mx*100,r.l<0?'gold':'')+'</div>').join(''):kosong('Belum ada aset.'))+'</div><p class="muted" style="font-size:12px;margin-top:6px">Selisih transaksi masuk dan keluar yang sudah diverifikasi, dengan acuan nama aset. Total bersih: '+rp(laba)+'.</p></section>'+
-  '<section class="sec"><h2 style="font-size:18px;margin-bottom:8px">Simulasi alokasi</h2><p class="muted" style="font-size:13px;margin:0 0 4px">Geser salah satu untuk mengatur ulang. Total selalu 100%. Angka awal hanya contoh, tetapkan sesuai musyawarah.</p>'+
-  ALOK.map((x,i)=>'<label class="sld"><span><em style="font-style:normal">'+x[0]+'</em><b id="al-v-'+i+'">'+ALOKS[i]+'%</b></span><input type="range" id="al-'+i+'" min="0" max="100" step="5" value="'+ALOKS[i]+'" data-slide="'+i+'"></label>').join('')+
+  '<section class="sec"><h2 style="font-size:18px;margin-bottom:8px">Simulasi alokasi</h2><p class="muted" style="font-size:13px;margin:0 0 4px">'+(S.role==='admin'?'Geser salah satu untuk mengatur ulang. Total selalu 100%. Angka awal hanya contoh, tetapkan sesuai musyawarah.':'Alokasi diatur oleh admin sesuai keputusan bersama. Anda dapat melihat angkanya di sini.')+'</p>'+
+  ALOK.map((x,i)=>'<label class="sld"><span><em style="font-style:normal">'+x[0]+'</em><b id="al-v-'+i+'">'+ALOKS[i]+'%</b></span><input type="range" id="al-'+i+'" min="0" max="100" step="5" value="'+ALOKS[i]+'" data-slide="'+i+'"'+(S.role==='admin'?'':' disabled')+'></label>').join('')+
+  (S.role==='admin'?'<div class="field" style="margin-top:12px"><label for="al-ket">Keterangan keputusan bersama</label><textarea id="al-ket" rows="3" placeholder="Contoh: Disepakati dalam musyawarah partisipan dan pengurus pada (tanggal). Minimal 10 karakter.">'+esc(ALOKET)+'</textarea></div>':(ALOKET.trim()?'<div class="note" style="margin-top:10px"><b>Keputusan bersama:</b> '+esc(ALOKET)+'</div>':''))+
   '<div id="bagi-viz">'+bagiViz(laba,ALOKS)+'</div>'+
-  (me?'<div class="note" style="margin-top:10px">Perkiraan bagian Anda dari simulasi: <b>'+rp((bagiShares(laba,ALOKS).find(x=>x.id===me.id)||{n:0}).n)+'</b> (sebanding poin partisipasi).</div>':'')+
-  (isP()?'<div class="row" style="margin-top:12px"><button class="btn btn-green" data-act="bagiAjukan"'+(!MB()||ada||laba<=0?' disabled':'')+'>Ajukan pembagian '+y+'</button></div>'+(!MB()?'<p class="muted" style="font-size:12px">Pengajuan hanya pada Desember.</p>':ada?'<p class="muted" style="font-size:12px">Pembagian tahun ini sudah diajukan.</p>':laba<=0?'<p class="muted" style="font-size:12px">Belum ada keuntungan untuk dibagikan.</p>':''):'')+'</section>'+
+  (me?'<div class="note" style="margin-top:10px">Perkiraan bagian Anda dari simulasi: <b>'+rp((bagiShares(laba,ALOKS).find(x=>x.id===me.id)||{n:0}).n)+'</b> (sebanding Dana Partisipasi, dari bagian Manfaat partisipan setelah alokasi pemeliharaan, dana abadi, dan dana sosial).</div>':'')+
+  (S.role==='admin'?'<div class="row" style="margin-top:12px"><button class="btn btn-green" data-act="bagiAjukan"'+(!MB()||ada||laba<=0?' disabled':'')+'>Ajukan pembagian '+y+'</button></div>'+(!MB()?'<p class="muted" style="font-size:12px">Pengajuan hanya pada Desember.</p>':ada?'<p class="muted" style="font-size:12px">Pembagian tahun ini sudah diajukan.</p>':laba<=0?'<p class="muted" style="font-size:12px">Belum ada keuntungan untuk dibagikan.</p>':''):'')+'</section>'+
   '<section class="sec"><h2 style="font-size:18px;margin-bottom:8px">Riwayat pembagian</h2><div class="list">'+(BAGI.length?BAGI.slice().reverse().map(b=>{
     const own=me&&(b.rinci||[]).find(x=>x.id===me.id),pos=bagiPos(b.laba,b.al);
-    return '<div class="item"><div class="t"><b>Tahun '+b.tahun+'</b>'+bhChip(b)+'</div><span class="muted" style="font-size:13px">Keuntungan '+rp(b.laba)+' \u00b7 '+ALOK.map((x,i)=>x[0]+' '+b.al[i]+'% ('+rp(pos[i])+')').join(' \u00b7 ')+'</span>'+(b.alasan?'<span class="muted" style="font-size:13px">Alasan: '+esc(b.alasan)+'</span>':'')+
+    return '<div class="item"><div class="t"><b>Tahun '+b.tahun+'</b>'+bhChip(b)+'</div><span class="muted" style="font-size:13px">Keuntungan '+rp(b.laba)+' \u00b7 '+ALOK.map((x,i)=>x[0]+' '+b.al[i]+'% ('+rp(pos[i])+')').join(' \u00b7 ')+'</span>'+(b.ket?'<span class="muted" style="font-size:13px">Keputusan bersama: '+esc(b.ket)+'</span>':'')+(b.alasan?'<span class="muted" style="font-size:13px">Alasan: '+esc(b.alasan)+'</span>':'')+
     (own?'<div class="note">Bagian Anda: <b>'+rp(own.n)+'</b></div>':'')+
     (staff&&b.rinci&&b.rinci.length?'<div class="tbl"><table><thead><tr><th>Partisipan</th><th class="r">Bagian</th></tr></thead><tbody>'+b.rinci.map(x=>'<tr><td>'+esc(x.nama)+'</td><td class="r num">'+rp(x.n)+'</td></tr>').join('')+'</tbody></table></div>':'')+
     '<div class="row">'+(dw&&b.st==='Diajukan'?'<button class="btn btn-green btn-sm" data-act="bagiSetuju" data-v="'+b.id+'">Setujui</button>':'')+(isP()&&b.st==='Disetujui'?'<button class="btn btn-green btn-sm" data-act="bagiBagikan" data-v="'+b.id+'"'+(MB()?'':' disabled')+'>Bagikan sekarang</button>':'')+((dw||isP())&&(b.st==='Diajukan'||b.st==='Disetujui')?'<button class="btn btn-line btn-sm" data-act="bagiTolak" data-v="'+b.id+'">Tolak</button>':'')+'</div></div>';
@@ -1584,9 +1843,9 @@ function pendingBlock(){
 function tDash0(){
   const t=totals(), r=S.role;
   if(r==='partisipan'){
-    if(!ME)return '<h1>Selamat datang</h1><p class="lead">Anda belum terdaftar sebagai partisipan. Daftar dulu untuk melihat kontribusi dan poin Anda.</p><section class="sec"><button class="btn btn-green" data-act="formGabung">Daftar sebagai partisipan</button></section>';
+    if(!ME)return '<h1>Selamat datang</h1><p class="lead">Anda belum terdaftar sebagai partisipan. Daftar dulu untuk melihat data partisipasi Anda.</p><section class="sec"><button class="btn btn-green" data-act="formGabung">Daftar sebagai partisipan</button></section>';
     return '<h1>Selamat datang, '+esc(ME.nama.split(' ')[0])+'</h1><p class="lead">Terima kasih sudah ikut membangun Aset Bersama.</p>'+
-    '<div class="stats">'+stat('Dana Partisipasi',rp(ME.dana))+stat('Tenaga',ME.jam+' jam')+stat('Keterampilan',esc(ME.skill))+stat('Poin Partisipasi',ME.poin+' poin')+'</div>'+
+    '<div class="stats">'+stat('Dana Partisipasi',rpc(ME.dana))+'</div>'+
     '<section class="sec"><h2>Aset Anda</h2><div class="list">'+(ASETV().length?'':kosong('Belum ada aset yang terkait dengan Anda.'))+ASETV().slice(0,2).map(a=>'<div class="item"><div class="t"><b>'+a.n+'</b>'+stChip(a.st)+'</div>'+bar(a.prog)+'<span class="muted" style="font-size:13px">Progres '+a.prog+'%</span></div>').join('')+'</div></section>'+
     '<section class="sec"><h2>Kegiatan mendatang</h2>'+eventsList()+'</section>'+
     '<section class="sec"><h2>Notifikasi</h2><div class="list">'+(INFO.length?'':kosong('Belum ada pengumuman.'))+INFO.slice(0,2).map(i=>'<div class="item"><b>'+esc(i.t)+'</b><span class="muted" style="font-size:13px">'+tgl(i.d)+'</span></div>').join('')+'</div></section>';
@@ -1595,13 +1854,13 @@ function tDash0(){
     if(!LAHAN.length)return '<h1>Selamat datang</h1><p class="lead">Belum ada aset kelola yang terdaftar. Ajukan aset Anda untuk dikelola.</p><section class="sec"><button class="btn btn-green" data-act="formLahan">Ajukan aset</button></section>';
     const l=LAHAN[0], hari=Math.round((new Date(l.akhir)-TODAY)/864e5);
     return '<h1>Selamat datang, '+esc(l.pemilik)+'</h1><p class="lead">Aset Anda tetap menjadi milik Anda. Di sini Anda memantau pengelolaan dan hasilnya.</p>'+
-    '<div class="stats">'+stat('Aset diserahkan','1 aset')+stat('Luas',l.luas.toLocaleString('id-ID')+' m²')+stat('Skema',esc(l.skema))+stat('Hasil tercatat',rp(l.masuk))+'</div>'+
+    '<div class="stats">'+stat('Aset diserahkan','1 aset')+stat('Luas',l.luas.toLocaleString('id-ID')+' m²')+stat('Skema',esc(l.skema))+stat('Hasil tercatat',rpc(l.masuk))+'</div>'+
     '<section class="sec"><h2>Status aset</h2><div class="item"><div class="t"><b>'+esc(l.lok)+'</b>'+stChip(l.st)+'</div><div class="kv"><div><span>Pembagian hasil</span>'+esc(l.persen)+'</div><div><span>Perjanjian berakhir</span>'+(l.akhir?tgl(l.akhir)+' ('+hari+' hari lagi)':'Belum ditetapkan')+'</div></div></div></section>'+
     '<section class="sec"><button class="btn btn-green" data-act="formLahan">Ajukan aset lain</button></section>';
   }
   const n=aktif().length;
   return '<h1>Beranda</h1><p class="lead">'+esc(roleName())+' · '+bulanIni()+'</p>'+
-  '<div class="stats">'+stat('Partisipan aktif',n+' / 100')+stat('Total Dana Partisipasi',rp(sum(P,p=>p.dana)))+stat('Dana Abadi',rp(t.abadi))+stat('Pemasukan bulan ini',rp(t.masuk))+'</div>'+
+  '<div class="stats">'+stat('Partisipan aktif',n+' / 100')+stat('Total Dana Partisipasi',rpc(sum(P,p=>p.dana)))+stat('Dana Abadi',rpc(t.abadi))+stat('Pemasukan bulan ini',rpc(t.masuk))+'</div>'+
   '<section class="sec"><h2>Pemasukan dan pengeluaran</h2><div class="card">'+monthChart()+'</div></section>'+
   pendingBlock()+
   '<section class="sec"><h2>Proyek berjalan</h2><div class="list">'+(PROYEK.length?'':kosong('Belum ada proyek.'))+PROYEK.map(p=>'<div class="item"><div class="t"><b>'+esc(p.n)+'</b><span class="chip">'+p.prog+'%</span></div>'+bar(p.prog)+'</div>').join('')+'</div></section>'+
@@ -1612,23 +1871,23 @@ function tDash0(){
 /* ---------- partisipan ---------- */
 function tPartisipan0(){
   if(S.role==='partisipan'){
-    if(!ME)return '<h1>Profil dan kontribusi</h1><p class="lead">Anda belum terdaftar sebagai partisipan.</p><section class="sec"><button class="btn btn-green" data-act="formGabung">Daftar sebagai partisipan</button></section>';
-    return '<h1>Profil dan kontribusi</h1><p class="lead">Data Anda hanya terlihat oleh Anda dan pengurus.</p>'+
-    '<div class="item"><div class="t"><b>'+esc(ME.nama)+'</b>'+stChip(ME.status)+'</div><div class="kv"><div><span>Nomor partisipan</span>'+ME.id+'</div><div><span>Nomor HP</span>'+hpChip(ME,1)+'</div><div><span>Domisili</span>'+esc(ME.dom)+'</div><div><span>Keahlian</span>'+esc(ME.skill)+'</div><div><span>Koperasi Renco</span>'+esc(ME.kop)+'</div><div><span>Dana Partisipasi</span>'+rp(ME.dana)+'</div><div><span>Tenaga</span>'+ME.jam+' jam</div><div><span>Poin Partisipasi</span>'+ME.poin+'</div><div><span>Ahli waris</span>'+(ME.waris?esc(ME.waris.n)+' ('+esc(ME.waris.r)+')':'Belum diisi')+'</div><div><span>Rekening penerima manfaat</span>'+(ME.rek?esc(ME.rek.b)+' '+maskRek(ME.rek.n):'Belum didaftarkan')+'</div></div><div class="row" style="margin-top:12px"><button class="btn btn-line btn-sm" data-act="formProfil">Lengkapi profil</button><button class="btn btn-line btn-sm" data-act="formRek">'+(ME.rek?'Ubah rekening':'Daftarkan rekening')+'</button><button class="btn btn-line btn-sm" data-act="formWaris">'+(ME.waris?'Ubah ahli waris':'Isi ahli waris')+'</button></div></div>'+
-    '<div class="note ok" style="margin-top:12px">Poin dihitung dari aturan awal: 1 poin per Rp20.000 dana, 2 poin per jam tenaga, 11 poin per tugas keterampilan. Aturan resmi ditetapkan pengurus.</div>'+
+    if(!ME)return '<h1>Profil partisipan</h1><p class="lead">Anda belum terdaftar sebagai partisipan.</p><section class="sec"><button class="btn btn-green" data-act="formGabung">Daftar sebagai partisipan</button></section>';
+    return '<h1>Profil partisipan</h1><p class="lead">Data Anda hanya terlihat oleh Anda dan pengurus.</p>'+
+    '<div class="item"><div class="t"><b>'+esc(ME.nama)+'</b>'+stChip(ME.status)+'</div><div class="kv"><div><span>Nomor partisipan</span>'+ME.id+'</div><div><span>Nomor HP</span>'+hpChip(ME,1)+'</div><div><span>Domisili</span>'+esc(ME.dom)+'</div><div><span>Koperasi Renco</span>'+esc(ME.kop)+'</div><div><span>Dana Partisipasi</span>'+rp(ME.dana)+'</div><div><span>Ahli waris</span>'+(ME.waris?esc(ME.waris.n)+' ('+esc(ME.waris.r)+')':'Belum diisi')+'</div><div><span>Rekening penerima manfaat</span>'+(ME.rek?esc(ME.rek.b)+' '+maskRek(ME.rek.n):'Belum didaftarkan')+'</div></div><div class="row" style="margin-top:12px"><button class="btn btn-line btn-sm" data-act="formProfil">Lengkapi profil</button><button class="btn btn-line btn-sm" data-act="formRek">'+(ME.rek?'Ubah rekening':'Daftarkan rekening')+'</button><button class="btn btn-line btn-sm" data-act="formWaris">'+(ME.waris?'Ubah ahli waris':'Isi ahli waris')+'</button></div></div>'+
+    '<div class="note ok" style="margin-top:12px">Manfaat dibagi sebanding Dana Partisipasi, dari bagian Manfaat partisipan setelah dikurangi alokasi pemeliharaan atau operasional, dana abadi, dan dana sosial. Aturan resmi ditetapkan pengurus.</div>'+
     '<section class="sec"><h2>Manfaat Partisipasi</h2><div class="list">'+(BEN.length?'':kosong('Belum ada manfaat yang dibagikan.'))+BEN.map(b=>'<div class="item"><div class="t"><b>'+b.per+'</b>'+stChip(b.st)+'</div><span class="muted" style="font-size:13px">'+b.n+'</span></div>').join('')+'</div>'+
     '<p class="muted" style="font-size:13px;margin-top:8px">Manfaat dibagikan berdasarkan peraturan yang disetujui pengurus dan besarnya tidak tetap.</p></section>'+
     '<section class="sec"><h2>Sertifikat partisipasi</h2><div class="row"><button class="btn btn-line" data-act="sertifikat">Lihat sertifikat partisipasi</button></div></section>'+alihView();
   }
   const f=S.filter, q=(f.q||'').toLowerCase(), st=f.st||'Semua';
-  const list=P.filter(p=>(st==='Semua'||p.status===st)&&(!q||(p.nama+p.skill+p.dom).toLowerCase().includes(q)));
+  const list=P.filter(p=>(st==='Semua'||p.status===st)&&(!q||(p.nama+p.dom).toLowerCase().includes(q))).sort((a,b)=>((b.status==='Calon')-(a.status==='Calon'))||((b._t||0)-(a._t||0)));
   const shown=f.all?list:list.slice(0,12);
   return '<h1>Partisipan</h1><p class="lead">'+aktif().length+' aktif dari target 100 pemuda. '+P.filter(p=>p.status==='Calon').length+' calon menunggu keputusan.</p>'+
-  '<div class="row" style="margin-bottom:12px"><button class="btn btn-green btn-sm" data-act="formGabung">Daftarkan partisipan</button><button class="btn btn-line btn-sm" data-act="formAlih">Pengalihan partisipasi</button>'+(S.role==='admin'?'<button class="btn btn-green btn-sm" data-act="akUndang">Undang partisipan</button><button class="btn btn-line btn-sm" data-act="akKelola">Akun dan peran</button>':'')+'</div>'+
-  '<div class="two"><div class="field"><label for="q">Cari nama, keahlian, atau domisili</label><input id="q" type="search" value="'+esc(f.q||'')+'" data-change="q"></div>'+
+  '<div class="row" style="margin-bottom:12px"><button class="btn btn-green btn-sm" data-act="formGabung">Daftarkan partisipan</button><button class="btn btn-line btn-sm" data-act="formAlih">Pengalihan partisipasi</button><button class="btn btn-line btn-sm" data-act="muatUlang">Muat ulang data</button>'+(S.role==='admin'?'<button class="btn btn-green btn-sm" data-act="akUndang">Undang partisipan</button><button class="btn btn-line btn-sm" data-act="akKelola">Akun dan peran</button>':'')+'</div>'+
+  '<div class="two"><div class="field"><label for="q">Cari nama atau domisili</label><input id="q" type="search" value="'+esc(f.q||'')+'" data-change="q"></div>'+
   '<div class="field"><label for="st">Status</label><select id="st" data-change="st">'+['Semua','Aktif','Calon','Ditolak','Nonaktif','Alumni'].map(o=>'<option'+(o===st?' selected':'')+'>'+o+'</option>').join('')+'</select></div></div>'+
-  '<div class="tbl"><table><thead><tr><th>No.</th><th>Nama</th><th>Status</th><th>Keahlian</th><th class="r">Dana</th><th class="r">Jam</th><th class="r">Poin</th><th></th></tr></thead><tbody>'+
-  shown.map(p=>'<tr><td>'+p.id+'</td><td>'+esc(p.nama)+hpChip(p)+'</td><td>'+stChip(p.status)+'</td><td>'+esc(p.skill)+'</td><td class="r num">'+rp(p.dana)+'</td><td class="r num">'+p.jam+'</td><td class="r num">'+p.poin+'</td><td>'+(p.status==='Calon'&&S.role==='pengurus'?'<button class="btn btn-green btn-sm" data-act="setujuP" data-v="'+p.id+'">Setujui</button> <button class="btn btn-line btn-sm" data-act="tolakP" data-v="'+p.id+'">Tolak</button> ':'')+(canManage('waris')?'<button class="btn btn-line btn-sm" data-act="formWaris" data-v="'+p.id+'">'+(p.waris?'Ahli waris':'Isi ahli waris')+'</button>':'')+'</td></tr>').join('')+(shown.length?'':'<tr><td colspan="8" class="muted">Belum ada partisipan.</td></tr>')+'</tbody></table></div>'+
+  '<div class="tbl"><table><thead><tr><th>No.</th><th>Nama</th><th>Status</th><th class="r">Dana</th><th></th></tr></thead><tbody>'+
+  shown.map(p=>'<tr><td>'+p.id+'</td><td>'+esc(p.nama)+hpChip(p)+'</td><td>'+stChip(p.status)+'</td><td class="r num">'+rp(p.dana)+'</td><td>'+(p.status==='Calon'&&S.role==='pengurus'?'<button class="btn btn-green btn-sm" data-act="setujuP" data-v="'+p.id+'">Setujui</button> <button class="btn btn-line btn-sm" data-act="tolakP" data-v="'+p.id+'">Tolak</button> ':'')+(canManage('waris')?'<button class="btn btn-line btn-sm" data-act="formWaris" data-v="'+p.id+'">'+(p.waris?'Ahli waris':'Isi ahli waris')+'</button>':'')+'</td></tr>').join('')+(shown.length?'':'<tr><td colspan="8" class="muted">Belum ada partisipan.</td></tr>')+'</tbody></table></div>'+
   '<p class="muted" style="font-size:13px;margin-top:8px">Menampilkan '+shown.length+' dari '+list.length+'. '+(list.length>12&&!f.all?'<button class="btn btn-line btn-sm" data-act="all">Tampilkan semua</button>':'')+'</p>';
 }
 
@@ -1656,7 +1915,7 @@ function asetDetail(id){
   const pr=PROYEK.filter(p=>p.aset===a.n);
   return '<h2 style="margin:0 0 4px;font-size:20px">'+esc(a.n)+'</h2><p class="muted" style="margin:0 0 14px;font-size:14px">Rincian dan laporan lengkap aset</p>'+
   assetCard(a,ok)+
-  '<section class="sec"><h2 style="font-size:19px;margin-bottom:10px">Laporan keuangan</h2><div class="stats">'+stat('Pemasukan',rp(masuk))+stat('Pengeluaran',rp(keluar))+stat('Selisih',rp(masuk-keluar))+stat('Nilai perolehan',rp(a.nilai))+'</div>'+
+  '<section class="sec"><h2 style="font-size:19px;margin-bottom:10px">Laporan keuangan</h2><div class="stats">'+stat('Pemasukan',rpc(masuk))+stat('Pengeluaran',rpc(keluar))+stat('Selisih',rpc(masuk-keluar))+stat('Nilai perolehan',rpc(a.nilai))+'</div>'+
   '<p class="muted" style="font-size:12px;margin-top:6px">Hanya transaksi yang sudah diverifikasi atau disetujui.</p></section>'+
   '<section class="sec"><h2 style="font-size:19px;margin-bottom:10px">Transaksi aset ini</h2>'+(tx.length?'<div class="tbl"><table><thead><tr><th>Tanggal</th><th>Jenis</th><th>Kategori</th><th class="r">Nominal</th><th>Keterangan</th><th>Status</th></tr></thead><tbody>'+tx.map(t=>'<tr><td>'+tgl(t.d)+'</td><td>'+(t.j==='masuk'?'<span class="chip">Masuk</span>':'<span class="chip gold">Keluar</span>')+'</td><td>'+esc(t.kat)+'</td><td class="r num">'+rp(t.n)+'</td><td style="white-space:normal;min-width:150px">'+esc(t.ket)+'</td><td>'+stChip(t.st)+'</td></tr>').join('')+'</tbody></table></div>':kosong('Belum ada transaksi untuk aset ini.'))+'</section>'+
   '<section class="sec"><h2 style="font-size:19px;margin-bottom:10px">Proyek terkait</h2><div class="list">'+(pr.length?pr.map(p=>'<div class="item"><div class="t"><b>'+esc(p.n)+'</b><span class="chip">'+p.prog+'%</span></div>'+bar(p.prog)+'<span class="muted" style="font-size:13px">'+rp(prReal(p))+' dari '+rp(p.target)+' \u00b7 Tim: '+esc(p.tim)+' \u00b7 Berikutnya: '+esc(p.next)+'</span></div>').join(''):kosong('Belum ada proyek untuk aset ini.'))+'</div></section>'+
@@ -1676,7 +1935,7 @@ function tLahan(){
 function lahanDetail(id){
   const l=lahanVis().find(x=>x.id===id);if(!l)return head('Aset tidak ditemukan','');
   const ok=DOCROLES.includes(S.role)||S.role==='pemilik',h=l.akhir?Math.round((new Date(l.akhir)-TODAY)/864e5):null;
-  return '<h2 style="margin:0 0 4px;font-size:20px">'+l.id+' \u00b7 '+esc(l.pemilik)+'</h2><p class="muted" style="margin:0 0 14px;font-size:14px">'+esc(l.lok)+'</p>'+
+  return '<h2 style="margin:0 0 4px;font-size:20px">'+l.id+' \u00b7 '+esc(l.pemilik)+'</h2><p class="muted" style="margin:0 0 14px;font-size:14px">'+esc(l.lok)+'</p>'+(l.lat!=null?'<p style="margin:-8px 0 14px;font-size:13px"><a href="https://www.openstreetmap.org/?mlat='+l.lat+'&mlon='+l.lng+'#map=18/'+l.lat+'/'+l.lng+'" target="_blank" rel="noopener">Lihat titik denah di peta</a></p>':'')+
   '<article class="item"><div class="t"><b>Status pengajuan</b>'+stChip(l.st)+'</div>'+
   '<div class="kv"><div><span>Luas</span>'+l.luas.toLocaleString('id-ID')+' m\u00b2</div><div><span>Jenis</span>'+esc(l.jenis||'Lahan')+'</div><div><span>Status kepemilikan</span>'+esc(l.tanah)+'</div><div><span>Potensi</span>'+esc(l.pot)+'</div><div><span>Skema</span>'+esc(l.skema)+'</div><div><span>Jangka waktu</span>'+l.tahun+' tahun</div><div><span>Pembagian</span>'+esc(l.persen)+'</div><div><span>Pendapatan aset</span>'+rp(l.masuk)+'</div></div>'+
   (h!==null&&h<=90?'<div class="note">Perjanjian berakhir '+tgl(l.akhir)+' ('+h+' hari lagi).</div>':'')+
@@ -1726,7 +1985,7 @@ function tProyek(){
   const tg=sum(PROYEK,p=>p.target),rl=sum(PROYEK,p=>prReal(p)),av=n?Math.round(sum(PROYEK,p=>p.prog)/n):0;
   return '<h1>Proyek dan Kegiatan</h1><p class="lead">Target dan progres.</p>'+
   (canManage('proyek')?'<div class="row" style="margin-bottom:12px"><button class="btn btn-green btn-sm" data-act="formProyek">Tambah proyek</button><button class="btn btn-line btn-sm" data-act="formKeg">Tambah kegiatan</button></div>':'')+
-  '<div class="stats prstats">'+stat('Total proyek',n)+stat('Rata-rata progres',av+'%')+stat('Target dana',rp(tg))+stat('Realisasi',rp(rl)+(tg?' ('+Math.min(100,Math.round(rl/tg*100))+'%)':''))+'</div>'+
+  '<div class="stats prstats">'+stat('Total proyek',n)+stat('Rata-rata progres',av+'%')+stat('Target dana',rpc(tg))+stat('Realisasi',rpc(rl)+(tg?' ('+Math.min(100,Math.round(rl/tg*100))+'%)':''))+'</div>'+
   '<div class="prtool"><div class="field" style="margin:0"><label for="pr-q" class="sr">Cari proyek</label><input id="pr-q" type="search" placeholder="Cari nama, aset, atau tim" value="'+esc(f.pq||'')+'" autocomplete="off"></div>'+
   '<div class="field" style="margin:0"><label for="pr-so" class="sr">Urutkan</label><select id="pr-so" data-change="pso">'+[['baru','Terbaru'],['progres','Progres tertinggi'],['dana','Pendanaan tertinggi'],['nama','Nama A-Z']].map(o=>'<option value="'+o[0]+'"'+(o[0]===so?' selected':'')+'>'+o[1]+'</option>').join('')+'</select></div></div>'+
   '<div class="seg" role="group" aria-label="Filter status">'+['Semua','Baru','Berjalan','Selesai'].map(k=>'<button type="button" aria-pressed="'+(k===st)+'" data-act="prFilter" data-v="'+k+'">'+k+' ('+cnt(k)+')</button>').join('')+'</div>'+
@@ -1758,7 +2017,7 @@ function tKeuangan(){
   const kats=['Dana Pembangunan Aset','Dana Operasional','Dana Pemeliharaan','Dana Sosial','Dana Lingkungan','Dana Abadi Aren Community','Dana Manfaat Partisipan'];
   const per=kats.map(k=>[k,sum(TX.filter(x=>x.kat===k&&x.j==='masuk'),x=>x.n),sum(TX.filter(x=>x.kat===k&&x.j==='keluar'),x=>x.n)]).filter(r=>r[1]||r[2]);
   return '<h1>Keuangan dan Transparansi</h1><p class="lead">Semua transaksi tercatat dengan bukti.</p>'+
-  '<div class="stats">'+stat('Pemasukan bulan ini',rp(t.masuk))+stat('Pengeluaran bulan ini',rp(t.keluar))+stat('Selisih',rp(t.masuk-t.keluar))+stat('Dana Abadi (terpisah)',rp(t.abadi))+'</div>'+
+  '<div class="stats">'+stat('Pemasukan bulan ini',rpc(t.masuk))+stat('Pengeluaran bulan ini',rpc(t.keluar))+stat('Selisih',rpc(t.masuk-t.keluar))+stat('Dana Abadi (terpisah)',rpc(t.abadi))+'</div>'+
   (staff?'<div class="row" style="margin:14px 0"><button class="btn btn-green btn-sm" data-act="formTx">Catat transaksi</button></div>':'')+
   '<section class="sec"><h2>Per kategori dana</h2><div class="tbl"><table><thead><tr><th>Kategori</th><th class="r">Masuk</th><th class="r">Keluar</th></tr></thead><tbody>'+per.map(r=>'<tr><td>'+r[0]+'</td><td class="r num">'+rp(r[1])+'</td><td class="r num">'+rp(r[2])+'</td></tr>').join('')+(per.length?'':'<tr><td colspan="3" class="muted">Belum ada transaksi.</td></tr>')+'</tbody></table></div></section>'+
   '<section class="sec"><h2>Daftar transaksi</h2>'+txTable(S.role!=='partisipan')+
@@ -1772,7 +2031,7 @@ function tAbadi(){
   const t=totals(), pct=Math.min(100,t.abadi/ABADI_TARGET*100);
   return '<h1>Dana Abadi Aren Community</h1><p class="lead">Dana pokok dijaga. Hanya hasil pengelolaan yang bisa dialokasikan.</p>'+
   '<div class="note"><b>Peringatan.</b> Dana Abadi tidak boleh digunakan untuk operasional harian dan tidak digabung dengan dana operasional.</div>'+
-  '<div class="stats" style="margin-top:12px">'+stat('Dana pokok',rp(t.pokok))+stat('Hasil pengelolaan',rp(t.hasil))+stat('Hasil sudah dialokasikan',rp(t.pakai))+stat('Sisa hasil tersedia',rp(t.sisaHasil))+'</div>'+
+  '<div class="stats" style="margin-top:12px">'+stat('Dana pokok',rpc(t.pokok))+stat('Hasil pengelolaan',rpc(t.hasil))+stat('Hasil sudah dialokasikan',rpc(t.pakai))+stat('Sisa hasil tersedia',rpc(t.sisaHasil))+'</div>'+
   '<section class="sec"><h2>Target pertumbuhan</h2><div class="card">'+bar(pct,'gold')+'<p class="muted" style="margin-top:8px;font-size:13px">'+rp(t.abadi)+' dari target '+rp(ABADI_TARGET)+' ('+pct.toFixed(1)+'%).</p></div></section>'+
   '<div class="row" style="margin-top:14px">'+
   (['pengurus','bendahara','admin'].includes(S.role)?'<button class="btn btn-line btn-sm" data-act="formPakai">Ajukan alokasi hasil</button>':'')+'</div>'+
@@ -1790,11 +2049,54 @@ function reportRows(){
    ['Lingkungan'],['Pohon ditanam',LING.pohon],['Sampah terpilah (kg)',LING.terpilah],['Sampah daur ulang (kg)',LING.daur],[],
    ['Sosial'],['Penerima manfaat',SOS.penerima],['Beasiswa',SOS.beasiswa],['Bantuan',SOS.bantuan],['UMKM diberdayakan',SOS.umkm]];
 }
+let PG={t:'ringkas',y:new Date().getFullYear()};
+const STRAT=[
+['Fase 1 · 0–12 bulan: Fondasi','Uji dengan 1–2 aset nyata di Renco sampai satu siklus bagi hasil (Desember). Telaah hukum koperasi dan wakaf produktif. Uji hak akses server untuk semua peran. Tetapkan SOP pemeriksaan 5 syarat, serta laporan bulanan yang dibaca pengurus dan partisipan.'],
+['Fase 2 · 1–3 tahun: Penguatan','Tambah menjadi 5–10 aset dengan perjanjian kerja sama baku. Bagi hasil rutin tiap Desember berdasarkan Dana Partisipasi. Bangun Dana Abadi untuk pemeliharaan dan program sosial. Latih pengurus, dan sambungkan pendanaan ke RencoPay secara penuh.'],
+['Fase 3 · 3–5 tahun: Replikasi','Siapkan paket dan panduan untuk desa atau komunitas lain, dengan data tiap komunitas terpisah. Terbitkan laporan transparansi publik tahunan. Jajaki kemitraan dengan lembaga syariah, pemerintah desa, dan lembaga wakaf.'],
+['Fase 4 · 5–20 tahun: Keberlanjutan menuju 2045','Dana Abadi menanggung pemeliharaan secara mandiri. Regenerasi pengurus terjadwal. Audit eksternal tahunan. Dampak ekonomi, lingkungan, dan sosial diukur dan dilaporkan konsisten.']];
+const TATA=['Pisahkan peran: admin mengatur alokasi dan pengajuan, bendahara mencatat, Dewan menyetujui pembagian hasil.','Setiap perubahan penting tercatat di audit trail dan ditinjau pengurus tiap bulan.','Tetapkan batas nilai: akuisisi atau transaksi besar perlu persetujuan tambahan (usul: Dewan).','Dokumen asli aset disimpan kustodian. Salinan digital hanya untuk peran berwenang.','Rotasi atau regenerasi pengurus dan admin minimal tiap periode kepengurusan.'];
+const RISIKO=[['Hukum dan regulasi','Telaah konsultan hukum sebelum dana dihimpun lebih luas.'],['Keamanan data pribadi','Uji hak akses (RLS), cadangan data, dan kebijakan akses berkala.'],['Kewenangan terpusat','Audit trail, batas nilai, dan laporan terbuka ke partisipan.'],['Pemeliharaan aset','Sisihkan dana pemeliharaan tetap dan jadwalkan inspeksi.'],['Ketergantungan pada satu pengembang','Dokumentasikan sistem dan siapkan pengembang cadangan.']];
+function progData(y){
+ const m=Array(12).fill(0),k=Array(12).fill(0),cnt=(a,f)=>{const o={};a.forEach(x=>{const v=f(x)||'-';o[v]=(o[v]||0)+1});return o};
+ TX.filter(x=>!/Menunggu|Ditolak/.test(x.st||'')&&new Date(x.d).getFullYear()===y).forEach(x=>{(x.j==='masuk'?m:k)[new Date(x.d).getMonth()]+=x.n});
+ return{m,k,masuk:sum(m,x=>x),keluar:sum(k,x=>x),laba:labaTotal(y),aset:ASET.length,nilai:sum(ASET,a=>a.nilai||0),asetSt:cnt(ASET,a=>a.st),
+  prog:PROYEK.length?Math.round(sum(PROYEK,p=>p.prog||0)/PROYEK.length):0,aktif:aktif().length,calon:P.filter(p=>p.status==='Calon').length,
+  dana:sum(P.filter(p=>p.status==='Aktif'),p=>p.dana||0),lahan:LAHAN.length,lahanSt:cnt(LAHAN,l=>l.st),
+  akui:[0,1,2].map(i=>AKUI.filter(a=>!a.batal&&a.tahap===i).length),akTolak:AKUI.filter(a=>a.batal).length};
+}
+function progChart(d){const mx=Math.max(1,...d.m,...d.k),bl='JFMAMJJASOND'.split('');
+ return '<svg viewBox="0 0 360 145" width="100%" role="img" aria-label="Pemasukan dan pengeluaran per bulan">'+d.m.map((v,i)=>{const x=10+i*29,a=v/mx*110,b=d.k[i]/mx*110;return '<rect x="'+x+'" y="'+(115-a)+'" width="11" height="'+a+'" rx="2" fill="var(--green)"/><rect x="'+(x+12)+'" y="'+(115-b)+'" width="11" height="'+b+'" rx="2" fill="var(--gold)"/><text x="'+(x+11)+'" y="133" text-anchor="middle" font-size="10" fill="currentColor">'+bl[i]+'</text>'}).join('')+'</svg><div class="muted" style="font-size:12px"><span style="color:var(--green)">\u25a0</span> Pemasukan \u00b7 <span style="color:var(--gold)">\u25a0</span> Pengeluaran</div>';}
+const chipList=o=>Object.keys(o).length?Object.keys(o).map(k=>'<span class="chip">'+esc(k)+': '+o[k]+'</span>').join(' '):'<span class="muted">Belum ada data.</span>';
+function progBody(t,d,pr){
+ const H=x=>'<h2 style="font-size:18px;margin:14px 0 8px">'+x+'</h2>';
+ if(t==='ringkas'){const NM=['Usulan','Pendanaan','Aset'],mx=Math.max(1,...d.akui);
+  return H('Ringkasan')+'<div class="stats">'+stat('Aset Bersama',d.aset)+stat('Nilai aset',rpc(d.nilai))+stat('Partisipan aktif',d.aktif+(d.calon?' (+'+d.calon+' calon)':''))+stat('Dana Partisipasi',rpc(d.dana))+stat('Progres proyek (rata-rata)',d.prog+'%')+stat('Aset kelola diajukan',d.lahan)+'</div>'+
+  H('Perjalanan akuisisi aset')+'<div class="list">'+d.akui.map((n,i)=>'<div class="item"><div class="t"><b>'+NM[i]+'</b><span class="chip">'+n+'</span></div>'+bar(Math.round(n/mx*100))+'</div>').join('')+'<div class="item"><div class="t"><b>Ditolak atau ditarik</b><span class="chip bad">'+d.akTolak+'</span></div></div></div>';}
+ if(t==='keuangan'){return H('Keuangan '+PG.y)+progChart(d)+'<div class="stats" style="margin-top:8px">'+stat('Pemasukan',rpc(d.masuk))+stat('Pengeluaran',rpc(d.keluar))+stat('Selisih',rpc(d.masuk-d.keluar))+stat('Keuntungan aset',rpc(d.laba))+'</div>'+
+  H('Alokasi keuntungan (simulasi saat ini)')+'<div class="list">'+ALOK.map((x,i)=>'<div class="item"><div class="t"><b>'+x[0]+'</b><span class="chip">'+ALOKS[i]+'%</span></div><span class="muted" style="font-size:13px">'+rp(bagiPos(d.laba,ALOKS)[i])+'</span></div>').join('')+'</div>';}
+ if(t==='aset'){return H('Aset Bersama')+'<div class="list">'+(ASET.length?ASET.map(a=>'<div class="item"><div class="t"><b>'+esc(a.n)+'</b><span class="chip">'+esc(a.st||'-')+'</span></div>'+bar(a.prog||0)+'<span class="muted" style="font-size:12px">'+(a.prog||0)+'% \u00b7 nilai '+rp(a.nilai||0)+'</span></div>').join(''):kosong('Belum ada aset.'))+'</div>'+
+  H('Proyek')+'<div class="list">'+(PROYEK.length?PROYEK.map(p=>'<div class="item"><div class="t"><b>'+esc(p.n)+'</b><span class="chip">'+(p.prog||0)+'%</span></div>'+bar(p.prog||0)+'</div>').join(''):kosong('Belum ada proyek.'))+'</div>'+
+  H('Aset kelola (milik warga)')+'<div class="item">'+chipList(d.lahanSt)+'</div>';}
+ const K=[['Aset Bersama tercatat',d.aset,10],['Partisipan aktif',d.aktif,100],['Aset kelola terdaftar',d.lahan,5],['Rata-rata progres proyek',d.prog,100]];
+ return H('Strategi pengelolaan dan pengembangan jangka panjang')+'<p class="muted" style="font-size:13px">Angka target hanya contoh awal. Tetapkan bersama lewat musyawarah.</p>'+
+  STRAT.map(s=>'<details'+(pr?' open':'')+' class="item"><summary><b>'+s[0]+'</b></summary><p style="margin:6px 0 0">'+s[1]+'</p></details>').join('')+
+  H('Target kemajuan (contoh)')+'<div class="list">'+K.map(x=>'<div class="item"><div class="t"><b>'+x[0]+'</b><span class="chip">'+x[1]+' / '+x[2]+'</span></div>'+bar(Math.min(100,Math.round(x[1]/x[2]*100)))+'</div>').join('')+'</div>'+
+  H('Tata kelola')+'<ul style="padding-left:18px;margin:0;line-height:1.6;font-size:14px">'+TATA.map(x=>'<li>'+x+'</li>').join('')+'</ul>'+
+  H('Risiko dan mitigasi')+'<div class="list">'+RISIKO.map(r=>'<div class="item"><b>'+r[0]+'</b><span class="muted" style="font-size:13px">'+r[1]+'</span></div>').join('')+'</div>';
+}
+function progView(){
+ const d=progData(PG.y),T=[['ringkas','Ringkasan'],['keuangan','Keuangan'],['aset','Aset dan proyek'],['strategi','Strategi']];
+ return head('Dasbor progres platform','Tampilan opsional. Data diambil langsung dari aplikasi.')+
+ '<div class="row" style="margin-bottom:8px;align-items:center"><button class="btn btn-line btn-sm" data-act="pgYear" data-v="-1" aria-label="Tahun sebelumnya">\u2039</button><b>'+PG.y+'</b><button class="btn btn-line btn-sm" data-act="pgYear" data-v="1" aria-label="Tahun berikutnya">\u203a</button><button class="btn btn-green btn-sm" data-act="pgCetak">Cetak / simpan PDF</button></div>'+
+ '<div class="row" style="margin-bottom:6px">'+T.map(x=>'<button class="btn '+(PG.t===x[0]?'btn-green':'btn-line')+' btn-sm" aria-pressed="'+(PG.t===x[0])+'" data-act="pgTab" data-v="'+x[0]+'">'+x[1]+'</button>').join('')+'</div>'+
+ progBody(PG.t,d)+'<div class="row" style="margin-top:14px"><button class="btn btn-line" data-act="closeSheet">Tutup</button></div>';
+}
 function tLaporan(){
   const t=totals();
   return '<h1>Laporan</h1><p class="lead">Keuangan, lingkungan, dan sosial.</p>'+
-  '<div class="row" style="margin-bottom:14px"><button class="btn btn-green btn-sm" data-act="ekspor" data-v="Excel">Ekspor Excel</button><button class="btn btn-line btn-sm" data-act="ekspor" data-v="PDF">Ekspor PDF</button></div>'+
-  '<section><h2 style="font-size:19px;margin-bottom:10px">Keuangan</h2><div class="stats">'+stat('Pemasukan',rp(t.masuk))+stat('Pengeluaran',rp(t.keluar))+stat('Dana Abadi',rp(t.abadi))+stat('Nilai aset',rp(sum(ASET,a=>a.nilai)))+'</div></section>'+
+  '<div class="row" style="margin-bottom:14px"><button class="btn btn-green btn-sm" data-act="ekspor" data-v="Excel">Ekspor Excel</button><button class="btn btn-line btn-sm" data-act="ekspor" data-v="PDF">Ekspor PDF</button><button class="btn btn-line btn-sm" data-act="progBuka">Dasbor progres</button></div>'+
+  '<section><h2 style="font-size:19px;margin-bottom:10px">Keuangan</h2><div class="stats">'+stat('Pemasukan',rpc(t.masuk))+stat('Pengeluaran',rpc(t.keluar))+stat('Dana Abadi',rpc(t.abadi))+stat('Nilai aset',rpc(sum(ASET,a=>a.nilai)))+'</div></section>'+
   '<section class="sec"><h2 style="font-size:19px;margin-bottom:10px">Lingkungan</h2><div class="stats">'+stat('Pohon ditanam',LING.pohon)+stat('Sampah terpilah',LING.terpilah+' kg')+stat('Sampah daur ulang',LING.daur+' kg')+stat('Kegiatan',LING.kegiatan)+'</div></section>'+
   '<section class="sec"><h2 style="font-size:19px;margin-bottom:10px">Sosial</h2><div class="stats">'+stat('Penerima manfaat',SOS.penerima)+stat('Beasiswa',SOS.beasiswa)+stat('Bantuan',SOS.bantuan)+stat('UMKM',SOS.umkm)+'</div></section>'+
   '<section class="sec"><h2 style="font-size:19px;margin-bottom:10px">Dampak Aset Bersama</h2><div class="list">'+(ASETV().some(a=>a.dampak)?ASETV().filter(a=>a.dampak).map(a=>'<div class="item"><b>'+esc(a.n)+'</b><span class="muted" style="font-size:13px">'+esc(a.dampak)+'</span></div>').join(''):kosong('Belum ada data dampak.'))+'</div></section>';
@@ -1824,25 +2126,26 @@ const FI=(id,l,t,x,ico)=>'<div class="field"><label for="'+id+'">'+l+'</label><d
 const SEL=(id,l,o)=>'<div class="field"><label for="'+id+'">'+l+'</label><select id="'+id+'">'+o.map(v=>'<option>'+v+'</option>').join('')+'</select></div>';
 const head=(t,s)=>'<h2 style="font-size:20px;margin-bottom:4px">'+t+'</h2><p class="muted" style="margin-bottom:14px;font-size:14px">'+(s||'')+'</p>';
 const foot='<div class="row" style="margin-top:6px"><button class="btn btn-line" type="button" data-act="closeSheet">Batal</button>';
+const PETA=(la,ln)=>'<div class="field"><label>Titik denah aset</label><div class="pmap" id="pmap" data-z="15"><div class="pm-t"></div><div class="pm-pin" aria-hidden="true"><svg viewBox="0 0 24 32" width="26" height="34"><path d="M12 0C5.4 0 0 5.2 0 11.7 0 20 12 32 12 32s12-12 12-20.3C24 5.2 18.6 0 12 0z" fill="#B03A8C" stroke="#fff" stroke-width="1.5"/><circle cx="12" cy="11.5" r="4.2" fill="#fff"/></svg></div><div class="pm-off-msg">Peta tidak dapat dimuat. Gunakan tombol lokasi saya.</div><div class="pm-ctl"><button type="button" data-pz="1" aria-label="Perbesar">+</button><button type="button" data-pz="-1" aria-label="Perkecil">\u2212</button><button type="button" data-pf="1" aria-label="Layar penuh">\u2922</button></div><span class="pm-at">\u00a9 OpenStreetMap</span></div><div class="row" style="margin:8px 0"><button type="button" class="btn btn-line btn-sm" id="pm-gps">Gunakan lokasi saya</button><button type="button" class="btn btn-line btn-sm" id="pm-clr">Hapus titik</button></div><input id="l-ll" type="text" readonly placeholder="Ketuk peta untuk menandai titik denah" value="'+(la!=null&&la!==''&&ln!=null?esc(Number(la).toFixed(6)+', '+Number(ln).toFixed(6)):'')+'"></div>';
 const FORMS={
  pinrekP:p=>head('Masukkan PIN','Masukkan PIN akun Anda untuk melihat nomor rekening <b>'+esc(p.nama)+'</b>. Nomor akan disamarkan kembali setelah 30 detik.')+'<form data-form="pinrekP" data-ref="'+p.id+'" autocomplete="off">'+F('pr-p','PIN (6 angka)','password','required inputmode="numeric" maxlength="6" autocomplete="off"')+'<div class="row" style="margin-top:12px"><button class="btn btn-green" type="submit">Tampilkan</button><button type="button" class="btn btn-line" data-act="closeSheet">Batal</button></div></form>',
  pinrek:()=>head('Masukkan PIN','Masukkan PIN akun Anda untuk melihat nomor rekening lengkap. Nomor akan disamarkan kembali setelah 30 detik.')+'<form data-form="pinrek" autocomplete="off">'+F('pr-p','PIN (6 angka)','password','required inputmode="numeric" maxlength="6" autocomplete="off"')+'<div class="row" style="margin-top:12px"><button class="btn btn-green" type="submit">Tampilkan</button><button type="button" class="btn btn-line" data-act="closeSheet">Batal</button></div></form>',
  rek:p=>head('Rekening penerima manfaat','Rekening bank untuk menerima manfaat dari aset yang dikelola. Nama pemilik rekening harus sama dengan nama partisipan: <b>'+esc(p.nama)+'</b>.')+'<form data-form="rek" data-ref="'+p.id+'">'+SEL('rk-b','Nama bank',BANKS)+F('rk-n','Nomor rekening','text','required inputmode="numeric" autocomplete="off" placeholder="Hanya angka" value="'+esc(p.rek?p.rek.n:'')+'"')+F('rk-a','Nama pemilik rekening','text','required autocomplete="off" value="'+esc(p.rek?p.rek.an:p.nama)+'"')+'<p class="muted" style="font-size:13px;margin:0 0 10px">Rekening atas nama orang lain tidak dapat didaftarkan.</p><div class="row" style="margin-top:12px"><button class="btn btn-green" type="submit">Simpan</button><button type="button" class="btn btn-line" data-act="closeSheet">Batal</button></div></form>',
  waris:p=>head('Ahli waris',(p.id===(ME&&ME.id)?'Tunjuk satu orang yang menerima hak partisipasi Anda bila Anda meninggal dunia. ':esc(p.nama)+' ('+p.id+'). ')+'Data ini hanya terlihat oleh partisipan dan pengurus. Pelaksanaannya tetap melalui persetujuan pengurus.')+'<form data-form="waris" data-ref="'+p.id+'">'+F('wr-n','Nama lengkap ahli waris','text','required value="'+esc(p.waris?p.waris.n:'')+'"')+SEL('wr-r','Hubungan',['Pasangan','Anak','Orang tua','Saudara kandung','Lainnya'])+F('wr-h','Nomor HP ahli waris','tel','inputmode="tel" placeholder="0812xxxxxxxx" value="'+esc(p.waris?p.waris.h:'')+'"')+F('wr-a','Alamat','text','value="'+esc(p.waris?p.waris.a:'')+'"')+'<div class="row" style="margin-top:12px"><button class="btn btn-green" type="submit">Simpan</button><button type="button" class="btn btn-line" data-act="closeSheet">Batal</button></div></form>',
- profil:()=>head('Lengkapi profil','Data ini hanya terlihat oleh Anda dan pengurus.')+'<form data-form="profil">'+F('pf-n','Nama lengkap','text','required value="'+esc(ME.nama)+'"')+F('pf-d','Domisili','text','required value="'+esc(ME.dom==='Belum diisi'?'':ME.dom)+'"')+F('pf-k','Keahlian','text','value="'+esc(ME.skill==='-'?'':ME.skill)+'"')+SEL('pf-c','Cara berkontribusi',['Dana','Tenaga','Keterampilan','Ide'])+'<div class="row" style="margin-top:12px"><button class="btn btn-green" type="submit">Simpan</button><button type="button" class="btn btn-line" data-act="closeSheet">Batal</button></div></form>',
- gabung:()=>head('Gabung Aren Jariyah','Pendaftaran Anda berstatus calon sampai disetujui pengurus.')+'<form data-form="gabung">'+F('g-n','Nama lengkap','text','required')+F('g-h','Nomor HP','tel','required')+F('g-d','Domisili','text','required value="Renco"')+F('g-k','Keahlian','text')+
-   SEL('g-c','Cara berkontribusi',['Dana','Tenaga','Keterampilan','Ide'])+foot+'<button class="btn btn-green" type="submit">Daftar</button></div></form>',
+ profil:()=>head('Lengkapi profil','Data ini hanya terlihat oleh Anda dan pengurus.')+'<form data-form="profil">'+F('pf-n','Nama lengkap','text','required value="'+esc(ME.nama)+'"')+F('pf-d','Domisili','text','required value="'+esc(ME.dom==='Belum diisi'?'':ME.dom)+'"')+'<div class="row" style="margin-top:12px"><button class="btn btn-green" type="submit">Simpan</button><button type="button" class="btn btn-line" data-act="closeSheet">Batal</button></div></form>',
+ gabung:()=>head('Gabung Aren Jariyah','Pendaftaran Anda berstatus calon sampai disetujui pengurus.')+'<form data-form="gabung">'+F('g-n','Nama lengkap','text','required')+F('g-h','Nomor HP','tel','required')+F('g-d','Domisili','text','required value="Renco"')+
+   foot+'<button class="btn btn-green" type="submit">Daftar</button></div></form>',
  lahan:l=>{const e=!!l,q=k=>e&&l[k]!=null?esc(String(l[k])):'';
-  return head(e?'Edit aset kelola':'Ajukan aset untuk dikelola',e?esc(l.id)+'. Ubah data lalu simpan.':'Aset tetap milik Anda. Dokumen hanya dapat dilihat pengguna berwenang.')+'<form data-form="lahan"'+(e?' data-ref="'+esc(l.id)+'"':'')+'>'+F('l-n','Nama pemilik','text','required value="'+q('pemilik')+'"')+F('l-l','Lokasi aset','text','required value="'+q('lok')+'"')+F('l-u','Luas (m²)','number','required min="1" value="'+q('luas')+'"')+
-   SEL('l-t','Jenis aset',['Lahan','Kebun','Peternakan','Bangunan','Kios','Taman','Lainnya'])+SEL('l-s','Status kepemilikan',['SHM','Letter C','Girik','Lainnya'])+SEL('l-k','Skema kerja sama',['Sewa tetap','Bagi hasil','Kerja sama produktif','Wakaf produktif'])+F('l-j','Jangka waktu (tahun)','number','required min="1" value="'+q('tahun')+'"')+(e?'':F('l-f','Dokumen (sertifikat, PBB, foto, denah)','file','multiple'))+foot+'<button class="btn btn-green" type="submit">'+(e?'Simpan perubahan':'Ajukan')+'</button></div></form>'},
- tx:()=>head('Catat transaksi','Bukti dan keterangan wajib diisi.')+'<form data-form="tx">'+F('t-d','Tanggal','date','required value="'+todayISO()+'"')+SEL('t-j','Jenis',['masuk','keluar'])+SEL('t-k','Kategori dana',['Dana Pembangunan Aset','Dana Operasional','Dana Pemeliharaan','Dana Sosial','Dana Lingkungan','Dana Manfaat Partisipan'])+F('t-n','Nominal (Rp)','number','required min="1"')+SEL('t-r','Aset / proyek',['Umum',...ASET.map(a=>a.n),...AKUI.filter(x=>x.tahap===4&&!x.batal).map(x=>x.n)])+F('t-e','Keterangan','area','required')+F('t-b','Bukti transaksi','file','required')+foot+'<button class="btn btn-green" type="submit">Simpan</button></div></form>',
- pakai:()=>head('Ajukan alokasi hasil Dana Abadi','Hanya dari hasil pengelolaan. Dana pokok tidak dapat dipakai.')+'<form data-form="pakai">'+F('p-n','Nominal (Rp)','number','required min="1"')+SEL('p-p','Peruntukan',['Program sosial','Program lingkungan','Pendidikan'])+F('p-k','Keterangan','area','required')+foot+'<button class="btn btn-green" type="submit">Ajukan ke pengurus</button></div></form>',
+  return head(e?'Edit aset kelola':'Ajukan aset untuk dikelola',e?esc(l.id)+'. Ubah data lalu simpan.':'Aset tetap milik Anda. Tandai lokasinya di peta.')+'<form data-form="lahan"'+(e?' data-ref="'+esc(l.id)+'"':'')+'>'+F('l-n','Nama pemilik','text','required value="'+q('pemilik')+'"')+F('l-l','Lokasi aset','text','required value="'+q('lok')+'"')+F('l-u','Luas (m²)','number','required min="1" value="'+q('luas')+'"')+
+   SEL('l-t','Jenis aset',['Lahan','Kebun','Peternakan','Bangunan','Kios','Taman','Lainnya'])+SEL('l-s','Status kepemilikan',['SHM','Letter C','Girik','Lainnya'])+SEL('l-k','Skema kerja sama',['Sewa tetap','Bagi hasil','Kerja sama produktif','Wakaf produktif'])+F('l-j','Jangka waktu (tahun)','number','required min="1" value="'+q('tahun')+'"')+PETA(e?l.lat:null,e?l.lng:null)+foot+'<button class="btn btn-green" type="submit">'+(e?'Simpan perubahan':'Ajukan')+'</button></div></form>'},
+ tx:()=>head('Catat transaksi','Bukti dan keterangan wajib diisi.')+'<form data-form="tx">'+F('t-d','Tanggal','date','required value="'+todayISO()+'"')+SEL('t-j','Jenis',['masuk','keluar'])+SEL('t-k','Kategori dana',['Dana Pembangunan Aset','Dana Operasional','Dana Pemeliharaan','Dana Sosial','Dana Lingkungan','Dana Manfaat Partisipan'])+F('t-n','Nominal (Rp)','text','inputmode=\"numeric\" autocomplete=\"off\" data-rp required min="1"')+SEL('t-r','Aset / proyek',['Umum',...ASET.map(a=>a.n),...AKUI.filter(x=>x.tahap===1&&!x.batal).map(x=>x.n)])+F('t-e','Keterangan','area','required')+F('t-b','Bukti transaksi','file','required')+foot+'<button class="btn btn-green" type="submit">Simpan</button></div></form>',
+ pakai:()=>head('Ajukan alokasi hasil Dana Abadi','Hanya dari hasil pengelolaan. Dana pokok tidak dapat dipakai.')+'<form data-form="pakai">'+F('p-n','Nominal (Rp)','text','inputmode=\"numeric\" autocomplete=\"off\" data-rp required min="1"')+SEL('p-p','Peruntukan',['Program sosial','Program lingkungan','Pendidikan'])+F('p-k','Keterangan','area','required')+foot+'<button class="btn btn-green" type="submit">Ajukan ke pengurus</button></div></form>',
  alih:()=>head('Pengalihan partisipasi','Hanya internal, kepada calon partisipan, dan wajib disetujui pengurus.')+'<form data-form="alih">'+F('a-d','Nomor partisipan yang mengalihkan','text','required')+F('a-k','Nama calon penerima','text','required')+F('a-a','Alasan','area','required')+foot+'<button class="btn btn-green" type="submit">Ajukan ke pengurus</button></div></form>',
- akui:()=>head('Usulkan akuisisi aset','Usulan tidak langsung menjadi aset. Ia akan diverifikasi pengurus, divoting partisipan, dan disetujui Dewan Pengarah.')+'<form data-form="akui">'+F('ak-n','Nama aset yang diusulkan','text','required maxlength="80"')+SEL('ak-j','Jenis',['Kebun','Peternakan','Bangunan','Lapangan','Kios','Taman','Panel surya','Ruang belajar','Lainnya'])+F('ak-l','Lokasi','text','required')+F('ak-h','Taksiran harga (Rp)','number','required min="1"')+F('ak-a','Alasan dan manfaat bagi komunitas (minimal 20 karakter)','area','required minlength="20"')+F('ak-r','Rencana pengelolaan dan biaya perawatan','area','required minlength="20"')+'<label style="display:flex;gap:8px;align-items:flex-start;font-size:13px;margin:6px 0"><input id="ak-ok" type="checkbox" required style="margin-top:3px"> Saya paham usulan ini baru menjadi aset setelah lolos semua tahap, dan dana tidak boleh dikumpulkan sebelum disetujui.</label>'+foot+'<button class="btn btn-green" type="submit">Kirim usulan</button></div></form>',
+ akui:()=>head('Usulkan akuisisi aset','Usulan tidak langsung menjadi aset. Ia akan diperiksa dan disetujui admin atau pengurus, lalu didanai.')+'<form data-form="akui">'+F('ak-n','Nama aset yang diusulkan','text','required maxlength="80"')+SEL('ak-j','Jenis',['Kebun','Peternakan','Bangunan','Lapangan','Kios','Taman','Panel surya','Ruang belajar','Lainnya'])+F('ak-l','Lokasi','text','required')+F('ak-h','Taksiran harga (Rp)','text','inputmode=\"numeric\" autocomplete=\"off\" data-rp required min="1"')+F('ak-a','Alasan dan manfaat bagi komunitas (minimal 20 karakter)','area','required minlength="20"')+F('ak-r','Rencana pengelolaan dan biaya perawatan','area','required minlength="20"')+'<label style="display:flex;gap:8px;align-items:flex-start;font-size:13px;margin:6px 0"><input id="ak-ok" type="checkbox" required style="margin-top:3px"> Saya paham usulan ini baru menjadi aset setelah lolos semua tahap, dan dana tidak boleh dikumpulkan sebelum disetujui.</label>'+foot+'<button class="btn btn-green" type="submit">Kirim usulan</button></div></form>',
  aset:a=>{const e=!!a,q=(k,d)=>e&&a[k]!=null?esc(String(a[k])):(d||'');
-  return head(e?'Edit aset':(S.role==='partisipan'?'Daftarkan aset saya':'Tambah aset bersama'),e?esc(a.id)+'. Ubah data lalu simpan.':(S.role==='partisipan'?'Aset yang Anda daftarkan tampil di daftar aset Anda.':'Catat aset yang dibeli atau dibangun bersama.'))+'<form data-form="aset"'+(e?' data-ref="'+esc(a.id)+'"':'')+'>'+F('s-n','Nama aset','text','required value="'+q('n')+'"')+SEL('s-j','Jenis',['Lapangan','Kebun','Peternakan','Bangunan','Kios','Taman','Panel surya','Ruang belajar','Lainnya'])+F('s-l','Lokasi','text','required value="'+q('lok')+'"')+F('s-u','Luas (m²)','number','required min="1" value="'+q('luas')+'"')+F('s-h','Pemilik hukum','text','required value="'+q('hukum')+'"')+F('s-k','Pengelola','text','required value="'+q('kelola')+'"')+F('s-s','Sumber dana','text','value="'+(e&&a.sumber!=='-'?q('sumber'):'')+'"')+F('s-v','Nilai perolehan (Rp)','number','required min="0" value="'+q('nilai')+'"')+SEL('s-t','Status',['Perencanaan','Pembelian','Pembangunan','Perbaikan','Operasional'])+F('s-p','Progres (%)','number','required min="0" max="100" value="'+(e?q('prog'):'0')+'"')+F('s-d','Dampak (opsional)','area')+foot+'<button class="btn btn-green" type="submit">'+(e?'Simpan perubahan':'Simpan aset')+'</button></div></form>'},
+  return head(e?'Edit aset':(S.role==='partisipan'?'Daftarkan aset saya':'Tambah aset bersama'),e?esc(a.id)+'. Ubah data lalu simpan.':(S.role==='partisipan'?'Aset yang Anda daftarkan tampil di daftar aset Anda.':'Catat aset yang dibeli atau dibangun bersama.'))+'<form data-form="aset"'+(e?' data-ref="'+esc(a.id)+'"':'')+'>'+F('s-n','Nama aset','text','required value="'+q('n')+'"')+SEL('s-j','Jenis',['Lapangan','Kebun','Peternakan','Bangunan','Kios','Taman','Panel surya','Ruang belajar','Lainnya'])+F('s-l','Lokasi','text','required value="'+q('lok')+'"')+F('s-u','Luas (m²)','number','required min="1" value="'+q('luas')+'"')+F('s-h','Pemilik hukum','text','required value="'+q('hukum')+'"')+F('s-k','Pengelola','text','required value="'+q('kelola')+'"')+F('s-s','Sumber dana','text','value="'+(e&&a.sumber!=='-'?q('sumber'):'')+'"')+F('s-v','Nilai perolehan (Rp)','text','inputmode=\"numeric\" autocomplete=\"off\" data-rp required min="0" value="'+q('nilai')+'"')+SEL('s-t','Status',['Perencanaan','Pembelian','Pembangunan','Perbaikan','Operasional'])+F('s-p','Progres (%)','number','required min="0" max="100" value="'+(e?q('prog'):'0')+'"')+F('s-d','Dampak (opsional)','area')+foot+'<button class="btn btn-green" type="submit">'+(e?'Simpan perubahan':'Simpan aset')+'</button></div></form>'},
  proyek:p=>{const e=!!p,al=['Umum',...ASET.map(a=>a.n)];if(e&&p.aset&&!al.includes(p.aset))al.push(p.aset);
-   return head(e?'Edit proyek':'Tambah proyek',e?esc(p.id)+'. Ubah data lalu simpan.':'Target dana dan progres pelaksanaan.')+'<form data-form="proyek"'+(e?' data-ref="'+esc(p.id)+'"':'')+'>'+F('r-n','Nama proyek','text','required value="'+esc(e?p.n:'')+'"')+SEL('r-a','Aset terkait',al)+F('r-t','Target dana (Rp)','number','required min="1" value="'+(e?p.target:'')+'"')+F('r-r','Realisasi dana (Rp)','number','min="0" value="'+(e?p.real:0)+'"')+F('r-p','Progres (%)','number','required min="0" max="100" value="'+(e?p.prog:0)+'"')+F('r-m','Tim pelaksana','text','value="'+esc(e&&p.tim!=='-'?p.tim:'')+'"')+F('r-x','Agenda berikutnya','text','value="'+esc(e&&p.next!=='-'?p.next:'')+'"')+foot+'<button class="btn btn-green" type="submit">'+(e?'Simpan perubahan':'Simpan proyek')+'</button></div></form>'},
+   return head(e?'Edit proyek':'Tambah proyek',e?esc(p.id)+'. Ubah data lalu simpan.':'Target dana dan progres pelaksanaan.')+'<form data-form="proyek"'+(e?' data-ref="'+esc(p.id)+'"':'')+'>'+F('r-n','Nama proyek','text','required value="'+esc(e?p.n:'')+'"')+SEL('r-a','Aset terkait',al)+F('r-t','Target dana (Rp)','text','inputmode=\"numeric\" autocomplete=\"off\" data-rp required min="1" value="'+(e?p.target:'')+'"')+F('r-r','Realisasi dana (Rp)','text','inputmode=\"numeric\" autocomplete=\"off\" data-rp min="0" value="'+(e?p.real:0)+'"')+F('r-p','Progres (%)','number','required min="0" max="100" value="'+(e?p.prog:0)+'"')+F('r-m','Tim pelaksana','text','value="'+esc(e&&p.tim!=='-'?p.tim:'')+'"')+F('r-x','Agenda berikutnya','text','value="'+esc(e&&p.next!=='-'?p.next:'')+'"')+foot+'<button class="btn btn-green" type="submit">'+(e?'Simpan perubahan':'Simpan proyek')+'</button></div></form>'},
  keg:()=>head('Tambah kegiatan','Kegiatan muncul di jadwal semua peran.')+'<form data-form="keg">'+F('k-t','Nama kegiatan','text','required')+F('k-d','Tanggal','date','required value="'+todayISO()+'"')+F('k-p','Tempat','text','required')+SEL('k-k','Kategori',['Aset Bersama','Lingkungan','Sosial'])+foot+'<button class="btn btn-green" type="submit">Simpan kegiatan</button></div></form>'
 };
 
@@ -1854,7 +2157,7 @@ const MENU=[
  {n:'Aset Kelola',d:'Milik pemilik yang diajukan untuk dikelola, bukan Aset Bersama',c:['#43B182','#19A69E'],items:['lahan']},
  {n:'Keuangan',d:'Transparansi dana dan dampak',c:['#F68A33','#EE4363'],items:['keuangan','abadi','laporan']},
  {n:'Pengaturan',d:'Akun, peran, dan data',c:['#43B182','#1386B3'],items:['pengaturan']}];
-const MDESC={partisipan:'Profil dan poin',aset:'Lapangan, kebun, kios',lahan:'Kerja sama pengelolaan',proyek:'Progres dan jadwal',keuangan:'Transaksi dan bukti',abadi:'Dana pokok',laporan:'Ringkasan dan ekspor',info:'Pengumuman',forum:'Diskusi terbuka',voting:'Suara bersama',pengaturan:'Akun, peran, data'};
+const MDESC={partisipan:'Profil dan dana partisipasi',aset:'Lapangan, kebun, kios',lahan:'Kerja sama pengelolaan',proyek:'Progres dan jadwal',keuangan:'Transaksi dan bukti',abadi:'Dana pokok',laporan:'Ringkasan dan ekspor',info:'Pengumuman',forum:'Diskusi terbuka',voting:'Suara bersama',pengaturan:'Akun, peran, data'};
 const chev='<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>';
 const hex=c=>[1,3,5].map(i=>parseInt(c.substr(i,2),16)/255).concat(1);
 const V=v=>({a:0,k:v});
@@ -1941,7 +2244,7 @@ function menuGrid(only){
    '<button class="mt" type="button" aria-pressed="false" style="--a:'+g.c[0]+'" data-act="mtPick" data-v="'+k+'" aria-label="'+TABNAME[k]+'" title="'+MDESC[k]+'"><span class="lt"><span class="li" data-lot="'+k+'" data-c="'+g.c.join(',')+'"></span></span><span class="tx"><b>'+TABNAME[k]+'</b><span class="d">'+MDESC[k]+'</span></span>'+(hpLock()?'<span class="chip gold bd">Terkunci</span>':mBadge(k))+'</button>').join('')+'</div></section>'}).join('');
 }
 function setGrid(){
- const adm=S.role==='admin',T0=[['kelolaPeran','shield','Kelola peran','Ajukan atau lepas peran','#43B182'],['akKelola','partisipan','Akun pengguna','Atur peran semua akun','#7A2C8C'],['akReq','partisipan','Pengajuan peran',(akPending()?akPending()+' menunggu keputusan':'Tidak ada yang menunggu'),'#1F8A70'],['akUndang','plus','Undang partisipan','Kode undangan dari admin','#F68A33'],['waSet','usul','WhatsApp komunitas',(PENG.wa?'Nomor: 0'+PENG.wa.slice(2):'Belum diatur'),'#19A69E'],['pengAlih','bagi','Pengalihan','Kapan pengalihan dibuka: '+alihLabel(),'#1386B3'],['resetData','trash','Hapus data','Hapus semua data perangkat ini','#d12a45']],T=adm?T0.slice(1):T0.slice(0,1);
+ const adm=S.role==='admin',T0=[['kelolaPeran','shield','Kelola peran','Ajukan atau lepas peran','#43B182'],['akKelola','partisipan','Akun pengguna','Atur peran semua akun','#7A2C8C'],['akReq','partisipan','Pengajuan peran',(akPending()?akPending()+' menunggu keputusan':'Tidak ada yang menunggu'),'#1F8A70'],['akUndang','plus','Undang partisipan','Kode undangan dari admin','#F68A33'],['waSet','usul','WhatsApp komunitas',(PENG.wa?'Nomor: 0'+PENG.wa.slice(2):'Belum diatur'),'#19A69E'],['pengAlih','bagi','Pengalihan','Kapan pengalihan dibuka: '+alihLabel(),'#1386B3'],['resetData','trash','Hapus data','Hapus semua data perangkat ini','#d12a45']],T=[['arsipDok','proyek','Arsip dokumen',arsipN()+' dokumen tersimpan','#1386B3']].concat(adm?T0.slice(1):T0.slice(0,1));
  return '<section class="mg" aria-label="Pengaturan"><h2>Pengaturan</h2><div class="mgrid">'+T.map(t=>'<button class="mt" type="button" style="--a:'+t[4]+'" data-act="'+t[0]+'"><span class="lt"><span class="li">'+ic(t[1]).replace('class="ico"','class="ico" style="width:30px;height:30px;color:'+t[4]+'"')+'</span></span><span class="tx"><b>'+t[2]+'</b><span class="d">'+t[3]+'</span></span></button>').join('')+'</div></section>';
 }
 function dashTail(cur,h,i){return cur==='Ringkasan'?h.slice(i):cur==='Pengaturan'?setGrid():menuGrid(cur)}
@@ -1978,21 +2281,30 @@ const PUBI={
  coin:'<ellipse cx="20" cy="9" rx="13" ry="5"/><path d="M7 14c0 3 6 5 13 5s13-2 13-5v5c0 3-6 5-13 5S7 22 7 19z"/><path d="M7 24c0 3 6 5 13 5s13-2 13-5v5c0 3-6 5-13 5S7 32 7 29z"/>'};
 const pic=k=>'<svg class="pic" viewBox="0 0 40 40" fill="currentColor" aria-hidden="true">'+PUBI[k]+'</svg>';
 function visiTl(){
+ const IL=[
+  `<svg class="pimg" viewBox="0 0 320 150" role="img" aria-label="Tunas kecil tumbuh dari tanah"><defs><linearGradient id="pg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd9b0"/><stop offset="1" stop-color="#fff4e6"/></linearGradient></defs><rect width="320" height="150" fill="url(#pg1)"/><circle cx="262" cy="42" r="22" fill="#F68A33" opacity=".9"/><g stroke="#F68A33" stroke-width="3" stroke-linecap="round" opacity=".6"><path d="M262 8v8M262 68v8M228 42h8M288 42h8M238 18l6 6M286 66l6 6M286 18l-6 6"/></g><path d="M0 118Q80 96 160 112T320 104V150H0z" fill="#8a5a3c"/><path d="M0 132Q90 114 170 128T320 122V150H0z" fill="#6e4429"/><path d="M160 112V78" stroke="#43B182" stroke-width="5" stroke-linecap="round"/><path d="M160 84c-26 2-36-14-34-28 24 0 36 10 34 28z" fill="#43B182"/><path d="M160 76c2-22 18-32 38-30 2 22-14 34-38 30z" fill="#2f9a6d"/><circle cx="96" cy="60" r="3" fill="#EE4363"/><circle cx="214" cy="92" r="2.5" fill="#7A2C8C"/><circle cx="62" cy="88" r="2" fill="#F68A33"/></svg>`,
+  `<svg class="pimg" viewBox="0 0 320 150" role="img" aria-label="Tanaman tumbuh bersama disirami hujan"><defs><linearGradient id="pg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe9f6"/><stop offset="1" stop-color="#f1faf5"/></linearGradient></defs><rect width="320" height="150" fill="url(#pg2)"/><g fill="#fff"><ellipse cx="80" cy="30" rx="30" ry="12"/><ellipse cx="100" cy="24" rx="22" ry="12"/><ellipse cx="240" cy="38" rx="28" ry="11"/><ellipse cx="258" cy="31" rx="20" ry="11"/></g><g stroke="#1386B3" stroke-width="2.5" stroke-linecap="round" opacity=".6"><path d="M84 52v8M100 58v8M238 60v8M254 54v8"/></g><path d="M0 122Q100 108 200 120T320 114V150H0z" fill="#8a5a3c"/><g stroke="#43B182" stroke-width="5" stroke-linecap="round"><path d="M70 122V96"/><path d="M130 122V74"/><path d="M190 122V84"/><path d="M250 122V62"/></g><g fill="#43B182"><path d="M70 100c-14 0-20-9-18-18 14 0 20 7 18 18zM70 96c1-12 10-17 20-16 0 12-8 18-20 16z"/><path d="M130 82c-18 0-26-12-24-24 18 0 26 10 24 24zM130 76c2-16 14-22 26-20 0 16-10 24-26 20z"/><path d="M190 90c-14 0-20-9-18-18 14 0 20 7 18 18zM190 86c1-12 10-17 20-16 0 12-8 18-20 16z"/><path d="M250 70c-18 0-26-12-24-24 18 0 26 10 24 24zM250 64c2-16 14-22 26-20 0 16-10 24-26 20z"/></g></svg>`,
+  `<svg class="pimg" viewBox="0 0 320 150" role="img" aria-label="Pohon berbuah dengan hati yang dibagikan"><defs><linearGradient id="pg3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe3c2"/><stop offset="1" stop-color="#fdf0f6"/></linearGradient></defs><rect width="320" height="150" fill="url(#pg3)"/><path d="M0 128Q100 110 200 124T320 118V150H0z" fill="#43B182"/><path d="M150 128c4-26 2-44-2-62h22c-4 18-2 36 2 62z" fill="#7a4a2c"/><circle cx="160" cy="58" r="44" fill="#2f9a6d"/><circle cx="130" cy="72" r="26" fill="#43B182"/><circle cx="192" cy="70" r="26" fill="#43B182"/><g fill="#F68A33"><circle cx="140" cy="50" r="6"/><circle cx="172" cy="40" r="6"/><circle cx="190" cy="66" r="6"/><circle cx="152" cy="74" r="6"/></g><g fill="#EE4363"><path d="M60 52c-8-5-11-9-11-13a6 6 0 0 1 11-3 6 6 0 0 1 11 3c0 4-3 8-11 13z"/><path d="M262 78c-7-4-9-8-9-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 3-2 7-9 11z"/></g><ellipse cx="100" cy="132" rx="16" ry="6" fill="#b4510a"/><circle cx="94" cy="127" r="4.5" fill="#F68A33"/><circle cx="104" cy="126" r="4.5" fill="#EE4363"/></svg>`,
+  `<svg class="pimg" viewBox="0 0 320 150" role="img" aria-label="Obor diteruskan dari generasi tua kepada generasi muda"><defs><linearGradient id="pg4" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3d9fb"/><stop offset="1" stop-color="#ffe8d2"/></linearGradient></defs><rect width="320" height="150" fill="url(#pg4)"/><path d="M0 130Q160 112 320 130V150H0z" fill="#7A2C8C" opacity=".25"/><circle cx="92" cy="52" r="14" fill="#5c1d6d"/><path d="M68 128c0-26 10-46 24-46s24 20 24 46z" fill="#7A2C8C"/><circle cx="228" cy="60" r="12" fill="#b4510a"/><path d="M208 128c0-22 8-38 20-38s20 16 20 38z" fill="#EE4363"/><path d="M112 98l32-8" stroke="#5c1d6d" stroke-width="6" stroke-linecap="round"/><path d="M208 102l-30-12" stroke="#b4510a" stroke-width="6" stroke-linecap="round"/><path d="M158 96V74" stroke="#7a4a2c" stroke-width="5" stroke-linecap="round"/><path d="M158 74c-12-8-10-22 0-32 10 10 12 24 0 32z" fill="#F68A33"/><path d="M158 68c-5-4-4-11 0-16 4 5 5 12 0 16z" fill="#ffd36e"/></svg>`,
+  `<svg class="pimg" viewBox="0 0 320 150" role="img" aria-label="Bukit hijau lestari di bawah matahari"><defs><linearGradient id="pg5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd0a6"/><stop offset=".55" stop-color="#fbe3ef"/><stop offset="1" stop-color="#e6f6ee"/></linearGradient></defs><rect width="320" height="150" fill="url(#pg5)"/><circle cx="160" cy="84" r="34" fill="#F68A33" opacity=".95"/><g stroke="#F68A33" stroke-width="3" stroke-linecap="round" opacity=".5"><path d="M160 30v10M112 50l7 7M208 50l-7 7M96 84h10M214 84h10"/></g><path d="M0 112Q80 80 160 104T320 90V150H0z" fill="#43B182"/><path d="M0 134Q100 108 200 128T320 120V150H0z" fill="#2f9a6d"/><g><path d="M48 112v-22" stroke="#7a4a2c" stroke-width="4"/><circle cx="48" cy="82" r="14" fill="#1f8a5c"/><path d="M262 108v-26" stroke="#7a4a2c" stroke-width="4"/><circle cx="262" cy="72" r="17" fill="#1f8a5c"/></g><path d="M160 130c-10-7-14-12-14-17a7 7 0 0 1 14-3 7 7 0 0 1 14 3c0 5-4 10-14 17z" fill="#EE4363"/></svg>`
+ ];
  const fase=[
-  ['2027–2030','Menanam Benih','Empat tahun pertama adalah masa menanam. Kita rapikan pencatatan, kenali aset yang dimiliki bersama, dan saling percaya lewat laporan yang terbuka untuk semua warga. Pelan-pelan tidak apa-apa, yang penting dimulai bersama.'],
-  ['2031–2034','Bertumbuh Bersama','Partisipan bertambah, aset bersama makin beragam, dan Dana Abadi mulai terkumpul sebagai tabungan jangka panjang. Pemuda belajar mengelola, warga belajar saling menguatkan, dan hasilnya mulai terasa di sekitar kita.'],
-  ['2035–2038','Berbuah dan Berbagi','Hasil kelolaan mulai kembali ke warga lewat beasiswa, bantuan sesama, dan dukungan bagi UMKM. Pohon yang kita tanam mulai rindang, bank sampah berjalan rutin, dan ruang hijau menjadi tempat berkumpul keluarga.'],
-  ['2039–2042','Estafet ke Generasi Muda','Kepengurusan perlahan diteruskan kepada anak-anak muda yang tumbuh bersama gerakan ini. Kita mendampingi, mereka melangkah. Nilai amanah dan kebersamaan tetap dijaga agar tidak terputus.'],
-  ['2043–2045','Mandiri dan Lestari','Hasil kelolaan cukup untuk membiayai program sosial dan lingkungan Renco secara mandiri. Inilah janji kita: apa yang dibangun hari ini tetap hidup dan memberi manfaat bagi generasi setelah kita.']
+  ['2027–2030','Benih Harapan Mulai Tumbuh','Empat tahun pertama adalah masa menanam. Kita rapikan pencatatan, kenali aset yang dimiliki bersama, dan saling percaya lewat laporan yang terbuka untuk semua warga. Pelan-pelan tidak apa-apa, yang penting dimulai bersama.'],
+  ['2031–2034','Akar Menguat, Kita Tumbuh Bersama','Partisipan bertambah, aset bersama makin beragam, dan Dana Abadi mulai terkumpul sebagai tabungan jangka panjang. Pemuda belajar mengelola, warga belajar saling menguatkan, dan hasilnya mulai terasa di sekitar kita.'],
+  ['2035–2038','Panen Kebaikan untuk Semua','Hasil kelolaan mulai kembali ke warga lewat beasiswa, bantuan sesama, dan dukungan bagi UMKM. Pohon yang kita tanam mulai rindang, bank sampah berjalan rutin, dan ruang hijau menjadi tempat berkumpul keluarga.'],
+  ['2039–2042','Obor Amanah di Tangan Generasi Muda','Kepengurusan perlahan diteruskan kepada anak-anak muda yang tumbuh bersama gerakan ini. Kita mendampingi, mereka melangkah. Nilai amanah dan kebersamaan tetap dijaga agar tidak terputus.'],
+  ['2043–2045','Warisan Lestari untuk Anak Cucu','Hasil kelolaan cukup untuk membiayai program sosial dan lingkungan Renco secara mandiri. Inilah janji kita: apa yang dibangun hari ini tetap hidup dan memberi manfaat bagi generasi setelah kita.']
  ];
  const th=new Date().getFullYear();
- return '<section class="sec vtlw" id="visi-tl" aria-label="Perjalanan menuju 2045"'+(S.vtl?'':' hidden')+'><h2>Perjalanan menuju 2045</h2><p class="muted vtlp">Lima fase, masing-masing empat tahun, kita lalui bersama dengan sabar dan hangat.</p>'+
- '<ol class="vtl">'+fase.map(x=>{const y=+x[0].slice(0,4),z=+x[0].slice(5),now=th>=y&&th<=z;return '<li'+(now?' class="now"':'')+'><b>'+x[0]+' · '+x[1]+(now?'<small>Sekarang</small>':'')+'</b><span>'+x[2]+'</span></li>'}).join('')+'</ol></section>';
+ const cur=Math.max(0,fase.findIndex(x=>th>=+x[0].slice(0,4)&&th<=+x[0].slice(5)));
+ return '<section class="sec vtlw" id="visi-tl" aria-label="Perjalanan menuju 2045"'+(S.vtl?'':' hidden')+'><h2>Perjalanan menuju 2045</h2><p class="muted vtlp">Lima fase, masing-masing empat tahun. Geser untuk melihat setiap langkahnya.</p>'+
+ '<div class="pcar" tabindex="0" role="group" aria-label="Fase perjalanan, geser ke samping">'+fase.map((x,i)=>{const y=+x[0].slice(0,4),z=+x[0].slice(5),now=th>=y&&th<=z;return '<article class="pcard'+(i===0?' in':'')+'">'+IL[i]+'<div class="pbody"><span class="pyr">FASE '+(i+1)+' · '+x[0]+(now?'<small>Sekarang</small>':'')+'</span><h3>'+x[1]+'</h3><p>'+x[2]+'</p></div></article>'}).join('')+'</div>'+
+ '<div class="pdots">'+fase.map((x,i)=>'<button type="button" data-act="phGo" data-v="'+i+'" aria-label="Fase '+(i+1)+'"'+(i===0?' aria-current="true"':'')+'></button>').join('')+'</div></section>';
 }
 function visiSec(n){
  const th=new Date().getFullYear(),sisa=Math.max(0,2045-th);
  return '<section class="sec" id="visi">'+
- '<div class="vhero"><span class="vyr">2045</span><div><b>SALING MENGUATKAN, MENYIAPKAN MASA DEPAN UNTUK GENERASI.</b></div></div>'+
+ '<div class="vhero"><span class="vyr">2045</span><div><b class=\"vtag\"><span>SALING MENGUATKAN, MENYIAPKAN</span><span>MASA DEPAN UNTUK GENERASI.</span></b></div></div>'+
  '</section>';
 }
 function viewPublic(){
@@ -2003,18 +2315,19 @@ function viewPublic(){
  const PI={aset:'coin',leaf:'leaf',heart:'people',abadi:'heart'},pc=()=>prog.map(p=>'<div class="ps dec"><span class="pi">'+pic(PI[p[0]])+'</span><div><b>'+p[1]+'</b><span class="muted">'+p[2]+'</span></div></div>').join('');
  const st=(k,l,v,x)=>'<div class="ps'+(x?'':' dec')+'"><span class="pi">'+pic(k)+'</span><div><span class="muted">'+l+'</span><b class="num">'+v+'</b></div>'+(x||'')+'</div>';
  return topbar('<button class="btn btn-line btn-sm" data-act="login">Masuk '+chevR+'</button>')+
- '<main class="wrap"><section class="hero hero2 vban" role="button" tabindex="0" data-act="visiTl" aria-controls="visi-tl" aria-expanded="'+(S.vtl?'true':'false')+'"><div class="ht"><p class="pill">Bagian dari RencoVision 2045</p><div class="hslides"><div class="hs'+(HS===0?' on':'')+'"><h2 class="hl"><span class="k1">Mari bangun</span> <span class="k2">aset</span> <span class="k6">bersama</span><span class="k5">.</span></h2></div><div class="hs'+(HS===1?' on':'')+'"><h1><span class="k2">Lingkungan Lestari,</span> <span class="k3">Sosial</span> <span class="k4">Berkelanjutan</span><span class="k5">.</span></h1></div><div class="hs'+(HS===2?' on':'')+'"><h2 class="hl"><span class="k1">Lahan Bersama,</span> <span class="k2">Manfaat</span> <span class="k4">Bersama</span><span class="k5">.</span></h2></div></div><i class="rule"></i><p class="d">Gerakan pemuda Renco membangun aset bersama, menjaga lingkungan, dan menguatkan sosial warga.</p><span class="vhint">Ketuk untuk melihat perjalanan menuju 2045</span></div></section>'+visiTl()+
+ '<main class="wrap"><section class="hero hero2"><div class="ht"><button type="button" class="pill pbtn" data-act="visiTl" aria-controls="visi-tl" aria-expanded="'+(S.vtl?'true':'false')+'"><b>Bagian dari RencoVision 2045</b><i aria-hidden="true">›</i></button><div class="hslides"><div class="hs'+(HS===0?' on':'')+'"><h2 class="hl"><span class="k1">Mari bangun</span> <span class="k2">aset</span> <span class="k6">bersama</span><span class="k5">.</span></h2></div><div class="hs'+(HS===1?' on':'')+'"><h1><span class="k2">Lingkungan Lestari,</span> <span class="k3">Sosial</span> <span class="k4">Berkelanjutan</span><span class="k5">.</span></h1></div><div class="hs'+(HS===2?' on':'')+'"><h2 class="hl"><span class="k1">Lahan Bersama,</span> <span class="k2">Manfaat</span> <span class="k4">Bersama</span><span class="k5">.</span></h2></div></div><i class="rule"></i><p class="d">Gerakan pemuda Renco membangun aset bersama, menjaga lingkungan, dan menguatkan sosial warga.</p></div></section>'+visiTl()+
  '<div class="cta acts" role="group" aria-label="Aksi">'+tiles.map(x=>'<button class="at" aria-pressed="false" data-act="pick" data-v="'+x[0]+'">'+pic(x[2])+'<i class="dv"></i><span class="lbl">'+x[1]+'</span></button>').join('')+'</div><div class="pickp" id="pick" hidden></div>'+
 '<section class="sec"><div class="gbar tg" role="group" aria-label="Program dan progres"><button type="button" class="gb" aria-pressed="'+(S.pub!=='progres')+'" data-act="pubTab" data-v="program">Program</button><button type="button" class="gb" aria-pressed="'+(S.pub==='progres')+'" data-act="pubTab" data-v="progres">Progres</button></div>'+
  (S.pub==='progres'?'<div class="pgrid marq"><div class="ptrack">'+st('cal','Partisipan Aktif',n+' dari 100',bar(n))+st('coin','Aset Bersama',ASET.length+' Aset')+st('heart','Dana Abadi',rp(t.abadi))+st('leaf','Pohon Ditanam',LING.pohon)+'<span class="dup" aria-hidden="true">'+st('cal','Partisipan Aktif',n+' dari 100',bar(n))+st('coin','Aset Bersama',ASET.length+' Aset')+st('heart','Dana Abadi',rp(t.abadi))+st('leaf','Pohon Ditanam',LING.pohon)+'</span></div></div>':'<div class="pgrid marq"><div class="ptrack">'+pc()+'<span class="dup" aria-hidden="true">'+pc()+'</span></div></div>')+'</section>'+
  visiSec(n)+
- '<div class="tncw"><button type="button" class="btn btn-line tnc" data-act="syarat">Manfaat Partisipasi &amp; Ketentuan</button></div>'+
+ '<div class="tncw"><button type="button" class="btn btn-line tnc" data-act="syarat">Manfaat &amp; Ketentuan</button></div>'+
  '<p class="foot">Powered by Aren Community<br>| 2026</p></main>';
 }
 
 /* ================= 8. AKSI DAN EVENT ================= */
 /* ---------- aksi ---------- */
-function rerender(){const y=window.scrollY;render();window.scrollTo(0,y)}
+function akMig(){AKUI.forEach(a=>{if(a.r3)return;const t=a.tahap;a.tahap=t>=5?2:t===4?1:0;a.r3=1;delete a.suara})}
+function rerender(){akMig();const y=window.scrollY;render();window.scrollTo(0,y)}
 function copyText(txt,btn){
   const done=()=>toast('Tersalin. Tempel ke Excel atau dokumen.');
   const fb=()=>{const p=$('pre.out');if(p){const r=document.createRange();r.selectNodeContents(p);const s=getSelection();s.removeAllRanges();s.addRange(r)}toast('Pilih teks lalu salin secara manual.')};
@@ -2042,6 +2355,14 @@ const A={
  resetData:()=>{if(S.role!=='admin')return;if(confirm('Hapus semua data yang tersimpan di perangkat ini? Tindakan ini tidak dapat dibatalkan.'))DB.reset()},
  logout:()=>{if(SB_AUTH)SB.out();S.role=null;S.acc=null;S.lg=null;akSes('');S.cardSeen=false;DB.setRole(null);S.filter={};closeSheet();go('');if(window.showSplash)window.showSplash()},
  akDaftar:v=>{S.lg={step:v};render()},
+ arsipDok:()=>sheet(arsipList()),
+ arsipLihat:v=>sheet(arsipView(v)),
+ arsipPdf:v=>{const r=ARSIP.find(x=>x.id===v);if(r)perjPdf(r)},
+ bioLogin:()=>{bioLogin()},
+ bioOff:()=>{bioClear();toast('Biometrik dimatikan di perangkat ini.');rerender()},
+ bioNo:()=>{try{if(BP)localStorage.setItem(BNO,BP.hp)}catch(e){}BP=null;closeSheet()},
+ bioYes:async()=>{const o=BP;if(!o){closeSheet();return}try{await bioEnable(o.hp,o.pin);try{localStorage.removeItem(BNO)}catch(e){}BP=null;closeSheet();toast('Login biometrik aktif.')}catch(e){toast(e&&e.name==='NotAllowedError'?'Verifikasi dibatalkan.':'Biometrik tidak dapat diaktifkan di perangkat ini.')}},
+ phGo:v=>{const c=document.querySelector('.pcar'),k=c&&c.children[+v];if(k)c.scrollTo({left:k.offsetLeft-(c.clientWidth-k.offsetWidth)/2,behavior:'smooth'})},
  hsGo:v=>{HS=Math.max(0,Math.min(2,parseInt(v,10)||0));HSLAST=Date.now();hsApply()},
  rgMetode:v=>{const m=v==='wa'?'wa':'kode';S.lg=Object.assign({},S.lg,{step:'daftar',m});
   document.querySelectorAll('[data-act=rgMetode]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===m));
@@ -2085,15 +2406,15 @@ const A={
  akKelola:()=>{if(S.role!=='admin')return;sheet(head('Akun dan peran','Satu orang satu akun. Centang peran yang dimiliki. Perubahan berlaku saat orang itu masuk kembali.')+'<form data-form="akperan">'+AKUN.map(a=>'<details class="item" style="margin-bottom:8px"'+(akGanda(a)?' open':'')+'><summary><b>'+esc(a.nama)+'</b> <span class="muted">\u00b7 '+esc(a.hp)+' \u00b7 '+a.roles.length+' peran</span>'+(akGanda(a)?' <span class="chip bad">HP ganda</span>':'')+'</summary>'+(akGanda(a)&&a.id!==S.acc?'<div class="note" style="margin-top:8px">Nomor HP ini dipakai lebih dari satu akun. Pastikan pemilik sebenarnya, lalu hapus akun yang tidak sah. <button type="button" class="btn btn-line btn-sm" style="color:var(--bad);border-color:var(--bad)" data-act="akHapus" data-v="'+a.id+'">Hapus akun ini</button></div>':'')+'<div style="display:grid;gap:6px;margin-top:10px">'+ROLES.map(r=>'<label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="ar-'+a.id+'-'+r.id+'"'+(a.roles.includes(r.id)?' checked':'')+'> '+esc(r.n)+'</label>').join('')+'</div></details>').join('')+'<div class="row" style="margin-top:12px"><button class="btn btn-green" type="submit">Simpan</button><button type="button" class="btn btn-line" data-act="closeSheet">Batal</button></div></form>')},
  tab:v=>{S.filter={};go('app-'+v)},
  foto:()=>{const i=document.getElementById('foto-in');if(i)i.click()},
- layananCS:()=>{const wa=PENG.wa||'',jam='Senin–Sabtu, 08.00–17.00',pesan='Assalamu’alaikum wr.wb\nHalo Batur Renco, saya ingin bertanya atau menyampaikan sesuatu terkait layanan Aren Jariyah. Mohon bantuannya. Terima kasih.';
-  sheet(head('Layanan','Kami siap membantu pertanyaan seputar pendaftaran, partisipasi, dan laporan.')+(wa?'<div class="note" style="margin-bottom:12px">Layanan dibuka melalui WhatsApp. Jam layanan: '+jam+'. Di luar jam itu, pesan tetap kami balas pada hari layanan berikutnya.</div><a class="btn btn-green" style="width:100%;text-align:center" target="_blank" rel="noopener" href="'+waLink(wa,pesan)+'">Chat WhatsApp CS</a>':'<div class="note" style="margin-bottom:12px">Nomor WhatsApp layanan belum diatur admin. Silakan hubungi pengurus, lalu coba lagi.</div>')+'<button class="btn btn-line" style="width:100%;margin-top:10px" data-act="closeSheet">Tutup</button>')},
+ layananCS:()=>{const wa=PENG.wa||'',jam='24 jam setiap hari (24/7)',pesan='Assalamu’alaikum wr.wb\nHalo Batur Renco, saya ingin bertanya atau menyampaikan sesuatu terkait layanan Aren Jariyah. Mohon bantuannya. Terima kasih.';
+  sheet(head('Layanan','Kami siap membantu pertanyaan seputar pendaftaran, partisipasi, dan laporan.')+(wa?'<div class="note" style="margin-bottom:12px">Layanan dibuka melalui WhatsApp. Jam layanan: <b>'+jam+'</b>.</div><a class="btn btn-green" style="width:100%;text-align:center" target="_blank" rel="noopener" href="'+waLink(wa,pesan)+'">Chat WhatsApp CS · 24/7</a>':'<div class="note" style="margin-bottom:12px">Nomor WhatsApp layanan belum diatur admin. Silakan hubungi pengurus, lalu coba lagi.</div>')+'<button class="btn btn-line" style="width:100%;margin-top:10px" data-act="closeSheet">Tutup</button>')},
  visiMore:()=>{const t=document.getElementById('vtxt'),bt=document.querySelector('.vmore');if(!t)return;const w=t.parentNode;
   const close=()=>{t.classList.remove('open');w.style.height='';if(bt)bt.setAttribute('aria-expanded','false')};
   if(t.classList.contains('open')){close();return}
   w.style.height=t.offsetHeight+'px';t.classList.add('open');if(bt)bt.setAttribute('aria-expanded','true');
   setTimeout(()=>{const off=e=>{if(e.target.closest&&e.target.closest('.vmore,.vtxt'))return;close();document.removeEventListener('click',off,true)};document.addEventListener('click',off,true)},0)},
  pubTab:v=>{S.pub=v;rerender()},
- visiTl:()=>{S.vtl=!S.vtl;const t=document.getElementById('visi-tl'),b=document.querySelector('.vban');if(t)t.hidden=!S.vtl;if(b)b.setAttribute('aria-expanded',S.vtl?'true':'false');if(S.vtl&&t)setTimeout(()=>{try{t.scrollIntoView({behavior:'smooth',block:'nearest'})}catch(e){}},60)},
+ visiTl:()=>{S.vtl=!S.vtl;const t=document.getElementById('visi-tl'),b=document.querySelector('.pbtn');if(t)t.hidden=!S.vtl;if(b)b.setAttribute('aria-expanded',S.vtl?'true':'false');if(S.vtl&&t)setTimeout(()=>{try{t.scrollIntoView({behavior:'smooth',block:'nearest'})}catch(e){}},60)},
  grup:v=>{const g=document.querySelector('.gbar:not(.tg)');if(!g){S.filter.grup=v;rerender();return}
   const on=g.querySelector('.gb[aria-pressed="true"]');if(on&&on.dataset.v===v)return;
   S.filter.grup=v;
@@ -2118,15 +2439,16 @@ const A={
     document.querySelectorAll('.cta [data-act=pick]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v))},
  formRek:()=>{if(S.role!=='partisipan'||!ME)return;sheet(FORMS.rek(ME));const b=document.getElementById('rk-b');if(b&&ME.rek)b.value=ME.rek.b},
  formWaris:v=>{const p=P.find(x=>x.id===(v||(ME&&ME.id)));if(!p)return;if(!(S.role==='partisipan'?ME&&ME.id===p.id:canManage('waris')))return;sheet(FORMS.waris(p));const r=document.getElementById('wr-r');if(r&&p.waris)r.value=p.waris.r},
- formProfil:()=>{if(ME)sheet(FORMS.profil());setTimeout(()=>{const c=document.getElementById('pf-c');if(c&&ME)c.value=ME.kat||'Dana'},0)},
+ formProfil:()=>{if(ME)sheet(FORMS.profil())},
  formGabung:()=>{if(!S.role){S.lg={step:'daftar'};go('masuk');return}sheet(FORMS.gabung())}, formLahan:()=>sheet(FORMS.lahan()),
  formTx:()=>sheet(FORMS.tx()), formPakai:()=>sheet(FORMS.pakai()), formAlih:()=>{if(!ALIHOK()){toast(alihMsg());return}sheet(FORMS.alih())}, formAset:()=>{if(canManage('aset'))sheet(FORMS.aset())}, formProyek:()=>{if(canManage('proyek'))sheet(FORMS.proyek())}, formKeg:()=>{if(S.role==='admin')sheet(FORMS.keg())},
  jenis:v=>{S.filter.jenis=v;rerender()}, bulanInfo:v=>{const el=$('#cal-info');if(el)el.innerHTML=calTxt(+v);document.querySelectorAll('.cal button').forEach((b,i)=>b.classList.toggle('sel',i===+v))},
  bagiAjukan:()=>{
   const y=TODAY.getFullYear(),laba=labaTotal(y);
-  if(!isP()||!MB()||laba<=0||BAGI.some(b=>b.tahun===y&&b.st!=='Ditolak'))return;
+  if(S.role!=='admin'||!MB()||laba<=0||BAGI.some(b=>b.tahun===y&&b.st!=='Ditolak'))return;
   if(ALOKS.reduce((a,b)=>a+b,0)!==100){toast('Total alokasi harus 100%.');return}
-  DB.add('BAGI',{id:DB.nextId('BH','BAGI',2),tahun:y,laba,al:ALOKS.slice(),st:'Diajukan',tgl:todayISO(),alasan:'',rinci:[]},'Mengajukan pembagian keuntungan '+y+' ('+rp(laba)+')');
+  if(ALOKET.trim().length<10){toast('Admin perlu mengisi keterangan keputusan bersama (minimal 10 karakter).');return}
+  DB.add('BAGI',{id:DB.nextId('BH','BAGI',2),tahun:y,laba,al:ALOKS.slice(),ket:ALOKET.trim(),st:'Diajukan',tgl:todayISO(),alasan:'',rinci:[]},'Mengajukan pembagian keuntungan '+y+' ('+rp(laba)+')');
   toast('Diajukan ke Dewan Pengarah.');rerender();
  },
  bagiSetuju:v=>{const b=DB.find('BAGI',v);if(!b||S.role!=='dewan'||b.st!=='Diajukan')return;DB.update('BAGI',v,{st:'Disetujui'},'Dewan menyetujui pembagian '+b.tahun);rerender()},
@@ -2154,39 +2476,37 @@ const A={
  akBuka:v=>sheet(akuiDetail(v)),
  formAkui:()=>{if(!MP()){toast(pasarMsg());return}if(akMe())sheet(FORMS.akui());else toast('Hanya partisipan aktif yang dapat mengusulkan.')},
  tahapInfo:v=>{const el=$('#tahap-info');if(el)el.innerHTML=tahapTxt(+v);document.querySelectorAll('.stn').forEach((b,i)=>b.classList.toggle('sel',i===+v))},
- akCek:v=>{const[id,i]=v.split('|'),a=AKI(id);if(!a||!isP()||a.tahap!==1||a.batal)return;const c=a.cek.slice();c[+i]=!c[+i];akGo(id,{cek:c},'Verifikasi '+id+': '+SYARAT[+i]+(c[+i]?' terpenuhi':' dibatalkan'))},
- akVote:v=>{const[id,c]=v.split('|'),a=AKI(id),me=akMe();if(!a||!me||a.tahap!==2||a.batal||!['setuju','tolak','abstain'].includes(c))return;akGo(id,{suara:{...a.suara,[me.id]:c}},'Suara '+me.id+' pada '+id)},
+ akCek:v=>{const[id,i]=v.split('|'),a=AKI(id);if(!a||!isP()||a.tahap!==0||a.batal)return;const c=a.cek.slice();c[+i]=!c[+i];akGo(id,{cek:c},'Verifikasi '+id+': '+SYARAT[+i]+(c[+i]?' terpenuhi':' dibatalkan'))},
+ muatUlang:()=>{if(!SB_AUTH){rerender();return}toast('Memuat data terbaru...');SB.refresh().then(()=>{rerender();toast('Data diperbarui.')})},
  akNext:v=>{
   const a=AKI(v);if(!a||a.batal||!isP())return;
-  if(a.tahap===0)return akGo(v,{tahap:1},'Memulai verifikasi '+v);
-  if(a.tahap===1){if(a.cek.some(x=>!x)){toast('Lengkapi semua syarat dahulu.');return}return akGo(v,{tahap:2},'Membuka voting '+v)}
-  if(a.tahap===2){
-    const n=aktif().length,sv=akSuara(a),tot=sv.s+sv.t+sv.a,sah=sv.s+sv.t;
-    const ok=n>0&&tot>=Math.ceil(n*KUORUM)&&sah>0&&sv.s/sah>=AMBANG;
-    return akGo(v,ok?{tahap:3}:{batal:'Voting tidak lolos: kuorum atau ambang setuju tidak terpenuhi.'},'Menutup voting '+v+(ok?' (lolos)':' (tidak lolos)'));
-  }
-  if(a.tahap===4){
+  if(a.tahap===0){if(a.cek.some(x=>!x)){toast('Lengkapi semua syarat dahulu.');return}return akGo(v,{tahap:1},'Menyetujui usulan '+v+' dan membuka pendanaan')}
+  if(a.tahap===1){
     if(akDana(a)<a.harga){toast('Dana belum mencukupi.');return}
     if(!confirm('Catat "'+a.n+'" sebagai aset bersama? Pastikan pembelian dan dokumen sudah selesai.'))return;
     DB.add('ASET',{id:DB.nextId('AB','ASET',2),n:a.n,j:a.j,lok:a.lok,luas:0,hukum:'Belum diisi',kelola:'Belum diisi',sumber:'Dana Pembangunan Aset (usulan '+a.id+')',nilai:a.harga,st:'Pembelian',prog:0,masuk:0,keluar:0,dok:[],rawat:'',dampak:a.alasan,usul:a.oleh},'Aset dari usulan '+a.id+' dicatat');
-    akGo(v,{tahap:5},'Usulan '+v+' menjadi aset');
+    akGo(v,{tahap:2},'Usulan '+v+' menjadi aset');
   }
  },
- akDewan:v=>{const a=AKI(v);if(!a||a.batal||a.tahap!==3||S.role!=='dewan')return;akGo(v,{tahap:4},'Dewan menyetujui '+v)},
- akTolak:v=>{const a=AKI(v);if(!a||a.batal||a.tahap>4)return;if(!(isP()&&a.tahap<=4)&&!(S.role==='dewan'&&a.tahap===3))return;const r=(prompt('Alasan penolakan (wajib):')||'').trim();if(!r){toast('Alasan wajib diisi.');return}akGo(v,{batal:r},'Menolak '+v)},
- akTarik:v=>{const a=AKI(v);if(!a||a.batal||a.tahap>1||!ME||ME.id!==a.oleh)return;if(confirm('Tarik usulan ini?'))akGo(v,{batal:'Ditarik oleh pengusul.'},'Usulan '+v+' ditarik')},
+ akTolak:v=>{const a=AKI(v);if(!a||a.batal||a.tahap>1||!isP())return;const r=(prompt('Alasan penolakan (wajib):')||'').trim();if(!r){toast('Alasan wajib diisi.');return}akGo(v,{batal:r},'Menolak '+v)},
+ akTarik:v=>{const a=AKI(v);if(!a||a.batal||a.tahap>0||!ME||ME.id!==a.oleh)return;if(confirm('Tarik usulan ini?'))akGo(v,{batal:'Ditarik oleh pengusul.'},'Usulan '+v+' ditarik')},
  all:()=>{S.filter.all=true;rerender()},
  hadir:v=>toast('Kehadiran dicatat untuk: '+v),
  salin:()=>copyText(window.__rep||''),
  ekspor:v=>ekspor(v),
+ progBuka:()=>{PG.y=TODAY.getFullYear();PG.t='ringkas';sheet(progView())},
+ pgTab:v=>{PG.t=v;sheet(progView())}, pgYear:v=>{PG.y+=+v;sheet(progView())},
+ pgCetak:()=>{let r=document.getElementById('print-root');if(!r){r=document.createElement('div');r.id='print-root';document.body.appendChild(r)}
+  const d=progData(PG.y);r.innerHTML='<h1>Laporan Progres Platform Aren Jariyah</h1><p>Tahun '+PG.y+' \u00b7 dicetak '+tgl(todayISO())+'</p>'+['ringkas','keuangan','aset','strategi'].map(t=>progBody(t,d,true)).join('');
+  try{window.print()}catch(e){toast('Cetak tidak tersedia di sini. Buka aplikasi di browser.')}},
  setujuTx:v=>{DB.update('TX',v,{st:'Terverifikasi'},r=>'Menyetujui '+v+' ('+rp(r.n)+')');toast('Pengeluaran disetujui.');rerender()},
  tolakTx:v=>{DB.update('TX',v,{st:'Ditolak'},'Menolak '+v);toast('Pengeluaran ditolak.');rerender()},
  setujuP:v=>{const q=P.find(x=>x.id===v);if(!q)return;if(!hpTerverif(q)){toast('Nomor HP belum terverifikasi. Selesaikan dulu di bagian Verifikasi HP.');return}const p=DB.update('P',v,{status:'Aktif'},r=>'Menyetujui calon partisipan '+r.id);toast(p.nama+' kini aktif.');rerender()},
  verLahan:v=>{DB.update('LAHAN',v,{st:'Diverifikasi'},'Memverifikasi lahan '+v);toast('Aset terverifikasi. Menunggu persetujuan kerja sama.');closeSheet();rerender()},
- setujuLahan:v=>{DB.update('LAHAN',v,{st:'Disetujui'},'Menyetujui kerja sama lahan '+v);toast('Kerja sama disetujui. Aset tetap milik pemilik dan tidak masuk Aset Bersama.');closeSheet();rerender()},
+ setujuLahan:v=>{DB.update('LAHAN',v,{st:'Disetujui'},'Menyetujui kerja sama lahan '+v);{const l=DB.find('LAHAN',v),pm=ARSIP.find(x=>x.jenis==='pemilik'&&x.ref===v);if(l&&!ARSIP.some(x=>x.jenis==='pengelolaan'&&x.ref===v))perjBuat('pengelolaan',{...l,ref:v,refNomor:pm?pm.nomor:''},{aid:pm?pm.aid:'',pid:l.pid||(pm?pm.pid:''),nama:pm?pm.ttd:l.pemilik})}toast('Kerja sama disetujui. Aset tetap milik pemilik dan tidak masuk Aset Bersama.');closeSheet();rerender()},
  setujuPakai:v=>{DB.update('HASILPAKAI',v,{st:'Disetujui'},r=>'Menyetujui alokasi hasil Dana Abadi '+rp(r.n));toast('Alokasi hasil disetujui.');rerender()},
  sertifikat:()=>ME?A.sertifikat0():toast('Anda belum terdaftar sebagai partisipan.'),
- sertifikat0:()=>sheet('<div style="border:2px solid var(--gold);border-radius:14px;padding:22px;text-align:center"><div class="label">Sertifikat Partisipasi Digital</div><h2 style="font-size:24px;margin:10px 0">'+esc(ME.nama)+'</h2><p>Telah berpartisipasi sebagai Partisipan Aren Jariyah dengan '+ME.jam+' jam tenaga dan '+ME.poin+' poin partisipasi.</p><p class="muted" style="margin-top:10px;font-size:13px">No. '+ME.id+'/2026 · Diterbitkan '+tgl(TODAY)+'</p></div><div class="row" style="margin-top:12px"><button class="btn btn-line" data-act="closeSheet">Tutup</button></div>')
+ sertifikat0:()=>sheet('<div style="border:2px solid var(--gold);border-radius:14px;padding:22px;text-align:center"><div class="label">Sertifikat Partisipasi Digital</div><h2 style="font-size:24px;margin:10px 0">'+esc(ME.nama)+'</h2><p>Telah berpartisipasi sebagai Partisipan Aren Jariyah.</p><p class="muted" style="margin-top:10px;font-size:13px">No. '+ME.id+'/2026 · Diterbitkan '+tgl(TODAY)+'</p></div><div class="row" style="margin-top:12px"><button class="btn btn-line" data-act="closeSheet">Tutup</button></div>')
 };
 /* ================= PENGALIHAN PARTISIPASI: per aset, bertahap, wajib disetujui pengurus ================= */
 function pemilik(a){const s=new Set([a.usul,a.oleh,...TX.filter(t=>t.ref===a.n&&t.pid).map(t=>t.pid)].filter(Boolean));(a.alih||[]).forEach(h=>{s.delete(h.dari);s.add(h.ke)});return s}
@@ -2224,7 +2544,7 @@ function wzBody(lab){
   const ke=P.find(p=>p.id===WZ.ke),L=ASET.filter(a=>WZ.aset.includes(a.id));
   return '<div class="flow"><div>'+av(dari.nama)+'<b>'+esc(dari.nama)+'</b><span class="muted">'+dari.id+'</span></div><span class="arr" aria-hidden="true">\u2192</span><div>'+av(ke.nama,'var(--gold)')+'<b>'+esc(ke.nama)+'</b><span class="muted">'+ke.id+'</span></div></div>'+
   '<div class="list">'+L.map(a=>'<div class="item"><div class="t"><b>'+esc(a.n)+'</b><span class="chip mute">'+esc(a.j)+'</span></div><span class="muted" style="font-size:13px">Kontribusi '+rp(kontrib(a,dari.id))+'</span></div>').join('')+'</div>'+
-  '<div class="stats" style="margin-top:0">'+stat('Jumlah aset',L.length)+stat('Total kontribusi',rp(sum(L,a=>kontrib(a,dari.id))))+'</div>'+
+  '<div class="stats" style="margin-top:0">'+stat('Jumlah aset',L.length)+stat('Total kontribusi',rpc(sum(L,a=>kontrib(a,dari.id))))+'</div>'+
   '<div class="item"><span class="label">Alasan</span><span>'+esc(WZ.alasan)+'</span></div>'+
   '<div class="note">Setelah diajukan, pengurus meninjau. Hak partisipasi atas aset di atas baru berpindah setelah disetujui, dan semuanya tercatat di audit trail.</div>'+
   '<label class="ckl"><input type="checkbox" data-act="wzCk"'+(WZ.ok?' checked':'')+'><span>Saya memahami bahwa pengalihan ini tidak dapat dibatalkan setelah disetujui.</span></label>'
@@ -2471,8 +2791,10 @@ document.addEventListener('pointermove',e=>{
 document.addEventListener('pointerup',()=>kpEnd(true));
 document.addEventListener('pointercancel',()=>kpEnd(false));
 document.addEventListener('touchmove',e=>{if(KD&&KD.on)e.preventDefault()},{passive:false});
-document.addEventListener('contextmenu',e=>{if(e.target.closest&&e.target.closest('.kpt2'))e.preventDefault()});
-document.addEventListener('selectstart',e=>{if(KD||(e.target.closest&&e.target.closest('.kpt2')))e.preventDefault()});
+const salinOk=e=>{const n=e.target&&e.target.nodeType===3?e.target.parentElement:e.target;return !!(n&&n.closest&&n.closest('input,textarea,select,[contenteditable],pre.out'))};
+document.addEventListener('contextmenu',e=>{if(!salinOk(e))e.preventDefault()});
+document.addEventListener('selectstart',e=>{if(KD||!salinOk(e))e.preventDefault()});
+['copy','cut','dragstart'].forEach(t=>document.addEventListener(t,e=>{if(!salinOk(e))e.preventDefault()}));
 document.addEventListener('dragstart',e=>{if(e.target.closest&&e.target.closest('.kpt2'))e.preventDefault()});
 document.addEventListener('keydown',e=>{
   const t=e.target.closest&&e.target.closest('.kpt2.own');
@@ -2562,7 +2884,7 @@ Object.assign(A,{
 });
 document.addEventListener('submit',e=>{
   const k=e.target.dataset.form;if(!['thread','balas','poll'].includes(k))return;e.preventDefault();
-  const v=id=>(document.getElementById(id)||{}).value||'';
+  const v=id=>{const e=document.getElementById(id),x=(e||{}).value||'';return e&&e.hasAttribute&&e.hasAttribute('data-rp')?x.replace(/\D/g,''):x};
   if(k==='thread'){
     const t=v('fr-t').trim(),b=v('fr-b').trim();if(!t||!b)return;
     DB.add('FORUM',{id:DB.nextId('FR','FORUM',3),t,b,by:frNama(),byId:frKey(),d:todayISO(),pin:false,tutup:false,bal:[]},'Membuka topik forum: '+t);
@@ -2605,7 +2927,7 @@ document.addEventListener('change',e=>{
   im.src=u;
 });
 document.addEventListener('input',e=>{if(e.target.id!=='pr-q')return;S.filter.pq=e.target.value;const l=document.getElementById('pr-list');if(l)l.innerHTML=prList()});
-document.addEventListener('keydown',e=>{const v=e.target.closest&&e.target.closest('.vban');if(v&&(e.key==='Enter'||e.key===' ')){e.preventDefault();A.visiTl()}});
+document.addEventListener('scroll',e=>{const c=e.target;if(!c||!c.classList||!c.classList.contains('pcar'))return;const k=[...c.children],m=c.scrollLeft+c.clientWidth/2;let b=0,d=1e9;k.forEach((x,i)=>{const q=Math.abs(x.offsetLeft+x.offsetWidth/2-m);if(q<d){d=q;b=i}});k.forEach((x,i)=>x.classList.toggle('in',i===b));const w=c.parentNode.querySelectorAll('.pdots button');w.forEach((x,i)=>i===b?x.setAttribute('aria-current','true'):x.removeAttribute('aria-current'))},true);
 document.addEventListener('keydown',e=>{const h=e.target.closest&&e.target.closest('.prh');if(h&&(e.key==='Enter'||e.key===' ')){e.preventDefault();A.prToggle(h.dataset.v)}});
 document.addEventListener('change',e=>{
   const k=e.target.dataset.change; if(!k)return;
@@ -2613,7 +2935,9 @@ document.addEventListener('change',e=>{
   if(k==='q')S.filter.q=e.target.value; if(k==='st')S.filter.st=e.target.value; S.filter.all=false; rerender();
 });
 document.addEventListener('input',e=>{
+  if(e.target.id==='al-ket'){if(S.role==='admin')ALOKET=e.target.value;return}
   const i=e.target.dataset.slide;if(i===undefined)return;
+  if(S.role!=='admin')return;
   const k=+i,v=+e.target.value,o=100-ALOKS[k],rest=100-v,idx=[0,1,2,3].filter(j=>j!==k);
   let left=rest;
   idx.forEach((j,n)=>{const val=n===idx.length-1?left:Math.round(o>0?ALOKS[j]*rest/o:rest/idx.length);ALOKS[j]=Math.max(0,Math.min(left,val));left-=ALOKS[j]});
@@ -2621,7 +2945,7 @@ document.addEventListener('input',e=>{
 });
 document.addEventListener('submit',e=>{
   const k=e.target.dataset.form; if(!k)return; e.preventDefault();
-  const v=id=>(document.getElementById(id)||{}).value||'';
+  const v=id=>{const e=document.getElementById(id),x=(e||{}).value||'';return e&&e.hasAttribute&&e.hasAttribute('data-rp')?x.replace(/\D/g,''):x};
   if(SB_AUTH&&['login','akawal','akdaftar','aklupa','gantipin'].includes(k)){SB.form(k,v);return}
   if(k==='login'){
     const hp=normHp(v('lg-h')),pn=v('lg-p'),sisa=kunciSisa(hp);
@@ -2633,7 +2957,7 @@ document.addEventListener('submit',e=>{
       if(cocok.length>1){toast('Data akun ganda terdeteksi untuk nomor ini. Hubungi admin.');return}
       const a=cocok[0];gagalCatat(hp,true);
       if(a.v!==2){Object.assign(a,await akBuatPin(pn));akSave()}
-      akMasuk(a);
+      akMasuk(a);bioOffer(hp,pn);window.__bioTry=0;
     })();return;
   }
   if(k==='akawal'){
@@ -2717,7 +3041,7 @@ document.addEventListener('submit',e=>{
     if(!ME)return;
     const n=v('pf-n').trim(),d=v('pf-d').trim();
     if(n.length<3||!d){toast('Nama dan domisili wajib diisi.');return}
-    DB.update('P',ME.id,{nama:n,dom:d,skill:v('pf-k').trim()||'-',kat:v('pf-c')},'Memperbarui profil '+ME.id);
+    DB.update('P',ME.id,{nama:n,dom:d},'Memperbarui profil '+ME.id);
     const ak=akCur();if(ak&&ak.pid===ME.id){ak.nama=n;akSave()}
     closeSheet();toast('Profil tersimpan.');rerender();return;
   }
@@ -2751,10 +3075,10 @@ document.addEventListener('submit',e=>{
   if(k==='akui'){
     if(!MP()){toast(pasarMsg());return}
     const me=akMe();if(!me){toast('Hanya partisipan aktif yang dapat mengusulkan.');return}
-    if(AKUI.filter(x=>x.oleh===me.id&&!x.batal&&x.tahap<5).length>=2){toast('Maksimal 2 usulan berjalan per partisipan.');return}
+    if(AKUI.filter(x=>x.oleh===me.id&&!x.batal&&x.tahap<2).length>=2){toast('Maksimal 2 usulan berjalan per partisipan.');return}
     const harga=+v('ak-h');if(!(harga>0)||v('ak-a').trim().length<20||v('ak-r').trim().length<20){toast('Lengkapi data usulan dengan benar.');return}
     const id=DB.nextId('AK','AKUI',2);
-    DB.add('AKUI',{id,n:v('ak-n').trim(),j:v('ak-j'),lok:v('ak-l').trim(),harga,alasan:v('ak-a').trim(),rencana:v('ak-r').trim(),oleh:me.id,olehN:me.nama,tgl:todayISO(),tahap:0,batal:'',cek:[false,false,false,false,false],suara:{}},'Usulan akuisisi '+id+' ('+v('ak-n').trim()+')');
+    DB.add('AKUI',{id,n:v('ak-n').trim(),j:v('ak-j'),lok:v('ak-l').trim(),harga,alasan:v('ak-a').trim(),rencana:v('ak-r').trim(),oleh:me.id,olehN:me.nama,tgl:todayISO(),tahap:0,r3:1,batal:'',cek:[false,false,false,false,false]},'Usulan akuisisi '+id+' ('+v('ak-n').trim()+')');
     closeSheet();toast('Usulan terkirim untuk diverifikasi.');S.filter.mode='usulan';rerender();return;
   }
   if(k==='pinrekP'){
@@ -2802,16 +3126,20 @@ document.addEventListener('submit',e=>{
     if(ak0&&ak0.pid&&P.some(x=>x.id===ak0.pid)&&(!S.role||S.role==='partisipan')){toast('Akun ini sudah punya profil partisipan.');return}
     akFresh();if(hpAda(hp,(S.role==='partisipan'&&ak0)?ak0.id:undefined)){toast('Nomor HP ini sudah terdaftar. Gunakan akun yang ada atau nomor lain.');return}
     const id=DB.nextId('AJ','P',3);
-    DB.add('P',{id,nama:v('g-n'),hp,hpv:(S.role==='admin'||S.role==='pengurus')?'admin':'belum',dom:v('g-d'),status:'Calon',skill:v('g-k')||'-',dana:0,jam:0,tugas:0,poin:0,kop:'Bukan anggota',kat:v('g-c')},'Pendaftaran calon partisipan '+id);if(!S.role||S.role==='partisipan'){DB.setMe(id);const ak=akCur();if(ak){ak.pid=id;akSave()}}closeSheet();toast('Terima kasih, '+v('g-n').split(' ')[0]+'. Pendaftaran diterima, menunggu persetujuan pengurus.');
+    DB.add('P',{id,nama:v('g-n'),hp,hpv:(S.role==='admin'||S.role==='pengurus')?'admin':'belum',dom:v('g-d'),status:'Calon',gabung:todayISO(),skill:'-',dana:0,kop:'Bukan anggota',kat:'Dana'},'Pendaftaran calon partisipan '+id);if(!S.role||S.role==='partisipan'){DB.setMe(id);const ak=akCur();if(ak){ak.pid=id;akSave()}}let dk=null;if(!S.role||S.role==='partisipan'){const a1=akCur();dk=perjBuat('partisipan',{nama:v('g-n'),hp,dom:v('g-d'),ref:id},{aid:a1?a1.id:'',pid:id,nama:(a1&&a1.nama)||v('g-n')})}
+    const gn=v('g-n').split(' ')[0];closeSheet();toast('Terima kasih, '+gn+'. Pendaftaran diterima, menunggu persetujuan pengurus.');if(dk)setTimeout(()=>sheet(arsipView(dk.id,true)),700);
   }else if(k==='lahan'&&e.target.dataset.ref){
     if(S.role!=='admin')return;
+    const pt=petaParse();if(!pt){toast('Tandai titik denah di peta dulu.');return}
     const ref=e.target.dataset.ref;
     if(!DB.find('LAHAN',ref)){toast('Aset tidak ditemukan.');return}
-    DB.update('LAHAN',ref,{pemilik:v('l-n').trim(),jenis:v('l-t'),lok:v('l-l').trim(),luas:+v('l-u'),tanah:v('l-s'),skema:v('l-k'),tahun:+v('l-j')},'Mengubah aset kelola '+ref);
+    DB.update('LAHAN',ref,{pemilik:v('l-n').trim(),jenis:v('l-t'),lok:v('l-l').trim(),luas:+v('l-u'),tanah:v('l-s'),skema:v('l-k'),tahun:+v('l-j'),lat:pt.lat,lng:pt.lng},'Mengubah aset kelola '+ref);
     closeSheet();toast('Perubahan aset kelola tersimpan.');
   }else if(k==='lahan'){
+    const pt=petaParse();if(!pt){toast('Tandai titik denah di peta dulu.');return}
     const id=DB.nextId('LH','LAHAN',2);
-    DB.add('LAHAN',{id,pemilik:v('l-n'),jenis:v('l-t'),pid:(S.role==='partisipan'&&ME)?ME.id:'',lok:v('l-l'),luas:+v('l-u'),tanah:v('l-s'),pot:'Dinilai saat verifikasi',skema:v('l-k'),tahun:+v('l-j'),persen:'Dibahas dalam perjanjian',st:'Diajukan',akhir:'',masuk:0},'Pengajuan aset kelola '+id);closeSheet();toast('Aset diajukan. Admin akan memverifikasi data dan statusnya.');
+    const lr=DB.add('LAHAN',{id,pemilik:v('l-n'),jenis:v('l-t'),pid:(S.role==='partisipan'&&ME)?ME.id:'',lok:v('l-l'),luas:+v('l-u'),tanah:v('l-s'),pot:'Dinilai saat verifikasi',skema:v('l-k'),tahun:+v('l-j'),persen:'Dibahas dalam perjanjian',st:'Diajukan',akhir:'',masuk:0,lat:pt.lat,lng:pt.lng},'Pengajuan aset kelola '+id);let dk=null;if(['partisipan','pemilik'].includes(S.role)){const a1=akCur();dk=perjBuat('pemilik',{...lr,ref:id},{aid:a1?a1.id:'',pid:lr.pid||(ME?ME.id:''),nama:(a1&&a1.nama)||lr.pemilik})}
+    closeSheet();toast('Aset diajukan. Admin akan memverifikasi data dan statusnya.');if(dk)setTimeout(()=>sheet(arsipView(dk.id,true)),700);
   }else if(k==='tx'){
     const n=+v('t-n'), j=v('t-j'), st=(j==='keluar'&&n>5000000)?'Menunggu persetujuan pengurus':'Menunggu verifikasi', id=DB.nextId('TX','TX',3);
     DB.add('TX',{id,d:v('t-d'),j,kat:v('t-k'),n,ref:v('t-r'),bukti:file('t-b'),ket:v('t-e'),st},'Mencatat '+id+' ('+rp(n)+', '+v('t-k')+')');closeSheet();toast(st.startsWith('Menunggu persetujuan')?'Tersimpan. Pengeluaran besar menunggu persetujuan pengurus.':'Transaksi tersimpan.');
@@ -2866,7 +3194,138 @@ Object.assign(A,{
     sheet(head('Hapus aset kelola?','Aset kelola <b>'+esc(l.pemilik)+'</b> ('+esc(l.id)+') akan dihapus dari daftar. Tindakan ini tidak dapat dibatalkan.')+'<div class="row"><button class="btn btn-line" type="button" data-act="closeSheet">Batal</button><button class="btn btn-green" style="background:var(--bad)" type="button" data-act="lahanHapusOk" data-v="'+esc(l.id)+'">Ya, hapus</button></div>')},
   lahanHapusOk:v=>{const l=DB.find('LAHAN',v);if(!l||S.role!=='admin')return;DB.remove('LAHAN',v,'Menghapus aset kelola '+v+' ('+l.pemilik+')');closeSheet();toast('Aset kelola dihapus.');rerender()}
 });
+/* ================= SERTIFIKAT PARTISIPASI: kartu A5 bergaya Aren Jariyah, unduh gambar/PDF, bagikan ================= */
+const SURL='https://koperasirenco.github.io/Aren-Jariyah-/';
+const SERT={cv:null,fn:'',busy:false};
+const sertImg=src=>new Promise((ok,no)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=()=>no(new Error('img'));i.src=src});
+/* matriks QR (versi 4, koreksi M) untuk SURL, disematkan agar tetap tampil tanpa internet */
+const SQR=["111111101010101111101101001111111","100000100110000001010010101000001","101110100110010000011100001011101","101110101000001001111011001011101","101110101011001001111001101011101","100000101010111011010000101000001","111111101010101010101010101111111","000000001111001111000101000000000","100010111000100001011111011111001","100001001001011100100111010001100","111111111011100111001001100001010","010101010010101011110101110000010","001011101011011000111000101011011","011000000101100010010001000100100","010011111011000010110011111101110","111000001001000001111101011100000","100010110001101101001110101010010","000111010011100111100101010001111","111110110000111100100001000101010","110111000010010100011011001100011","101001110110110010000010101001000","111101011100111001111101010101110","001001101011110101001111101010010","001111011001000111100101011000001","110100101111001011011111111110000","000000001000111110000011100010110","111111101100100111001110101011000","100000100011100111101100100010011","101110101100110100111000111111000","101110100111001010010011001111010","101110100011000011110010101111100","100000100111101001011110101001000","111111101100010101001111101000001"];
+function sertTgl(iso){const a=String(iso).slice(0,10).split('-').map(Number);return a[2]+' '+BLN[a[1]-1]+' '+a[0]}
+function sertJoin(p){
+  if(/^\d{4}-\d{2}-\d{2}$/.test(p.gabung||''))return p.gabung;
+  const re=new RegExp('(Pendaftaran calon partisipan '+p.id+'$|Profil partisipan '+p.id+' dibuat otomatis)');
+  const e=AUDIT.filter(a=>re.test(a.a)&&/^\d{4}-\d{2}-\d{2}/.test(a.w||'')).map(a=>a.w.slice(0,10)).sort()[0];
+  if(e)return e;
+  if(p._t)return isoD(new Date(Math.floor(p._t)));
+  return todayISO();
+}
+function sertWrap(x,t,maxW){const w=t.split(' ');let l='';const o=[];w.forEach(k=>{const q=l?l+' '+k:k;if(x.measureText(q).width>maxW&&l){o.push(l);l=k}else l=q});if(l)o.push(l);return o}
+async function sertRender(m){
+  try{await Promise.all([document.fonts.load('800 80px "Plus Jakarta Sans"'),document.fonts.load('600 40px "Plus Jakarta Sans"'),document.fonts.load('400 60px Allura')])}catch(e){}
+  /* A5 lanskap 210 x 148 mm, 10 px per mm */
+  const W=2100,H=1480,cv=document.createElement('canvas');cv.width=W;cv.height=H;const x=cv.getContext('2d'),cx=W/2;
+  const SANS='"Plus Jakarta Sans",-apple-system,"Helvetica Neue",Arial,sans-serif',SERIF='Georgia,"Times New Roman",serif';
+  const lg=(x0,y0,x1,y1,st)=>{const g=x.createLinearGradient(x0,y0,x1,y1);st.forEach((c,i)=>g.addColorStop(i/(st.length-1),c));return g};
+  const LOGOC=['#F68A33','#EE4363','#7A2C8C','#1386B3','#19A69E','#43B182'];
+  const sp=(v)=>{try{x.letterSpacing=v+'px'}catch(e){}};
+  /* latar */
+  x.fillStyle='#fff';x.fillRect(0,0,W,H);
+  let g=x.createRadialGradient(W,0,0,W,0,1100);g.addColorStop(0,'rgba(245,228,250,.95)');g.addColorStop(1,'rgba(245,228,250,0)');x.fillStyle=g;x.fillRect(0,0,W,H);
+  g=x.createRadialGradient(0,H,0,0,H,1100);g.addColorStop(0,'rgba(255,232,210,.95)');g.addColorStop(1,'rgba(255,232,210,0)');x.fillStyle=g;x.fillRect(0,0,W,H);
+  /* pita gelombang */
+  x.lineCap='round';
+  [[0,1180,.22,6,['#F68A33','#EE4363']],[0,1230,.16,4,['#7A2C8C','#1386B3']],[0,1280,.12,3,['#1386B3','#43B182']]].forEach(([y0,yy,a,w,c],i)=>{
+    x.globalAlpha=a;x.lineWidth=w;x.strokeStyle=lg(0,0,W,0,c);x.beginPath();x.moveTo(-40,yy);x.bezierCurveTo(500,yy-260+i*30,900,yy+200,1400,yy-60);x.bezierCurveTo(1700,yy-200,1900,yy-120,W+40,yy-280);x.stroke()});
+  [[0,260,.16,5,['#43B182','#1386B3']],[0,200,.2,4,['#EE4363','#F68A33']]].forEach(([y0,yy,a,w,c],i)=>{
+    x.globalAlpha=a;x.lineWidth=w;x.strokeStyle=lg(0,0,W,0,c);x.beginPath();x.moveTo(W+40,yy+i*40);x.bezierCurveTo(1700,yy+180,1400,yy-120,1000,yy+60);x.bezierCurveTo(700,yy+200,400,yy-60,-40,yy+120);x.stroke()});
+  x.globalAlpha=1;
+  /* bingkai */
+  x.lineWidth=8;x.strokeStyle=lg(0,0,W,H,LOGOC);x.beginPath();x.roundRect(46,46,W-92,H-92,36);x.stroke();
+  x.lineWidth=2.5;x.strokeStyle='rgba(122,44,140,.45)';x.beginPath();x.roundRect(78,78,W-156,H-156,22);x.stroke();
+  LOGOC.forEach((c,i)=>{[[46,46],[W-46,46],[46,H-46],[W-46,H-46]].forEach(p=>{if(i===0){x.fillStyle='#fff';x.beginPath();x.arc(p[0],p[1],22,0,6.2832);x.fill();x.fillStyle=lg(p[0]-20,p[1]-20,p[0]+20,p[1]+20,LOGOC.slice(0,3));x.beginPath();x.arc(p[0],p[1],14,0,6.2832);x.fill()}})});
+  /* logo */
+  try{const svg=LOGO_RAW.replace('<svg ','<svg xmlns="http://www.w3.org/2000/svg" width="990" height="600" ');
+    const im=await sertImg('data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg));x.drawImage(im,cx-175,105,350,212)}catch(e){}
+  x.textAlign='center';x.textBaseline='alphabetic';
+  x.fillStyle='#5c1d6d';x.font='800 34px '+SANS;sp(10);x.fillText('AREN JARIYAH',cx+5,362);
+  x.fillStyle='#8a7fa3';x.font='600 22px '+SANS;sp(4);x.fillText('BAGIAN DARI RENCOVISION 2045',cx+2,398);sp(0);
+  /* judul */
+  x.font='bold 92px '+SERIF;sp(8);const tw=x.measureText('SERTIFIKAT PARTISIPASI').width;
+  x.fillStyle=lg(cx-tw/2,0,cx+tw/2,0,['#5c1d6d','#B03A8C','#EE4363']);x.fillText('SERTIFIKAT PARTISIPASI',cx+4,500);sp(0);
+  x.fillStyle=lg(cx-170,0,cx+170,0,['#F68A33','#EE4363','#7A2C8C']);x.fillRect(cx-170,523,340,5);
+  x.fillStyle='#6e6e73';x.font='500 25px '+SANS;sp(2);x.fillText('Nomor: '+m.nomor,cx+1,572);sp(0);
+  /* penerima */
+  x.fillStyle='#3a3347';x.font='italic 34px '+SERIF;x.fillText('Dengan hormat, sertifikat ini diberikan kepada:',cx,650);
+  let fs=96;x.font='800 '+fs+'px '+SANS;while(x.measureText(m.nama).width>1500&&fs>44){fs-=4;x.font='800 '+fs+'px '+SANS}
+  x.fillStyle='#2a1245';x.fillText(m.nama,cx,650+10+fs*.95);
+  const ny=650+10+fs*.95+22,nw=Math.min(1500,x.measureText(m.nama).width+80);
+  x.fillStyle=lg(cx-nw/2,0,cx+nw/2,0,LOGOC);x.fillRect(cx-nw/2,ny,nw,4);
+  /* isi */
+  x.fillStyle='#2e2a38';x.font='33px '+SERIF;
+  const isi='Atas kesediaan dan kesungguhannya berpartisipasi sebagai Partisipan Aren Jariyah, gerakan pemuda Renco dalam membangun aset bersama, menjaga kelestarian lingkungan, dan menguatkan kehidupan sosial warga, sebagaimana semangat RencoVision 2045.';
+  let y=ny+66;sertWrap(x,isi,1560).forEach(l=>{x.fillText(l,cx,y);y+=50});
+  x.fillStyle='#8a7fa3';x.font='italic 23px '+SERIF;
+  sertWrap(x,'Sertifikat ini merupakan tanda keikutsertaan, bukan surat berharga, produk investasi, maupun jaminan keuntungan.',1500).forEach(l=>{x.fillText(l,cx,y+8);y+=32});
+  const by=y+14;
+  /* kiri: pengesahan + stempel */
+  const lx=W-520,rx=520;
+  x.fillStyle='#2e2a38';x.font='600 26px '+SANS;x.fillText('Mengesahkan,',lx,by+10);
+  try{const st=await sertImg(stampURL());x.globalAlpha=.95;x.drawImage(st,lx-115,by+18,230,230);x.globalAlpha=1}catch(e){}
+  x.fillStyle='#2e2a38';x.font='700 26px '+SANS;x.fillText('Pengurus Aren Jariyah',lx,by+282);
+  x.fillStyle='#6e6e73';x.font='500 21px '+SANS;x.fillText('Koperasi Renco',lx,by+312);
+  /* kanan: tanda tangan otomatis nama partisipan */
+  x.fillStyle='#2e2a38';x.font='500 24px '+SANS;x.fillText('Renco, '+sertTgl(m.tgl),rx,by+10);
+  x.font='600 26px '+SANS;x.fillText('Partisipan,',rx,by+48);
+  {let sf=104;x.font='400 '+sf+'px Allura,"Segoe Script","Snell Roundhand","Apple Chancery",cursive';while(x.measureText(m.nama).width>500&&sf>36){sf-=4;x.font='400 '+sf+'px Allura,"Segoe Script","Snell Roundhand","Apple Chancery",cursive'}
+    x.fillStyle='#1b2a6b';x.fillText(m.nama,rx,by+150);}
+    x.fillStyle='#2e2a38';x.font='700 28px '+SANS;let nf=28;while(x.measureText(m.nama).width>500&&nf>16){nf--;x.font='700 '+nf+'px '+SANS}x.fillText(m.nama,rx,by+218);
+  x.fillStyle='#6e6e73';x.font='500 21px '+SANS;x.fillText('No. Partisipan '+m.id,rx,by+252);
+  /* tengah: barcode QR minimalis */
+  const qs=165,qx=cx-qs/2,qy=by+50;
+  x.fillStyle='#fff';x.strokeStyle='rgba(122,44,140,.25)';x.lineWidth=2;x.beginPath();x.roundRect(qx-14,qy-14,qs+28,qs+28,16);x.fill();x.stroke();
+  {const n=SQR.length,c=qs/(n+0),mq=Math.floor(qs/n);const off=Math.round((qs-mq*n)/2);x.fillStyle='#2a1245';
+    for(let r=0;r<n;r++)for(let k=0;k<n;k++)if(SQR[r][k]==='1')x.fillRect(qx+off+k*mq,qy+off+r*mq,mq,mq)}
+  /* kaki */
+  x.fillStyle='#a79fb8';x.font='500 18px '+SANS;sp(1);x.fillText('Diterbitkan secara digital oleh Platform Aren Jariyah · Koperasi Renco',cx,H-100);sp(0);
+  return cv;
+}
+function sertSheet(){
+  const m=ME;
+  return '<div class="shead"><h2 style="margin:0">Sertifikat partisipasi</h2><button type="button" class="xbtn" data-act="closeSheet" aria-label="Tutup">'+XSVG+'</button></div>'+
+  '<p class="muted" style="margin:4px 0 12px;font-size:13px">Kartu A5 untuk '+esc(m.nama)+'. Unduh atau bagikan ke media sosial.</p>'+
+  '<div id="sert-box" style="border-radius:14px;overflow:hidden;box-shadow:0 10px 26px -14px rgba(122,44,140,.55);background:#fff;aspect-ratio:210/148;display:grid;place-items:center"><span class="muted" style="font-size:13px">Menyiapkan sertifikat…</span></div>'+
+  '<div class="row" style="margin-top:12px"><button type="button" class="btn btn-green" data-act="sertShare" style="flex:1 1 100%">Bagikan</button><button type="button" class="btn btn-line" data-act="sertPng" style="flex:1">Unduh gambar</button><button type="button" class="btn btn-line" data-act="sertPdf" style="flex:1">Unduh PDF</button></div>'+
+  '<div class="label" style="margin:14px 0 6px">Atau bagikan tautan ke</div><div class="row">'+
+  [['WhatsApp','https://wa.me/?text='],['Facebook','https://www.facebook.com/sharer/sharer.php?u='],['X','https://twitter.com/intent/tweet?text='],['Telegram','https://t.me/share/url?url='+encodeURIComponent(SURL)+'&text=']].map(s=>'<a class="btn btn-line btn-sm" target="_blank" rel="noopener" href="'+s[1]+(s[0]==='Telegram'?encodeURIComponent('Saya resmi menjadi Partisipan Aren Jariyah.'):s[0]==='Facebook'?encodeURIComponent(SURL):encodeURIComponent('Saya resmi menjadi Partisipan Aren Jariyah. '+SURL))+'">'+s[0]+'</a>').join('')+'</div>'+
+  '<p class="muted" style="font-size:12px;margin:8px 0 0">Untuk Instagram atau TikTok, unduh gambar lalu unggah dari galeri.</p>'+
+  '<div class="row" style="margin-top:12px"><button type="button" class="btn btn-line" data-act="closeSheet" style="width:100%">Tutup</button></div>';
+}
+const sertBlob=()=>new Promise(r=>SERT.cv.toBlob(r,'image/png'));
+const sertSave=(href,name)=>{const a=document.createElement('a');a.href=href;a.download=name;document.body.appendChild(a);a.click();a.remove()};
+async function sertReady(){if(SERT.cv)return true;toast('Sertifikat masih disiapkan…');return false}
+Object.assign(A,{
+  sertifikat0:async()=>{
+    if(!ME)return;
+    sheet(sertSheet());SERT.cv=null;
+    const tg=sertJoin(ME);if(ME.gabung!==tg)DB.update('P',ME.id,{gabung:tg});
+    const m={id:ME.id,nama:ME.nama,tgl:tg,nomor:'SP/'+ME.id+'/'+tg.slice(0,4)};
+    SERT.fn='Sertifikat-Partisipasi_'+ME.id;
+    try{
+      const cv=await sertRender(m);SERT.cv=cv;
+      const b=document.getElementById('sert-box');
+      if(b){const im=new Image();im.alt='Sertifikat partisipasi '+m.nama;im.style.cssText='width:100%;height:auto;display:block';im.src=cv.toDataURL('image/png');b.style.display='block';b.innerHTML='';b.appendChild(im)}
+    }catch(e){const b=document.getElementById('sert-box');if(b)b.innerHTML='<span class="muted" style="font-size:13px;padding:12px">Sertifikat tidak dapat dibuat di perangkat ini.</span>'}
+  },
+  sertPng:async()=>{if(!await sertReady())return;sertSave(SERT.cv.toDataURL('image/png'),SERT.fn+'.png');toast('Gambar sertifikat diunduh.')},
+  sertPdf:async()=>{
+    if(!await sertReady())return;
+    try{await jsLoad()}catch(e){toast('Pustaka PDF tidak dapat dimuat. Unduh sebagai gambar.');return}
+    const d=new window.jspdf.jsPDF({orientation:'landscape',unit:'mm',format:'a5'});
+    d.addImage(SERT.cv.toDataURL('image/jpeg',.95),'JPEG',0,0,210,148);d.save(SERT.fn+'.pdf');toast('PDF sertifikat diunduh.')
+  },
+  sertShare:async()=>{
+    if(!await sertReady())return;
+    const txt='Saya resmi menjadi Partisipan Aren Jariyah. '+SURL;
+    try{
+      const b=await sertBlob(),f=new File([b],SERT.fn+'.png',{type:'image/png'});
+      if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'Sertifikat Partisipasi Aren Jariyah',text:txt});return}
+      if(navigator.share){await navigator.share({title:'Sertifikat Partisipasi Aren Jariyah',text:txt,url:SURL});sertSave(SERT.cv.toDataURL('image/png'),SERT.fn+'.png');toast('Gambar ikut diunduh untuk dilampirkan.');return}
+    }catch(e){if(e&&e.name==='AbortError')return}
+    sertSave(SERT.cv.toDataURL('image/png'),SERT.fn+'.png');toast('Gambar diunduh. Lampirkan ke media sosial pilihan Anda, atau pakai tombol tautan di bawah.')
+  }
+});
 DB.load();
+setInterval(()=>{if(!SB_AUTH||!S.role||document.visibilityState!=='visible')return;const t=((document.activeElement||{}).tagName||'');if(/INPUT|TEXTAREA|SELECT/.test(t))return;try{SB.refresh()}catch(e){}},60000);
 akInit();
 render();
 if(SB_AUTH)SB.boot();
@@ -2934,6 +3393,19 @@ if(SB_AUTH)SB.boot();
   window.showSplash=splash;
   window.addEventListener('hashchange',()=>{if(location.hash==='#masuk')splash()});
   if(location.hash==='#masuk')splash();
+})();
+</script>
+<script>
+(function(){
+const fm=x=>{const d=String(x).replace(/\D/g,'').replace(/^0+(?=\d)/,'');return d?d.replace(/\B(?=(\d{3})+(?!\d))/g,'.'):''};
+function fix(el){const o=el.value;if(!o)return;const n=fm(o);if(n!==o)el.value=n}
+document.addEventListener('input',e=>{const el=e.target;if(!el||!el.hasAttribute||!el.hasAttribute('data-rp'))return;
+  const pos=el.selectionStart,dg=String(el.value).slice(0,pos==null?0:pos).replace(/\D/g,'').length,n=fm(el.value);
+  if(n===el.value)return;el.value=n;
+  if(pos!=null){let k=0,i=0;while(i<n.length&&k<dg){if(/\d/.test(n[i]))k++;i++}try{el.setSelectionRange(i,i)}catch(_){}}});
+const scan=r=>{(r.querySelectorAll?r.querySelectorAll('input[data-rp]'):[]).forEach(fix)};
+new MutationObserver(m=>{m.forEach(x=>x.addedNodes.forEach(n=>{if(n.nodeType!==1)return;if(n.matches&&n.matches('input[data-rp]'))fix(n);else scan(n)}))}).observe(document.documentElement,{childList:true,subtree:true});
+scan(document);
 })();
 </script>
 </body></html>
