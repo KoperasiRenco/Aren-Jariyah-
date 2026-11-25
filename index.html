@@ -963,7 +963,7 @@ const SB_AUTH=true;
 const PKEY='aren-jariyah:pengaturan';
 /* pengaturan pengalihan partisipasi: '0' = Januari saja (aturan bawaan), 'all' = sepanjang tahun, '1'..'11' = bulan lain */
 const WA_DEFAULT='6287855712922';
-const PENG=(()=>{const o={alih:'0',wa:WA_DEFAULT};try{const j=JSON.parse(localStorage.getItem(PKEY)||'null');if(j&&(j.alih==='all'||/^(?:[0-9]|1[01])$/.test(String(j.alih))))o.alih=String(j.alih);if(j&&/^62\d{8,13}$/.test(String(j.wa||'')))o.wa=String(j.wa)}catch(e){}return o})();
+const PENG=(()=>{const o={alih:'0',wa:WA_DEFAULT};try{const j=JSON.parse(localStorage.getItem(PKEY)||'null');if(j&&(j.alih==='all'||/^(?:[0-9]|1[01])$/.test(String(j.alih))))o.alih=String(j.alih);if(j&&/^[1-9]\d{8,14}$/.test(String(j.wa||'')))o.wa=String(j.wa)}catch(e){}return o})();
 const pengSave=()=>{try{localStorage.setItem(PKEY,JSON.stringify(PENG))}catch(e){}};
 const DB=(()=>{
   const KEY='aren-jariyah:data',SES='aren-jariyah:sesi',VER=2,MEKEY='aren-jariyah:saya';
@@ -1009,7 +1009,9 @@ const $=s=>document.querySelector(s);
 const AKEY='aren-jariyah:akun',ASES='aren-jariyah:akun-aktif';
 let AKUN=[];
 const hsh=x=>{let h=5381;for(const c of String(x))h=((h<<5)+h+c.charCodeAt(0))|0;return String(h>>>0)};
-const normHp=x=>{let d=String(x).replace(/\D/g,'');if(d.startsWith('62'))d='0'+d.slice(2);return d};
+/* Indonesia disimpan 08..., luar negeri disimpan +kodenegara... (harus diawali + atau 00 saat diketik) */
+const normHp=x=>{const r=String(x).trim();let d=r.replace(/\D/g,''),pl=/^\+/.test(r);if(d.startsWith('00')){d=d.slice(2);pl=true}if(d.startsWith('62'))return '0'+d.slice(2);return pl?'+'+d:d};
+const hpOk=h=>/^08\d{8,12}$/.test(h)||/^\+[1-9]\d{7,14}$/.test(h);
 const akCur=()=>AKUN.find(a=>a.id===S.acc)||null;
 /* ---- keamanan akun: HP unik, PIN berGaram, PIN lemah ditolak, batas percobaan ---- */
 const FKEY='aren-jariyah:gagal',MAXG=5,KUNCI=5*60e3;
@@ -1398,7 +1400,7 @@ function viewLogin(){
   const wrap=(h,c)=>top+'<main class="wrap main lg'+(c?' '+c:'')+'" style="padding-bottom:40px;max-width:560px">'+h+'</main>';
   if(SB_AUTH?SB.ada===false:!AKUN.length){
     return wrap('<h1>Pengaturan awal</h1><p class="lead">Belum ada akun di perangkat ini. Buat akun admin pertama. Akun ini memegang peran admin, pengurus, dan bendahara, dan menjadi satu-satunya yang dapat memberi peran kepada akun lain.</p>'+
-      '<form data-form="akawal" autocomplete="off">'+F('aw-n','Nama lengkap','text','required')+F('aw-h','Nomor HP','tel','required inputmode="tel" placeholder="0812xxxxxxxx"')+F('aw-p','PIN (6 angka)','password','required inputmode="numeric" minlength="6" maxlength="6" pattern="\\d{6}"')+F('aw-p2','Ulangi PIN','password','required inputmode="numeric" maxlength="6"')+
+      '<form data-form="akawal" autocomplete="off">'+F('aw-n','Nama lengkap','text','required')+F('aw-h','Nomor HP (WhatsApp)','tel','required inputmode="tel"')+F('aw-p','PIN (6 angka)','password','required inputmode="numeric" minlength="6" maxlength="6" pattern="\\d{6}"')+F('aw-p2','Ulangi PIN','password','required inputmode="numeric" maxlength="6"')+
       '<div class="row" style="margin-top:12px"><button class="btn btn-green" type="submit">Buat akun admin</button></div></form><p class="muted" style="font-size:13px;margin-top:14px">Catat PIN Anda. Belum ada fitur reset PIN.</p>');
   }
   if(acc&&!S.role){
@@ -1406,18 +1408,18 @@ function viewLogin(){
   }
   if(S.lg&&S.lg.step==='lupa'){
     return wrap('<h1>Lupa PIN</h1><p class="lead">'+(SB_AUTH?'Masukkan nomor HP akun. Lalu kirim satu pesan WhatsApp dari nomor itu. Setelah dicocokkan, admin mengirim PIN sementara lewat WhatsApp.':'Masukkan nomor HP akun dan PIN baru. Lalu kirim satu pesan WhatsApp dari nomor itu agar pengurus dapat mencocokkannya.')+'</p>'+
-      '<form data-form="aklupa" autocomplete="off">'+F('lp-h','Nomor HP','tel','required inputmode="tel" placeholder="0812xxxxxxxx"')+(SB_AUTH?'':F('lp-p','PIN baru (6 angka)','password','required inputmode="numeric" minlength="6" maxlength="6" pattern="\\d{6}"')+F('lp-p2','Ulangi PIN baru','password','required inputmode="numeric" minlength="6" maxlength="6" pattern="\\d{6}"'))+
+      '<form data-form="aklupa" autocomplete="off">'+F('lp-h','Nomor HP (WhatsApp)','tel','required inputmode="tel"')+(SB_AUTH?'':F('lp-p','PIN baru (6 angka)','password','required inputmode="numeric" minlength="6" maxlength="6" pattern="\\d{6}"')+F('lp-p2','Ulangi PIN baru','password','required inputmode="numeric" minlength="6" maxlength="6" pattern="\\d{6}"'))+
       '<div class="row" style="margin-top:12px"><button class="btn btn-green" type="submit">Lanjutkan</button><button class="btn btn-line" type="button" data-act="akDaftar" data-v="masuk">Kembali</button></div></form>');
   }
   if(S.lg&&S.lg.step==='daftar'){
     return wrap('<h1>Buat akun</h1>'+
       '<div class="seg rg-seg" role="group" aria-label="Cara mendaftar"><button type="button" style="flex:1" data-act="rgMetode" data-v="wa" aria-pressed="'+(rgM()==='wa')+'">Konfirmasi WhatsApp</button><button type="button" style="flex:1" data-act="rgMetode" data-v="kode" aria-pressed="'+(rgM()==='kode')+'">Undangan</button></div>'+
       '<p class="muted" id="rg-hint" style="font-size:13px;margin:-4px 0 12px">'+rgHint(rgM())+'</p>'+
-      '<form data-form="akdaftar" autocomplete="off"><div id="rg-kw"'+(rgM()==='wa'?' hidden':'')+'>'+F('rg-k','Kode undangan dari admin','text',(rgM()==='wa'?'':'required ')+'autocomplete="off" autocapitalize="characters" maxlength="9" placeholder="XXXX-XXXX"')+'</div>'+F('rg-n','Nama lengkap','text','required')+F('rg-h','Nomor HP','tel','required inputmode="tel" placeholder="0812xxxxxxxx"')+F('rg-d','Domisili (boleh diisi nanti)','text','value="Renco"')+F('rg-p','PIN (6 angka)','password','required inputmode="numeric" minlength="6" maxlength="6" pattern="\\d{6}"')+F('rg-p2','Ulangi PIN','password','required inputmode="numeric" maxlength="6"')+
+      '<form data-form="akdaftar" autocomplete="off"><div id="rg-kw"'+(rgM()==='wa'?' hidden':'')+'>'+F('rg-k','Kode undangan dari admin','text',(rgM()==='wa'?'':'required ')+'autocomplete="off" autocapitalize="characters" maxlength="9" placeholder="XXXX-XXXX"')+'</div>'+F('rg-n','Nama lengkap','text','required')+F('rg-h','Nomor HP (WhatsApp)','tel','required inputmode="tel"')+F('rg-d','Domisili (boleh diisi nanti)','text','value="Renco"')+F('rg-p','PIN (6 angka)','password','required inputmode="numeric" minlength="6" maxlength="6" pattern="\\d{6}"')+F('rg-p2','Ulangi PIN','password','required inputmode="numeric" maxlength="6"')+
       '<div class="row" style="margin-top:12px"><button class="btn btn-green" id="rg-go" type="submit">'+'Buat akun'+'</button><button class="btn btn-line" type="button" data-act="akDaftar" data-v="masuk">Sudah punya akun</button></div></form>');
   }
   return wrap('<h1>Masuk</h1><p class="lead">Masuk dengan nomor HP dan PIN. Satu akun untuk semua peran Anda. Jika punya lebih dari satu peran, Anda akan diminta memilih setelah masuk.</p>'+
-    '<form data-form="login">'+FI('lg-h','Nomor HP','tel','required inputmode="tel" placeholder="0812xxxxxxxx" autocomplete="tel"','<path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.6 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.6 3.6a1 1 0 0 1-.25 1z"/>')+FI('lg-p','PIN','password','required inputmode="numeric" maxlength="6" autocomplete="current-password"','<path d="M7 10V8a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1zm2 0h6V8a3 3 0 0 0-6 0z"/><circle cx="12" cy="15.2" r="1.5" fill="#fff"/>')+
+    '<form data-form="login">'+FI('lg-h','Nomor HP (WhatsApp)','tel','required inputmode="tel" autocomplete="tel"','<path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.6 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.6 3.6a1 1 0 0 1-.25 1z"/>')+FI('lg-p','PIN','password','required inputmode="numeric" maxlength="6" autocomplete="current-password"','<path d="M7 10V8a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1zm2 0h6V8a3 3 0 0 0-6 0z"/><circle cx="12" cy="15.2" r="1.5" fill="#fff"/>')+
     '<div class="row" style="margin-top:12px"><button class="btn btn-green" type="submit">Masuk</button><button class="btn btn-line" type="button" data-act="akDaftar" data-v="daftar">Buat akun baru</button></div></form>'+bioBtn()+
     '<p style="text-align:center;margin:56px 0 0"><button type="button" data-act="akDaftar" data-v="lupa" style="background:none;border:0;color:#6b1f82;font-weight:700;font-size:15px;cursor:pointer;padding:8px 12px;text-decoration:none">Lupa PIN?</button></p>');
 }
@@ -1521,7 +1523,7 @@ const supaHdr=(x)=>Object.assign({apikey:SUPA.key},SUPA.key.startsWith('eyJ')?{A
    Login: email semu <hp>@aren-jariyah.app + PIN 6 angka sebagai password. Peran dan data ada di server (RLS).
    Tanpa pustaka luar: memakai REST Supabase langsung. Sesi di localStorage; data TIDAK lagi disalin ke localStorage. */
 const SB=(()=>{
-  const SK='aren-jariyah:sb',U=SUPA.url.replace(/\/$/,''),mail=h=>normHp(h)+'@aren-jariyah.app',JH={apikey:SUPA.key,'Content-Type':'application/json'};
+  const SK='aren-jariyah:sb',U=SUPA.url.replace(/\/$/,''),mail=h=>normHp(h).replace(/\D/g,'')+'@aren-jariyah.app',JH={apikey:SUPA.key,'Content-Type':'application/json'};
   let ses=null,ready=false,SNAP={},SNAPA={},tm=0,rt=0,busy=false,again=false,warned=false,blk={};
   try{ses=JSON.parse(localStorage.getItem(SK)||'null')}catch(e){}
   const keep=s=>{ses=s;try{s?localStorage.setItem(SK,JSON.stringify(s)):localStorage.removeItem(SK)}catch(e){}};
@@ -1643,9 +1645,34 @@ const SB=(()=>{
       if(!r.ok){toast('PIN gagal diganti'+(r.j&&r.j.msg?': '+String(r.j.msg).slice(0,80):'.'));return}
       ses.gp=false;keep(ses);closeSheet();toast('PIN baru tersimpan.');return;
     }
+    if(k==='gantihp'){
+      const a=akCur();if(!a||!ses){toast('Sesi berakhir. Masuk lagi.');return}
+      const nh=normHp(v('gh-h')),pn=v('gh-p'),lama=normHp(a.hp),kk='gantihp:'+lama;
+      if(!hpOk(nh)){toast('Nomor HP tidak valid. Contoh: 0812xxxxxxxx atau +966501234567.');return}
+      if(nh===lama){toast('Nomor baru sama dengan nomor saat ini.');return}
+      if(!/^\d{6}$/.test(pn)){toast('Masukkan PIN Anda (6 angka).');return}
+      if(kunciSisa(kk)){toast('Terlalu banyak percobaan. Coba lagi dalam '+kunciSisa(kk)+' menit.');return}
+      if(!(await authPw(lama,pn)).ok){const g=gagalCatat(kk,false);toast(g&&g.until?'Terlalu banyak percobaan. Dikunci 5 menit.':'PIN tidak cocok.');return}
+      gagalCatat(kk,true);
+      if(AKUN.some(x=>x.id!==a.id&&normHp(x.hp)===nh)){toast('Nomor ini sudah dipakai akun lain.');return}
+      const t=await tok();if(!t){toast('Sesi berakhir. Masuk lagi.');return}
+      const H={...JH,Authorization:'Bearer '+t},put=em=>raw('/auth/v1/user',{method:'PUT',headers:H,body:JSON.stringify({email:em})});
+      const r1=await put(mail(nh));
+      if(!r1.ok){toast(r1.s===422||/already|registered|exists/i.test(String(r1.j&&(r1.j.msg||r1.j.message)||''))?'Nomor ini sudah terdaftar di akun lain.':'Nomor gagal diganti ['+r1.s+'].');return}
+      if(r1.j&&r1.j.email&&r1.j.email!==mail(nh)){toast('Server belum menerapkan perubahan nomor. Di Supabase Auth, matikan "Confirm email" dan "Secure email change".');return}
+      const r2=await rest('rpc/ganti_hp',{method:'POST',body:JSON.stringify({p_hp:nh})});
+      if(!r2.ok){await put(mail(lama));toast(r2.s===404?'Fungsi ganti_hp belum dipasang di Supabase. Jalankan patch SQL ganti nomor.':(/hp_dipakai/.test(JSON.stringify(r2.j||''))?'Nomor ini sudah dipakai akun lain.':'Nomor gagal disimpan ['+r2.s+'].'));return}
+      const adm=a.roles.includes('admin');
+      a.hp=nh;a.hpv=adm?'ok':'belum';delete a.vk;delete a.vts;
+      try{bioClear()}catch(e){}
+      if(a.pid&&P.some(x=>x.id===a.pid))DB.update('P',a.pid,{hp:nh});
+      try{DB.audit('Mengganti nomor HP akun '+a.id+' ('+a.nama+') dari '+lama+' ke '+nh)}catch(e){}
+      akSave();closeSheet();toast(adm?'Nomor HP diganti. Masuk berikutnya dengan nomor baru.':'Nomor HP diganti. Verifikasi nomor baru lewat WhatsApp.');
+      rerender();if(!adm)setTimeout(hpSheet,250);return;
+    }
     if(k==='aklupa'){
       const hp=normHp(v('lp-h')),kk='reset:'+hp;
-      if(!/^08\d{8,12}$/.test(hp)){toast('Nomor HP tidak valid. Contoh: 0812xxxxxxxx.');return}
+      if(!hpOk(hp)){toast('Nomor HP tidak valid. Contoh: 0812xxxxxxxx atau +966501234567.');return}
       if(kunciSisa(kk)){toast('Terlalu banyak permintaan. Coba lagi dalam '+kunciSisa(kk)+' menit.');return}
       if(!PENG.wa){toast('Nomor WhatsApp komunitas belum diatur admin. Hubungi pengurus.');return}
       const r=await raw('/rest/v1/rpc/minta_reset',{method:'POST',headers:JH,body:JSON.stringify({p_hp:hp})});
@@ -1663,7 +1690,7 @@ const SB=(()=>{
     }
     const pre=k==='akawal'?'aw':'rg',n=v(pre+'-n').trim();
     if(n.length<3){toast('Isi nama lengkap.');return}
-    if(!/^08\d{8,12}$/.test(hp)){toast('Nomor HP tidak valid. Contoh: 0812xxxxxxxx.');return}
+    if(!hpOk(hp)){toast('Nomor HP tidak valid. Contoh: 0812xxxxxxxx atau +966501234567.');return}
     if(!/^\d{6}$/.test(pn)){toast('PIN harus 6 angka.');return}
     if(pn!==v(pre+'-p2')){toast('Ulangi PIN dengan sama.');return}
     const lm=pinLemah(pn,hp);if(lm){toast(lm);return}
@@ -2156,9 +2183,9 @@ const FORMS={
  pinrekP:p=>head('Masukkan PIN','Masukkan PIN akun Anda untuk melihat nomor rekening <b>'+esc(p.nama)+'</b>. Nomor akan disamarkan kembali setelah 30 detik.')+'<form data-form="pinrekP" data-ref="'+p.id+'" autocomplete="off">'+F('pr-p','PIN (6 angka)','password','required inputmode="numeric" maxlength="6" autocomplete="off"')+'<div class="row" style="margin-top:12px"><button class="btn btn-green" type="submit">Tampilkan</button><button type="button" class="btn btn-line" data-act="closeSheet">Batal</button></div></form>',
  pinrek:()=>head('Masukkan PIN','Masukkan PIN akun Anda untuk melihat nomor rekening lengkap. Nomor akan disamarkan kembali setelah 30 detik.')+'<form data-form="pinrek" autocomplete="off">'+F('pr-p','PIN (6 angka)','password','required inputmode="numeric" maxlength="6" autocomplete="off"')+'<div class="row" style="margin-top:12px"><button class="btn btn-green" type="submit">Tampilkan</button><button type="button" class="btn btn-line" data-act="closeSheet">Batal</button></div></form>',
  rek:p=>head('Rekening penerima manfaat','Rekening bank untuk menerima manfaat dari aset yang dikelola. Nama pemilik rekening harus sama dengan nama partisipan: <b>'+esc(p.nama)+'</b>.')+'<form data-form="rek" data-ref="'+p.id+'">'+SEL('rk-b','Nama bank',BANKS)+F('rk-n','Nomor rekening','text','required inputmode="numeric" autocomplete="off" placeholder="Hanya angka" value="'+esc(p.rek?p.rek.n:'')+'"')+F('rk-a','Nama pemilik rekening','text','required autocomplete="off" value="'+esc(p.rek?p.rek.an:p.nama)+'"')+'<p class="muted" style="font-size:13px;margin:0 0 10px">Rekening atas nama orang lain tidak dapat didaftarkan.</p><div class="row" style="margin-top:12px"><button class="btn btn-green" type="submit">Simpan</button><button type="button" class="btn btn-line" data-act="closeSheet">Batal</button></div></form>',
- waris:p=>head('Ahli waris',(p.id===(ME&&ME.id)?'Tunjuk satu orang yang menerima hak partisipasi Anda bila Anda meninggal dunia. ':esc(p.nama)+' ('+p.id+'). ')+'Data ini hanya terlihat oleh partisipan dan pengurus. Pelaksanaannya tetap melalui persetujuan pengurus.')+'<form data-form="waris" data-ref="'+p.id+'">'+F('wr-n','Nama lengkap ahli waris','text','required value="'+esc(p.waris?p.waris.n:'')+'"')+SEL('wr-r','Hubungan',['Pasangan','Anak','Orang tua','Saudara kandung','Lainnya'])+F('wr-h','Nomor HP ahli waris','tel','inputmode="tel" placeholder="0812xxxxxxxx" value="'+esc(p.waris?p.waris.h:'')+'"')+F('wr-a','Alamat','text','value="'+esc(p.waris?p.waris.a:'')+'"')+'<div class="row" style="margin-top:12px"><button class="btn btn-green" type="submit">Simpan</button><button type="button" class="btn btn-line" data-act="closeSheet">Batal</button></div></form>',
+ waris:p=>head('Ahli waris',(p.id===(ME&&ME.id)?'Tunjuk satu orang yang menerima hak partisipasi Anda bila Anda meninggal dunia. ':esc(p.nama)+' ('+p.id+'). ')+'Data ini hanya terlihat oleh partisipan dan pengurus. Pelaksanaannya tetap melalui persetujuan pengurus.')+'<form data-form="waris" data-ref="'+p.id+'">'+F('wr-n','Nama lengkap ahli waris','text','required value="'+esc(p.waris?p.waris.n:'')+'"')+SEL('wr-r','Hubungan',['Pasangan','Anak','Orang tua','Saudara kandung','Lainnya'])+F('wr-h','Nomor HP (WhatsApp) ahli waris','tel','inputmode="tel" value="'+esc(p.waris?p.waris.h:'')+'"')+F('wr-a','Alamat','text','value="'+esc(p.waris?p.waris.a:'')+'"')+'<div class="row" style="margin-top:12px"><button class="btn btn-green" type="submit">Simpan</button><button type="button" class="btn btn-line" data-act="closeSheet">Batal</button></div></form>',
  profil:()=>head('Lengkapi profil','Data ini hanya terlihat oleh Anda dan pengurus.')+'<form data-form="profil">'+F('pf-n','Nama lengkap','text','required value="'+esc(ME.nama)+'"')+F('pf-d','Domisili','text','required value="'+esc(ME.dom==='Belum diisi'?'':ME.dom)+'"')+'<div class="row" style="margin-top:12px"><button class="btn btn-green" type="submit">Simpan</button><button type="button" class="btn btn-line" data-act="closeSheet">Batal</button></div></form>',
- gabung:()=>head('Gabung Aren Jariyah','Pendaftaran Anda berstatus calon sampai disetujui pengurus.')+'<form data-form="gabung">'+F('g-n','Nama lengkap','text','required')+F('g-h','Nomor HP','tel','required')+F('g-d','Domisili','text','required value="Renco"')+
+ gabung:()=>head('Gabung Aren Jariyah','Pendaftaran Anda berstatus calon sampai disetujui pengurus.')+'<form data-form="gabung">'+F('g-n','Nama lengkap','text','required')+F('g-h','Nomor HP (WhatsApp)','tel','required')+F('g-d','Domisili','text','required value="Renco"')+
    foot+'<button class="btn btn-green" type="submit">Daftar</button></div></form>',
  lahan:l=>{const e=!!l,q=k=>e&&l[k]!=null?esc(String(l[k])):'';
   return head(e?'Edit aset kelola':'Ajukan aset untuk dikelola',e?esc(l.id)+'. Ubah data lalu simpan.':'Aset tetap milik Anda. Tandai lokasinya di peta.')+'<form data-form="lahan"'+(e?' data-ref="'+esc(l.id)+'"':'')+'>'+F('l-n','Nama pemilik','text','required value="'+q('pemilik')+'"')+F('l-l','Lokasi aset','text','required value="'+q('lok')+'"')+F('l-u','Luas (m²)','number','required min="1" value="'+q('luas')+'"')+
@@ -2269,7 +2296,8 @@ function menuGrid(only){
    '<button class="mt" type="button" aria-pressed="false" style="--a:'+g.c[0]+'" data-act="mtPick" data-v="'+k+'" aria-label="'+TABNAME[k]+'" title="'+MDESC[k]+'"><span class="lt"><span class="li" data-lot="'+k+'" data-c="'+g.c.join(',')+'"></span></span><span class="tx"><b>'+TABNAME[k]+'</b><span class="d">'+MDESC[k]+'</span></span>'+(hpLock()?'<span class="chip gold bd">Terkunci</span>':mBadge(k))+'</button>').join('')+'</div></section>'}).join('');
 }
 function setGrid(){
- const adm=S.role==='admin',T0=[['kelolaPeran','shield','Kelola peran','Ajukan atau lepas peran','#43B182'],['akKelola','partisipan','Akun pengguna','Atur peran semua akun','#7A2C8C'],['akReq','partisipan','Pengajuan peran',(akPending()?akPending()+' menunggu keputusan':'Tidak ada yang menunggu'),'#1F8A70'],['akUndang','plus','Undang partisipan','Kode undangan dari admin','#F68A33'],['waSet','usul','WhatsApp komunitas',(PENG.wa?'Nomor: 0'+PENG.wa.slice(2):'Belum diatur'),'#19A69E'],['pengAlih','bagi','Pengalihan','Kapan pengalihan dibuka: '+alihLabel(),'#1386B3'],['resetData','trash','Hapus data','Hapus semua data perangkat ini','#d12a45']],T=[['arsipDok','proyek','Arsip dokumen',arsipN()+' dokumen tersimpan','#1386B3']].concat(adm?T0.slice(1):T0.slice(0,1));
+ const adm=S.role==='admin',T0=[['kelolaPeran','shield','Kelola peran','Ajukan atau lepas peran','#43B182'],['akKelola','partisipan','Akun pengguna','Atur peran semua akun','#7A2C8C'],['akReq','partisipan','Pengajuan peran',(akPending()?akPending()+' menunggu keputusan':'Tidak ada yang menunggu'),'#1F8A70'],['akUndang','plus','Undang partisipan','Kode undangan dari admin','#F68A33'],['waSet','usul','WhatsApp komunitas',(PENG.wa?'Nomor: '+hpLokal(PENG.wa):'Belum diatur'),'#19A69E'],['pengAlih','bagi','Pengalihan','Kapan pengalihan dibuka: '+alihLabel(),'#1386B3'],['resetData','trash','Hapus data','Hapus semua data perangkat ini','#d12a45']],T=[['arsipDok','proyek','Arsip dokumen',arsipN()+' dokumen tersimpan','#1386B3']].concat(adm?T0.slice(1):T0.slice(0,1));
+  {const a0=typeof akCur==='function'?akCur():null;if(a0)T.unshift(['gantiHp','partisipan','Ganti nomor HP','Saat ini: '+esc(a0.hp),'#1386B3'])}
   if(SERTR[S.role]||(S.role==='partisipan'&&ME))T.unshift(['sertPeran','cert','Sertifikat peran','Sertifikat '+roleName(),'#F68A33']);
   return '<section class="mg" aria-label="Pengaturan"><h2>Pengaturan</h2><div class="mgrid">'+T.map(t=>'<button class="mt" type="button" style="--a:'+t[4]+'" data-act="'+t[0]+'"><span class="lt"><span class="li">'+ic(t[1]).replace('class="ico"','class="ico" style="width:30px;height:30px;color:'+t[4]+'"')+'</span></span><span class="tx"><b>'+t[2]+'</b><span class="d">'+t[3]+'</span></span></button>').join('')+'</div></section>';
 }
@@ -2635,8 +2663,8 @@ const newKode=n=>{const a=new Uint8Array(n);try{crypto.getRandomValues(a)}catch(
 const normKode=x=>String(x||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
 const fmtKode=k=>k.slice(0,4)+'-'+k.slice(4);
 const isoD=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-const hpIntl=hp=>'62'+normHp(hp).slice(1);
-const hpLokal=n=>'0'+String(n).slice(2);
+const hpIntl=hp=>{const n=normHp(hp);return n[0]==='+'?n.slice(1):'62'+n.slice(1)};
+const hpLokal=n=>String(n).startsWith('62')?'0'+String(n).slice(2):'+'+n;
 const waLink=(no,txt)=>'https://wa.me/'+no+(txt?'?text='+encodeURIComponent(txt):'');
 const akHpv=a=>a.hpv||(a.roles.includes('admin')?'ok':'belum');
 const vOk=a=>!!(a.vk&&a.vts&&Date.now()-a.vts<VEXP);
@@ -2707,7 +2735,7 @@ function undSheet(){
   const L=UNDANGAN.slice().reverse(),kini=todayISO();
   const stt=u=>u.st==='terpakai'?'<span class="chip">Terpakai</span>':u.st==='dicabut'?'<span class="chip bad">Dicabut</span>':u.exp<kini?'<span class="chip mute">Kedaluwarsa</span>':'<span class="chip gold">Aktif</span>';
   sheet('<div class="shead"><h2 style="margin:0">Undang partisipan</h2><button type="button" class="xbtn" data-act="closeSheet" aria-label="Tutup">'+XSVG+'</button></div><p class="muted" style="margin:4px 0 12px;font-size:13px">Hanya admin yang dapat mengundang. Kode berlaku 7 hari, sekali pakai, dan hanya cocok dengan nomor HP yang diundang.</p>'+
-   '<form data-form="undang" autocomplete="off">'+F('ud-n','Nama yang diundang','text','required')+F('ud-h','Nomor HP yang diundang','tel','required inputmode="tel" placeholder="0812xxxxxxxx"')+'<div class="row"><button class="btn btn-green" type="submit">Buat kode undangan</button></div></form>'+
+   '<form data-form="undang" autocomplete="off">'+F('ud-n','Nama yang diundang','text','required')+F('ud-h','Nomor HP (WhatsApp) yang diundang','tel','required inputmode="tel"')+'<div class="row"><button class="btn btn-green" type="submit">Buat kode undangan</button></div></form>'+
    '<div class="label" style="margin:16px 0 6px">Undangan</div><div class="list">'+(L.length?L.map(u=>{const aktif=u.st==='aktif'&&u.exp>=kini,wa=waLink(hpIntl(u.hp),'Halo '+u.nama+', Anda diundang bergabung ke Aren Jariyah.\nKode undangan: '+fmtKode(u.kode)+'\nBuka aplikasi Aren Jariyah, pilih Masuk lalu Buat akun baru, dan daftar dengan nomor ini. Kode berlaku sampai '+tgl(u.exp)+'.');
      return '<div class="item"><div class="t"><b>'+esc(u.nama)+'</b>'+stt(u)+'</div><span class="muted" style="font-size:13px">'+esc(u.hp)+' · berlaku sampai '+tgl(u.exp)+'</span>'+(aktif?'<b style="font-size:22px;letter-spacing:.12em;font-family:ui-monospace,monospace">'+fmtKode(u.kode)+'</b><div class="row"><a class="btn btn-green btn-sm" href="'+esc(wa)+'" target="_blank" rel="noopener">Kirim lewat WhatsApp</a><button type="button" class="btn btn-line btn-sm" data-act="udSalin" data-v="'+u.id+'">Salin kode</button><button type="button" class="btn btn-line btn-sm" data-act="udCabut" data-v="'+u.id+'">Cabut</button></div>':'')+'</div>'}).join(''):kosong('Belum ada undangan.'))+'</div>');
 }
@@ -2715,7 +2743,7 @@ Object.assign(A,{
   akUndang:()=>{if(S.role==='admin')undSheet()},
   udCabut:v=>{const u=DB.find('UNDANGAN',v);if(S.role!=='admin'||!u||u.st!=='aktif')return;DB.update('UNDANGAN',v,{st:'dicabut'},'Mencabut undangan '+v+' ('+u.nama+')');toast('Undangan dicabut.');undSheet()},
   udSalin:v=>{const u=DB.find('UNDANGAN',v);if(S.role!=='admin'||!u)return;try{navigator.clipboard.writeText(fmtKode(u.kode)).then(()=>toast('Kode tersalin.'),()=>toast('Pilih kode lalu salin manual.'))}catch(e){toast('Pilih kode lalu salin manual.')}},
-  waSet:()=>{if(S.role!=='admin')return;sheet(head('WhatsApp komunitas','Nomor ini menerima pesan verifikasi dari calon partisipan. Gunakan nomor yang dipegang pengurus dan dibuka rutin.')+'<form data-form="setwa">'+F('wa-n','Nomor WhatsApp komunitas','tel','inputmode="tel" placeholder="0812xxxxxxxx" value="'+esc(PENG.wa?hpLokal(PENG.wa):'')+'"')+'<div class="row"><button class="btn btn-green" type="submit">Simpan</button><button class="btn btn-line" type="button" data-act="closeSheet">Batal</button></div></form>')},
+  waSet:()=>{if(S.role!=='admin')return;sheet(head('WhatsApp komunitas','Nomor ini menerima pesan verifikasi dari calon partisipan. Gunakan nomor yang dipegang pengurus dan dibuka rutin.')+'<form data-form="setwa">'+F('wa-n','Nomor WhatsApp komunitas','tel','inputmode="tel" value="'+esc(PENG.wa?hpLokal(PENG.wa):'')+'"')+'<div class="row"><button class="btn btn-green" type="submit">Simpan</button><button class="btn btn-line" type="button" data-act="closeSheet">Batal</button></div></form>')},
   rstKirim:v=>{akFresh();const a=AKUN.find(x=>x.id===v);if(!a||!a.rst||Date.now()-a.rst.ts>=VEXP)return;a.rst.st='menunggu';akSave();try{DB.audit('Meminta reset PIN ('+a.nama+')')}catch(e){}setTimeout(()=>{S.rstAcc=a.id;rstSheet()},400)},
   rstOk:v=>{
     if(S.role!=='admin')return;akFresh();
@@ -2733,6 +2761,8 @@ Object.assign(A,{
     delete a.rst;akSave();DB.audit('Menolak reset PIN '+a.nama);toast('Permintaan reset PIN ditolak.');rerender();
   },
   hpVerif:()=>{akFresh();hpSheet()},
+  gantiHp:()=>{const a=akCur();if(!SB_AUTH||!a){toast('Ganti nomor hanya tersedia saat masuk dengan akun.');return}
+    sheet('<div class="shead"><h2 style="margin:0">Ganti nomor HP</h2><button type="button" class="xbtn" data-act="closeSheet" aria-label="Tutup">'+XSVG+'</button></div><p class="muted" style="margin:4px 0 12px;font-size:13px">Nomor saat ini: <b>'+esc(a.hp)+'</b>. Setelah diganti, masuk dengan nomor baru dan PIN yang sama.'+(a.roles.includes('admin')?'':' Nomor baru perlu diverifikasi ulang lewat WhatsApp.')+'</p><div class="note" style="margin-bottom:12px">Nomor luar negeri: awali dengan + dan kode negara, contoh +966501234567 (Arab Saudi) atau +60123456789 (Malaysia).</div><form data-form="gantihp" autocomplete="off">'+F('gh-h','Nomor HP baru (WhatsApp)','tel','required inputmode="tel"')+F('gh-p','PIN Anda saat ini','password','required inputmode="numeric" minlength="6" maxlength="6" pattern="\\d{6}"')+'<div class="row" style="margin-top:12px"><button class="btn btn-green" type="submit">Ganti nomor</button><button class="btn btn-line" type="button" data-act="closeSheet">Batal</button></div></form>')},
   hpBuat:()=>{akFresh();const a=akCur();if(!a||akHpv(a)==='ok')return;a.vk=newKode(6);a.vts=Date.now();a.hpv='belum';akSave();hpSheet();rerender2()},
   hpKirim:()=>{const a=akCur();if(!a||akHpv(a)==='ok'||!vOk(a))return;a.hpv='menunggu';akSave();DB.audit('Meminta verifikasi nomor HP ('+a.nama+')');setTimeout(()=>{rerender2();hpSheet()},400)},
   hpOk:v=>{
@@ -2972,7 +3002,7 @@ document.addEventListener('input',e=>{
 document.addEventListener('submit',e=>{
   const k=e.target.dataset.form; if(!k)return; e.preventDefault();
   const v=id=>{const e=document.getElementById(id),x=(e||{}).value||'';return e&&e.hasAttribute&&e.hasAttribute('data-rp')?x.replace(/\D/g,''):x};
-  if(SB_AUTH&&['login','akawal','akdaftar','aklupa','gantipin'].includes(k)){SB.form(k,v);return}
+  if(SB_AUTH&&['login','akawal','akdaftar','aklupa','gantipin','gantihp'].includes(k)){SB.form(k,v);return}
   if(k==='login'){
     const hp=normHp(v('lg-h')),pn=v('lg-p'),sisa=kunciSisa(hp);
     if(sisa){toast('Terlalu banyak percobaan. Coba lagi dalam '+sisa+' menit.');return}
@@ -2990,7 +3020,7 @@ document.addEventListener('submit',e=>{
     if(AKUN.length)return;
     const n=v('aw-n').trim(),hp=normHp(v('aw-h')),pn=v('aw-p');
     if(n.length<3){toast('Isi nama lengkap.');return}
-    if(!/^08\d{8,12}$/.test(hp)){toast('Nomor HP tidak valid. Contoh: 0812xxxxxxxx.');return}
+    if(!hpOk(hp)){toast('Nomor HP tidak valid. Contoh: 0812xxxxxxxx atau +966501234567.');return}
     if(!/^\d{6}$/.test(pn)){toast('PIN harus 6 angka.');return}
     if(pn!==v('aw-p2')){toast('Ulangi PIN dengan sama.');return}
     const lm=pinLemah(pn,hp);if(lm){toast(lm);return}
@@ -3003,7 +3033,7 @@ document.addEventListener('submit',e=>{
   }
   if(k==='aklupa'){
     const hp=normHp(v('lp-h')),pn=v('lp-p');
-    if(!/^08\d{8,12}$/.test(hp)){toast('Nomor HP tidak valid. Contoh: 0812xxxxxxxx.');return}
+    if(!hpOk(hp)){toast('Nomor HP tidak valid. Contoh: 0812xxxxxxxx atau +966501234567.');return}
     if(!/^\d{6}$/.test(pn)){toast('PIN harus 6 angka.');return}
     if(pn!==v('lp-p2')){toast('Ulangi PIN dengan sama.');return}
     const lm=pinLemah(pn,hp);if(lm){toast(lm);return}
@@ -3023,7 +3053,7 @@ document.addEventListener('submit',e=>{
   if(k==='akdaftar'){
     const n=v('rg-n').trim(),hp=normHp(v('rg-h')),pn=v('rg-p');
     if(n.length<3){toast('Isi nama lengkap.');return}
-    if(!/^08\d{8,12}$/.test(hp)){toast('Nomor HP tidak valid. Contoh: 0812xxxxxxxx.');return}
+    if(!hpOk(hp)){toast('Nomor HP tidak valid. Contoh: 0812xxxxxxxx atau +966501234567.');return}
     if(!/^\d{6}$/.test(pn)){toast('PIN harus 6 angka.');return}
     if(pn!==v('rg-p2')){toast('Ulangi PIN dengan sama.');return}
     const lm=pinLemah(pn,hp);if(lm){toast(lm);return}
@@ -3049,7 +3079,7 @@ document.addEventListener('submit',e=>{
     if(S.role!=='admin')return;
     const n=v('ud-n').trim(),hp=normHp(v('ud-h'));
     if(n.length<3){toast('Isi nama yang diundang.');return}
-    if(!/^08\d{8,12}$/.test(hp)){toast('Nomor HP tidak valid. Contoh: 0812xxxxxxxx.');return}
+    if(!hpOk(hp)){toast('Nomor HP tidak valid. Contoh: 0812xxxxxxxx atau +966501234567.');return}
     akFresh();if(hpAda(hp)){toast('Nomor ini sudah punya akun atau profil.');return}
     if(UNDANGAN.find(u=>u.hp===hp&&u.st==='aktif'&&u.exp>=todayISO())){toast('Sudah ada undangan aktif untuk nomor ini.');A.akUndang();return}
     let kode;do{kode=newKode(8)}while(UNDANGAN.some(u=>u.kode===kode));
@@ -3060,8 +3090,8 @@ document.addEventListener('submit',e=>{
     if(S.role!=='admin')return;
     const raw=v('wa-n').trim();
     if(!raw){delete PENG.wa;pengSave();addAudit('Menghapus nomor WhatsApp komunitas');closeSheet();toast('Nomor dihapus.');rerender();return}
-    const hp=normHp(raw);if(!/^08\d{8,12}$/.test(hp)){toast('Nomor tidak valid. Contoh: 0812xxxxxxxx.');return}
-    PENG.wa='62'+hp.slice(1);pengSave();addAudit('Mengatur nomor WhatsApp komunitas');closeSheet();toast('Nomor WhatsApp disimpan.');rerender();return;
+    const hp=normHp(raw);if(!hpOk(hp)){toast('Nomor tidak valid. Contoh: 0812xxxxxxxx atau +966501234567.');return}
+    PENG.wa=hpIntl(hp);pengSave();addAudit('Mengatur nomor WhatsApp komunitas');closeSheet();toast('Nomor WhatsApp disimpan.');rerender();return;
   }
   if(k==='profil'){
     if(!ME)return;
@@ -3148,7 +3178,7 @@ document.addEventListener('submit',e=>{
   }
   if(k==='gabung'){
     const ak0=akCur(),hp=normHp(v('g-h'));
-    if(!/^08\d{8,12}$/.test(hp)){toast('Nomor HP tidak valid. Contoh: 0812xxxxxxxx.');return}
+    if(!hpOk(hp)){toast('Nomor HP tidak valid. Contoh: 0812xxxxxxxx atau +966501234567.');return}
     if(ak0&&ak0.pid&&P.some(x=>x.id===ak0.pid)&&(!S.role||S.role==='partisipan')){toast('Akun ini sudah punya profil partisipan.');return}
     akFresh();if(hpAda(hp,(S.role==='partisipan'&&ak0)?ak0.id:undefined)){toast('Nomor HP ini sudah terdaftar. Gunakan akun yang ada atau nomor lain.');return}
     const id=DB.nextId('AJ','P',3);
