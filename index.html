@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#7A2C8C"><meta name="application-name" content="Aren Jariyah"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Aren Jariyah"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .stp{display:flex;margin:10px 0 6px}
 .stn{flex:1;min-width:0;background:none;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;font:inherit;font-size:11px;font-weight:600;color:var(--muted);position:relative;padding:4px 0}
 .stn::before{content:"";position:absolute;top:18px;left:-50%;width:100%;height:3px;background:var(--line)}
@@ -2297,6 +2297,7 @@ function menuGrid(only){
 }
 function setGrid(){
  const adm=S.role==='admin',T0=[['kelolaPeran','shield','Kelola peran','Ajukan atau lepas peran','#43B182'],['akKelola','partisipan','Akun pengguna','Atur peran semua akun','#7A2C8C'],['akReq','partisipan','Pengajuan peran',(akPending()?akPending()+' menunggu keputusan':'Tidak ada yang menunggu'),'#1F8A70'],['akUndang','plus','Undang partisipan','Kode undangan dari admin','#F68A33'],['waSet','usul','WhatsApp komunitas',(PENG.wa?'Nomor: '+hpLokal(PENG.wa):'Belum diatur'),'#19A69E'],['pengAlih','bagi','Pengalihan','Kapan pengalihan dibuka: '+alihLabel(),'#1386B3'],['resetData','trash','Hapus data','Hapus semua data perangkat ini','#d12a45']],T=[['arsipDok','proyek','Arsip dokumen',arsipN()+' dokumen tersimpan','#1386B3']].concat(adm?T0.slice(1):T0.slice(0,1));
+  if(!pwaStandalone())T.unshift(['pasang','plus','Pasang aplikasi','Tambahkan ke layar utama','#43B182']);
   {const a0=typeof akCur==='function'?akCur():null;if(a0)T.unshift(['gantiHp','partisipan','Ganti nomor HP','Saat ini: '+esc(a0.hp),'#1386B3'])}
   if(SERTR[S.role]||(S.role==='partisipan'&&ME))T.unshift(['sertPeran','cert','Sertifikat peran','Sertifikat '+roleName(),'#F68A33']);
   return '<section class="mg" aria-label="Pengaturan"><h2>Pengaturan</h2><div class="mgrid">'+T.map(t=>'<button class="mt" type="button" style="--a:'+t[4]+'" data-act="'+t[0]+'"><span class="lt"><span class="li">'+ic(t[1]).replace('class="ico"','class="ico" style="width:30px;height:30px;color:'+t[4]+'"')+'</span></span><span class="tx"><b>'+t[2]+'</b><span class="d">'+t[3]+'</span></span></button>').join('')+'</div></section>';
@@ -3406,6 +3407,16 @@ Object.assign(A,{
     sertSave(SERT.cv.toDataURL('image/png'),SERT.fn+'.png');toast('Gambar diunduh. Lampirkan ke media sosial pilihan Anda, atau pakai tombol tautan di bawah.')
   }
 });
+/* PWA: service worker dan pemasangan ke layar utama */
+let PWA_EV=null;
+const pwaStandalone=()=>{try{return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true}catch(e){return false}};
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();PWA_EV=e;try{if(S.tab==='dash')rerender()}catch(x){}});
+window.addEventListener('appinstalled',()=>{PWA_EV=null;try{toast('Aplikasi terpasang.')}catch(e){}});
+if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol)){window.addEventListener('load',()=>{try{navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(e){}})}
+Object.assign(A,{pasang:async()=>{
+  if(PWA_EV){const e=PWA_EV;PWA_EV=null;try{e.prompt();await e.userChoice}catch(x){}return}
+  const ios=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  sheet('<div class="shead"><h2 style="margin:0">Pasang aplikasi</h2><button type="button" class="xbtn" data-act="closeSheet" aria-label="Tutup">'+XSVG+'</button></div><p class="muted" style="margin:4px 0 12px;font-size:13px">Pasang Aren Jariyah di layar utama agar terbuka seperti aplikasi dan tetap bisa dibuka saat sinyal lemah.</p><div class="list"><div class="item"><b>'+(ios?'iPhone / iPad (Safari)':'Android (Chrome)')+'</b><span class="muted" style="font-size:13px">'+(ios?'Ketuk tombol Bagikan, lalu pilih Tambah ke Layar Utama.':'Ketuk menu titik tiga di pojok kanan atas, lalu pilih Instal aplikasi atau Tambahkan ke layar utama.')+'</span></div></div><div class="row" style="margin-top:12px"><button type="button" class="btn btn-line" data-act="closeSheet" style="width:100%">Tutup</button></div>')}});
 DB.load();
 setInterval(()=>{if(!SB_AUTH||!S.role||document.visibilityState!=='visible')return;const t=((document.activeElement||{}).tagName||'');if(/INPUT|TEXTAREA|SELECT/.test(t))return;try{SB.refresh()}catch(e){}},60000);
 akInit();
