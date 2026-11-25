@@ -1425,7 +1425,7 @@ function viewLogin(){
 /* ---------- kerangka aplikasi ---------- */
 
 /* ---------- navigasi bagian dalam menu ---------- */
-const SUBL={'Rekening partisipan':'Rekening','Kegiatan mendatang':'Kegiatan','Pemasukan dan pengeluaran':'Arus kas','Notifikasi penting':'Notifikasi','Alur usulan':'Alur','Syarat kehati-hatian':'Syarat','Keuntungan per aset':'Laba','Simulasi alokasi':'Simulasi','Riwayat pembagian':'Riwayat','Kalender tahunan':'Kalender','Transaksi aset ini':'Transaksi','Laporan keuangan':'Laporan','Proyek terkait':'Proyek','Per kategori dana':'Kategori','Daftar transaksi':'Transaksi','Audit trail':'Audit','Target pertumbuhan':'Target','Riwayat penambahan':'Penambahan','Riwayat penggunaan hasil':'Penggunaan','Jadwal kegiatan':'Kegiatan','Punya ide atau usulan?':'Usulan','Buat pengumuman':'Buat pengumuman','Dampak Aset Bersama':'Dampak','Manfaat Partisipasi':'Manfaat','Sertifikat dan pengalihan':'Sertifikat','Sertifikat partisipasi':'Sertifikat','Pengalihan partisipasi':'Pengalihan','Pengajuan pengalihan':'Pengalihan','Menunggu persetujuan':'Persetujuan','Verifikasi nomor HP':'Verifikasi HP'};
+const SUBL={'Rekening partisipan':'Rekening','Kegiatan mendatang':'Kegiatan','Pemasukan dan pengeluaran':'Arus kas','Notifikasi penting':'Notifikasi','Alur usulan':'Alur','Syarat kehati-hatian':'Syarat','Keuntungan per aset':'Laba','Simulasi alokasi':'Simulasi','Riwayat pembagian':'Riwayat','Kalender tahunan':'Kalender','Transaksi aset ini':'Transaksi','Laporan keuangan':'Laporan','Proyek terkait':'Proyek','Per kategori dana':'Kategori','Daftar transaksi':'Transaksi','Audit trail':'Audit','Target pertumbuhan':'Target','Riwayat penambahan':'Penambahan','Riwayat penggunaan hasil':'Penggunaan','Jadwal kegiatan':'Kegiatan','Punya ide atau usulan?':'Usulan','Buat pengumuman':'Buat pengumuman','Dampak Aset Bersama':'Dampak','Manfaat Partisipasi':'Manfaat','Sertifikat dan pengalihan':'Sertifikat','Sertifikat partisipasi':'Sertifikat','Sertifikat peran':'Sertifikat','Pengalihan partisipasi':'Pengalihan','Pengajuan pengalihan':'Pengalihan','Menunggu persetujuan':'Persetujuan','Verifikasi nomor HP':'Verifikasi HP'};
 const SUB0={keuangan:'Ringkasan',abadi:'Ringkasan',proyek:'Proyek',info:'Pengumuman',partisipan:'Profil'};
 const SUBI={'Rekening':'coin','Ringkasan':'dash','Profil':'partisipan','Manfaat':'heart','Sertifikat':'cert','Proyek':'proyek','Kegiatan':'clock','Kategori':'coin','Transaksi':'receipt','Audit':'shield','Target':'target','Penambahan':'plus','Penggunaan':'list','Keuangan':'keuangan','Lingkungan':'leaf','Sosial':'heart','Dampak':'laporan','Pengumuman':'info','Usulan':'usul','Buat pengumuman':'plus','Persetujuan':'shield','Aset':'aset','Bagi hasil':'bagi','Kalender':'kal','Pengalihan':'bagi','Verifikasi HP':'shield'};
 function fsub(items){
@@ -1522,7 +1522,7 @@ const supaHdr=(x)=>Object.assign({apikey:SUPA.key},SUPA.key.startsWith('eyJ')?{A
    Tanpa pustaka luar: memakai REST Supabase langsung. Sesi di localStorage; data TIDAK lagi disalin ke localStorage. */
 const SB=(()=>{
   const SK='aren-jariyah:sb',U=SUPA.url.replace(/\/$/,''),mail=h=>normHp(h)+'@aren-jariyah.app',JH={apikey:SUPA.key,'Content-Type':'application/json'};
-  let ses=null,ready=false,SNAP={},SNAPA={},tm=0,busy=false,again=false,warned=false;
+  let ses=null,ready=false,SNAP={},SNAPA={},tm=0,rt=0,busy=false,again=false,warned=false,blk={};
   try{ses=JSON.parse(localStorage.getItem(SK)||'null')}catch(e){}
   const keep=s=>{ses=s;try{s?localStorage.setItem(SK,JSON.stringify(s)):localStorage.removeItem(SK)}catch(e){}};
   const mk=j=>({at:j.access_token,rt:j.refresh_token,exp:Date.now()+(j.expires_in-30)*1000,uid:j.user.id,gp:!!(j.user&&j.user.user_metadata&&j.user.user_metadata.ganti_pin)});
@@ -1537,7 +1537,7 @@ const SB=(()=>{
   const kid=r=>String(r.id!=null?r.id:(r._k||(r._k=Math.random().toString(36).slice(2,10)+Date.now().toString(36))));
   const TT=()=>DB.col;
   /* data alur akun yang bukan bagian profil server: kode verifikasi, permintaan reset, permintaan peran */
-  const extOf=a=>{const o={};['vk','vts','rst','req','vby','vtgl','und','via'].forEach(k=>{if(a[k]!==undefined)o[k]=a[k]});if(a.hpv&&a.hpv!=='ok')o.hpv=a.hpv;return o};
+  const extOf=a=>{const o={};['vk','vts','rst','req','vby','vtgl','und','via','sert'].forEach(k=>{if(a[k]!==undefined)o[k]=a[k]});if(a.hpv&&a.hpv!=='ok')o.hpv=a.hpv;return o};
   const srvOf=a=>({roles:a.roles,last_role:a.last||null,hp_terverifikasi:a.hpv==='ok'});
   async function loadProfil(){
     const r=await rest('profil?select=*&order=dibuat');if(!r.ok||!Array.isArray(r.j)||!r.j.length)return false;
@@ -1569,9 +1569,13 @@ const SB=(()=>{
   async function pull(){
     const rows=[];
     for(let o=0;;o+=1000){const r=await rest('koleksi?select=kolom,id,data&kolom=neq.AKUN&order=kolom,id&limit=1000&offset='+o);if(!r.ok||!Array.isArray(r.j))return false;rows.push(...r.j);if(r.j.length<1000)break}
-    const T=TT(),by={};rows.forEach(x=>(by[x.kolom]=by[x.kolom]||[]).push(x.data));
+    const T=TT(),by={},pend={};
+    /* perubahan lokal yang belum sampai ke server dipertahankan, supaya tidak hilang saat data server dimuat ulang */
+    for(const k in T)T[k].forEach(r=>{const id=kid(r);if(SNAP[k+'|'+id]!==JSON.stringify(r))(pend[k]=pend[k]||[]).push(r)});
+    rows.forEach(x=>(by[x.kolom]=by[x.kolom]||[]).push(x.data));
     SNAP={};
     for(const k in T){const a=(by[k]||[]).sort((p,q)=>(p._t||0)-(q._t||0));if(k==='INFO'||k==='AUDIT')a.reverse();T[k].splice(0,T[k].length,...a);T[k].forEach(r=>{SNAP[k+'|'+kid(r)]=JSON.stringify(r)})}
+    for(const k in pend)pend[k].forEach(r=>{const id=kid(r),i=T[k].findIndex(x=>kid(x)===id);if(i>=0)T[k][i]=r;else if(k==='INFO'||k==='AUDIT')T[k].unshift(r);else T[k].push(r)});
     return true;
   }
   function link(){const a=akCur();if(!a)return;const p=P.find(x=>x.hp&&normHp(x.hp)===normHp(a.hp));a.pid=p?p.id:'';DB.setMe(a.pid)}
@@ -1580,15 +1584,30 @@ const SB=(()=>{
     try{
       const T=TT(),up=[],cur={},bad=new Set();
       for(const k in T){const n=T[k].length;T[k].forEach((r,i)=>{const id=kid(r);if(r._t==null)r._t=Date.now()+((k==='INFO'||k==='AUDIT')?(n-i):i)/1000;const s=JSON.stringify(r);cur[k+'|'+id]=1;if(SNAP[k+'|'+id]!==s)up.push({kolom:k,id,data:r,s})})}
-      for(let i=0;i<up.length;i+=200){const ch=up.slice(i,i+200);
-        const r=await rest('koleksi?on_conflict=kolom,id',{method:'POST',headers:{Prefer:'resolution=merge-duplicates,return=minimal'},body:JSON.stringify(ch.map(x=>({kolom:x.kolom,id:x.id,data:x.data})))});
-        if(r.ok)ch.forEach(x=>{SNAP[x.kolom+'|'+x.id]=x.s});else ch.forEach(x=>bad.add(x.kolom))}
+      const grp={},st={};up.forEach(x=>(grp[x.kolom]=grp[x.kolom]||[]).push(x));
+      const post=ch=>rest('koleksi?on_conflict=kolom,id',{method:'POST',headers:{Prefer:'resolution=merge-duplicates,return=minimal'},body:JSON.stringify(ch.map(x=>({kolom:x.kolom,id:x.id,data:x.data})))});
+      for(const k in grp){
+        if(blk[k]&&blk[k]>Date.now()){bad.add(k);st[k]=403;continue}
+        const L=grp[k];
+        for(let i=0;i<L.length;i+=100){const ch=L.slice(i,i+100),r=await post(ch);
+          if(r.ok){ch.forEach(x=>{SNAP[x.kolom+'|'+x.id]=x.s});continue}
+          if(r.s>=400&&r.s<500&&ch.length>1){/* satu baris ditolak (hak akses): coba satu per satu */
+            for(const x of ch){const r1=await post([x]);if(r1.ok)SNAP[x.kolom+'|'+x.id]=x.s;else{bad.add(k);st[k]=r1.s}}
+          }else{bad.add(k);st[k]=r.s}
+        }
+        if(st[k]===401||st[k]===403)blk[k]=Date.now()+30000;
+      }
       const del={};for(const key in SNAP)if(!cur[key]){const j=key.indexOf('|');(del[key.slice(0,j)]=del[key.slice(0,j)]||[]).push(key.slice(j+1))}
       for(const k in del)for(let i=0;i<del[k].length;i+=50){const ids=del[k].slice(i,i+50);
         const r=await rest('koleksi?kolom=eq.'+k+'&id=in.('+ids.map(x=>'"'+x.replace(/"/g,'')+'"').join(',')+')',{method:'DELETE'});
-        if(r.ok)ids.forEach(x=>{delete SNAP[k+'|'+x]});else bad.add(k)}
-      if(bad.size&&!warned){warned=true;toast('Belum tersimpan ke server: '+[...bad].join(', ')+' (hak akses atau jaringan).')}
-      if(!bad.size)warned=false;
+        if(r.ok)ids.forEach(x=>{delete SNAP[k+'|'+x]});else{bad.add(k);st[k]=r.s}}
+      /* AUDIT tidak menimbulkan peringatan: catatan audit dicoba lagi otomatis dan tidak mengganggu pekerjaan */
+      const w=[...bad].filter(k=>k!=='AUDIT');
+      if(w.length&&!warned){warned=true;
+        const net=w.some(k=>st[k]===0||st[k]===undefined),den=w.filter(k=>st[k]===401||st[k]===403||(st[k]>=400&&st[k]<500));
+        toast(net&&!den.length?'Belum tersambung ke server. Perubahan ditahan di perangkat dan dicoba lagi otomatis.':'Server menolak menyimpan '+w.join(', ')+'. Peran Anda belum diizinkan menulis di tabel ini. Hubungi admin untuk memasang patch hak akses.')}
+      if(!w.length)warned=false;
+      clearTimeout(rt);if(bad.size)rt=setTimeout(push,30000);
     }finally{busy=false;if(again){again=false;push()}}
   }
   function push(){clearTimeout(tm);tm=setTimeout(doPush,300)}
@@ -1668,7 +1687,7 @@ const SB=(()=>{
     render();
     if(ready&&ses.gp)setTimeout(gantiSheet,300);
   }
-  async function refresh(){if(!ready)return;clearTimeout(tm);await saveAkun();await doPush();const okA=await loadProfil();if(okA&&await pull()){link();if(!document.querySelector('#sheet-root .sheet'))render()}}
+  async function refresh(){if(!ready)return;clearTimeout(tm);await saveAkun();await doPush();for(let n=0;busy&&n<50;n++)await new Promise(r=>setTimeout(r,200));const okA=await loadProfil();if(okA&&await pull()){link();if(!document.querySelector('#sheet-root .sheet'))render()}}
   function out(){
     const t=ses&&ses.at;if(t)raw('/auth/v1/logout',{method:'POST',headers:{...JH,Authorization:'Bearer '+t}});
     keep(null);ready=false;SNAP={};SNAPA={};AKUN=[];const T=TT();for(const k in T)T[k].length=0;ME=null;
@@ -1840,7 +1859,13 @@ function pendingBlock(){
 }
 
 /* ---------- beranda per peran ---------- */
-function tDash0(){
+function sertSec(){
+  const a=typeof akCur==='function'?akCur():null;
+  if(!a||!S.role||S.role==='partisipan'||!SERTR[S.role])return '';
+  return '<section class="sec"><h2>Sertifikat peran</h2><div class="row"><button class="btn btn-line" data-act="sertPeran" data-v="'+S.role+'">Lihat sertifikat '+esc(SERTR[S.role].l)+'</button></div></section>';
+}
+function tDash0(){return tDash00()+sertSec()}
+function tDash00(){
   const t=totals(), r=S.role;
   if(r==='partisipan'){
     if(!ME)return '<h1>Selamat datang</h1><p class="lead">Anda belum terdaftar sebagai partisipan. Daftar dulu untuk melihat data partisipasi Anda.</p><section class="sec"><button class="btn btn-green" data-act="formGabung">Daftar sebagai partisipan</button></section>';
@@ -2245,7 +2270,8 @@ function menuGrid(only){
 }
 function setGrid(){
  const adm=S.role==='admin',T0=[['kelolaPeran','shield','Kelola peran','Ajukan atau lepas peran','#43B182'],['akKelola','partisipan','Akun pengguna','Atur peran semua akun','#7A2C8C'],['akReq','partisipan','Pengajuan peran',(akPending()?akPending()+' menunggu keputusan':'Tidak ada yang menunggu'),'#1F8A70'],['akUndang','plus','Undang partisipan','Kode undangan dari admin','#F68A33'],['waSet','usul','WhatsApp komunitas',(PENG.wa?'Nomor: 0'+PENG.wa.slice(2):'Belum diatur'),'#19A69E'],['pengAlih','bagi','Pengalihan','Kapan pengalihan dibuka: '+alihLabel(),'#1386B3'],['resetData','trash','Hapus data','Hapus semua data perangkat ini','#d12a45']],T=[['arsipDok','proyek','Arsip dokumen',arsipN()+' dokumen tersimpan','#1386B3']].concat(adm?T0.slice(1):T0.slice(0,1));
- return '<section class="mg" aria-label="Pengaturan"><h2>Pengaturan</h2><div class="mgrid">'+T.map(t=>'<button class="mt" type="button" style="--a:'+t[4]+'" data-act="'+t[0]+'"><span class="lt"><span class="li">'+ic(t[1]).replace('class="ico"','class="ico" style="width:30px;height:30px;color:'+t[4]+'"')+'</span></span><span class="tx"><b>'+t[2]+'</b><span class="d">'+t[3]+'</span></span></button>').join('')+'</div></section>';
+  if(SERTR[S.role]||(S.role==='partisipan'&&ME))T.unshift(['sertPeran','cert','Sertifikat peran','Sertifikat '+roleName(),'#F68A33']);
+  return '<section class="mg" aria-label="Pengaturan"><h2>Pengaturan</h2><div class="mgrid">'+T.map(t=>'<button class="mt" type="button" style="--a:'+t[4]+'" data-act="'+t[0]+'"><span class="lt"><span class="li">'+ic(t[1]).replace('class="ico"','class="ico" style="width:30px;height:30px;color:'+t[4]+'"')+'</span></span><span class="tx"><b>'+t[2]+'</b><span class="d">'+t[3]+'</span></span></button>').join('')+'</div></section>';
 }
 function dashTail(cur,h,i){return cur==='Ringkasan'?h.slice(i):cur==='Pengaturan'?setGrid():menuGrid(cur)}
 function tDash(){
@@ -3196,7 +3222,20 @@ Object.assign(A,{
 });
 /* ================= SERTIFIKAT PARTISIPASI: kartu A5 bergaya Aren Jariyah, unduh gambar/PDF, bagikan ================= */
 const SURL='https://koperasirenco.github.io/Aren-Jariyah-/';
-const SERT={cv:null,fn:'',busy:false};
+const SM=' sebagaimana semangat RencoVision 2045.';
+const SERTR={
+ pemilik:{k:'PL',j:'SERTIFIKAT PEMILIK ASET',l:'pemilik aset',s:'Pemilik Aset',sh:'Saya Pemilik Aset di Aren Jariyah.',i:'Atas kepercayaannya mempercayakan asetnya untuk dikelola bersama sebagai Pemilik Aset Aren Jariyah. Aset tetap menjadi milik pemiliknya, dan hasil pengelolaannya dicatat terbuka sesuai perjanjian,'+SM},
+ admin:{k:'AD',j:'SERTIFIKAT ADMIN',l:'admin',s:'Admin',sh:'Saya Admin di Aren Jariyah.',i:'Atas amanah dan ketelitiannya sebagai Admin Aren Jariyah dalam mengelola data partisipan, kegiatan, proyek, dan aset bersama secara tertib, aman, dan terbuka,'+SM},
+ pengurus:{k:'PG',j:'SERTIFIKAT PENGURUS',l:'pengurus',s:'Pengurus',p:'Dewan Pengarah RencoVision 2045',ps:'Aren Jariyah',sh:'Saya Pengurus di Aren Jariyah.',i:'Atas amanah dan tanggung jawabnya sebagai Pengurus Aren Jariyah dalam menyetujui program, proyek, dan pembagian manfaat demi kemaslahatan partisipan dan warga,'+SM},
+ bendahara:{k:'BD',j:'SERTIFIKAT BENDAHARA',l:'bendahara',s:'Bendahara',sh:'Saya Bendahara di Aren Jariyah.',i:'Atas amanah dan kejujurannya sebagai Bendahara Aren Jariyah dalam mencatat keuangan, menyimpan bukti, dan menyusun laporan yang jelas dan dapat dipertanggungjawabkan,'+SM},
+ koordA:{k:'KA',j:'SERTIFIKAT KOORDINATOR ASET BERSAMA',l:'koordinator aset bersama',s:'Koordinator Aset Bersama',sh:'Saya Koordinator Aset Bersama di Aren Jariyah.',i:'Atas pengabdiannya sebagai Koordinator Aset Bersama Aren Jariyah dalam mengelola tanah, lapangan, kebun, dan kios agar terawat, produktif, dan bermanfaat bagi warga,'+SM},
+ koordL:{k:'KL',j:'SERTIFIKAT KOORDINATOR LINGKUNGAN',l:'koordinator lingkungan',s:'Koordinator Lingkungan',sh:'Saya Koordinator Lingkungan di Aren Jariyah.',i:'Atas pengabdiannya sebagai Koordinator Lingkungan Aren Jariyah dalam menjaga pohon, bank sampah, dan kegiatan lingkungan demi bumi yang lestari bagi generasi mendatang,'+SM},
+ koordS:{k:'KS',j:'SERTIFIKAT KOORDINATOR SOSIAL',l:'koordinator sosial',s:'Koordinator Sosial',sh:'Saya Koordinator Sosial di Aren Jariyah.',i:'Atas pengabdiannya sebagai Koordinator Sosial Aren Jariyah dalam menyalurkan bantuan, beasiswa, dan pemberdayaan warga secara tepat sasaran dan penuh kepedulian,'+SM},
+ kustodian:{k:'RC',j:'SERTIFIKAT KUSTODIAN ASET',l:'kustodian',s:'Renco Capital (Kustodian)',sh:'Renco Capital menjadi Kustodian di Aren Jariyah.',i:'Atas amanahnya sebagai Kustodian Aren Jariyah (Renco Capital) dalam menyimpan dokumen asli dan menjaga aset bersama dengan aman dan tertib,'+SM},
+ koperasi:{k:'KR',j:'SERTIFIKAT KOPERASI RENCO',l:'koperasi renco',s:'Koperasi Renco',sh:'Koperasi Renco mendukung Aren Jariyah.',i:'Atas peran Koperasi Renco sebagai pemilik hukum dan pengelola aset tertentu Aren Jariyah yang amanah, transparan, dan berpihak pada kepentingan bersama,'+SM},
+ dewan:{k:'DW',j:'SERTIFIKAT DEWAN PENGARAH',l:'dewan pengarah',s:'Dewan Pengarah',p:'Pengurus Aren Jariyah',ps:'Koperasi Renco',sh:'Saya Dewan Pengarah RencoVision 2045.',i:'Atas kebijaksanaannya sebagai Dewan Pengarah RencoVision 2045 dalam memberi arah strategis dan keputusan besar bagi Aren Jariyah dan warga,'+SM}
+};
+const SERT={cv:null,fn:'',busy:false,m:null};
 const sertImg=src=>new Promise((ok,no)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=()=>no(new Error('img'));i.src=src});
 /* matriks QR (versi 4, koreksi M) untuk SURL, disematkan agar tetap tampil tanpa internet */
 const SQR=["111111101010101111101101001111111","100000100110000001010010101000001","101110100110010000011100001011101","101110101000001001111011001011101","101110101011001001111001101011101","100000101010111011010000101000001","111111101010101010101010101111111","000000001111001111000101000000000","100010111000100001011111011111001","100001001001011100100111010001100","111111111011100111001001100001010","010101010010101011110101110000010","001011101011011000111000101011011","011000000101100010010001000100100","010011111011000010110011111101110","111000001001000001111101011100000","100010110001101101001110101010010","000111010011100111100101010001111","111110110000111100100001000101010","110111000010010100011011001100011","101001110110110010000010101001000","111101011100111001111101010101110","001001101011110101001111101010010","001111011001000111100101011000001","110100101111001011011111111110000","000000001000111110000011100010110","111111101100100111001110101011000","100000100011100111101100100010011","101110101100110100111000111111000","101110100111001010010011001111010","101110100011000011110010101111100","100000100111101001011110101001000","111111101100010101001111101000001"];
@@ -3240,8 +3279,8 @@ async function sertRender(m){
   x.fillStyle='#5c1d6d';x.font='800 34px '+SANS;sp(10);x.fillText('AREN JARIYAH',cx+5,362);
   x.fillStyle='#8a7fa3';x.font='600 22px '+SANS;sp(4);x.fillText('BAGIAN DARI RENCOVISION 2045',cx+2,398);sp(0);
   /* judul */
-  x.font='bold 92px '+SERIF;sp(8);const tw=x.measureText('SERTIFIKAT PARTISIPASI').width;
-  x.fillStyle=lg(cx-tw/2,0,cx+tw/2,0,['#5c1d6d','#B03A8C','#EE4363']);x.fillText('SERTIFIKAT PARTISIPASI',cx+4,500);sp(0);
+  const JD=m.judul||'SERTIFIKAT PARTISIPASI';let tf=92;x.font='bold '+tf+'px '+SERIF;sp(8);let tw=x.measureText(JD).width;while(tw>1700&&tf>40){tf-=4;x.font='bold '+tf+'px '+SERIF;tw=x.measureText(JD).width}
+  x.fillStyle=lg(cx-tw/2,0,cx+tw/2,0,['#5c1d6d','#B03A8C','#EE4363']);x.fillText(JD,cx+4,500);sp(0);
   x.fillStyle=lg(cx-170,0,cx+170,0,['#F68A33','#EE4363','#7A2C8C']);x.fillRect(cx-170,523,340,5);
   x.fillStyle='#6e6e73';x.font='500 25px '+SANS;sp(2);x.fillText('Nomor: '+m.nomor,cx+1,572);sp(0);
   /* penerima */
@@ -3252,24 +3291,24 @@ async function sertRender(m){
   x.fillStyle=lg(cx-nw/2,0,cx+nw/2,0,LOGOC);x.fillRect(cx-nw/2,ny,nw,4);
   /* isi */
   x.fillStyle='#2e2a38';x.font='33px '+SERIF;
-  const isi='Atas kesediaan dan kesungguhannya berpartisipasi sebagai Partisipan Aren Jariyah, gerakan pemuda Renco dalam membangun aset bersama, menjaga kelestarian lingkungan, dan menguatkan kehidupan sosial warga, sebagaimana semangat RencoVision 2045.';
+  const isi=m.isi||'Atas kesediaan dan kesungguhannya berpartisipasi sebagai Partisipan Aren Jariyah, gerakan pemuda Renco dalam membangun aset bersama, menjaga kelestarian lingkungan, dan menguatkan kehidupan sosial warga, sebagaimana semangat RencoVision 2045.';
   let y=ny+66;sertWrap(x,isi,1560).forEach(l=>{x.fillText(l,cx,y);y+=50});
   x.fillStyle='#8a7fa3';x.font='italic 23px '+SERIF;
-  sertWrap(x,'Sertifikat ini merupakan tanda keikutsertaan, bukan surat berharga, produk investasi, maupun jaminan keuntungan.',1500).forEach(l=>{x.fillText(l,cx,y+8);y+=32});
+  sertWrap(x,m.cat||'Sertifikat ini merupakan tanda keikutsertaan, bukan surat berharga, produk investasi, maupun jaminan keuntungan.',1500).forEach(l=>{x.fillText(l,cx,y+8);y+=32});
   const by=y+14;
   /* kiri: pengesahan + stempel */
   const lx=W-520,rx=520;
   x.fillStyle='#2e2a38';x.font='600 26px '+SANS;x.fillText('Mengesahkan,',lx,by+10);
   try{const st=await sertImg(stampURL());x.globalAlpha=.95;x.drawImage(st,lx-115,by+18,230,230);x.globalAlpha=1}catch(e){}
-  x.fillStyle='#2e2a38';x.font='700 26px '+SANS;x.fillText('Pengurus Aren Jariyah',lx,by+282);
-  x.fillStyle='#6e6e73';x.font='500 21px '+SANS;x.fillText('Koperasi Renco',lx,by+312);
+  x.fillStyle='#2e2a38';x.font='700 26px '+SANS;x.fillText(m.pengesah||'Pengurus Aren Jariyah',lx,by+282);
+  x.fillStyle='#6e6e73';x.font='500 21px '+SANS;x.fillText(m.pengesahSub||'Koperasi Renco',lx,by+312);
   /* kanan: tanda tangan otomatis nama partisipan */
   x.fillStyle='#2e2a38';x.font='500 24px '+SANS;x.fillText('Renco, '+sertTgl(m.tgl),rx,by+10);
-  x.font='600 26px '+SANS;x.fillText('Partisipan,',rx,by+48);
+  x.font='600 26px '+SANS;x.fillText(m.sebagai||'Partisipan,',rx,by+48);
   {let sf=104;x.font='400 '+sf+'px Allura,"Segoe Script","Snell Roundhand","Apple Chancery",cursive';while(x.measureText(m.nama).width>500&&sf>36){sf-=4;x.font='400 '+sf+'px Allura,"Segoe Script","Snell Roundhand","Apple Chancery",cursive'}
     x.fillStyle='#1b2a6b';x.fillText(m.nama,rx,by+150);}
     x.fillStyle='#2e2a38';x.font='700 28px '+SANS;let nf=28;while(x.measureText(m.nama).width>500&&nf>16){nf--;x.font='700 '+nf+'px '+SANS}x.fillText(m.nama,rx,by+218);
-  x.fillStyle='#6e6e73';x.font='500 21px '+SANS;x.fillText('No. Partisipan '+m.id,rx,by+252);
+  x.fillStyle='#6e6e73';x.font='500 21px '+SANS;x.fillText((m.noLabel||'No. Partisipan ')+m.id,rx,by+252);
   /* tengah: barcode QR minimalis */
   const qs=165,qx=cx-qs/2,qy=by+50;
   x.fillStyle='#fff';x.strokeStyle='rgba(122,44,140,.25)';x.lineWidth=2;x.beginPath();x.roundRect(qx-14,qy-14,qs+28,qs+28,16);x.fill();x.stroke();
@@ -3280,31 +3319,44 @@ async function sertRender(m){
   return cv;
 }
 function sertSheet(){
-  const m=ME;
-  return '<div class="shead"><h2 style="margin:0">Sertifikat partisipasi</h2><button type="button" class="xbtn" data-act="closeSheet" aria-label="Tutup">'+XSVG+'</button></div>'+
+  const m=SERT.m;
+  return '<div class="shead"><h2 style="margin:0">Sertifikat '+esc(m.label||'partisipasi')+'</h2><button type="button" class="xbtn" data-act="closeSheet" aria-label="Tutup">'+XSVG+'</button></div>'+
   '<p class="muted" style="margin:4px 0 12px;font-size:13px">Kartu A5 untuk '+esc(m.nama)+'. Unduh atau bagikan ke media sosial.</p>'+
   '<div id="sert-box" style="border-radius:14px;overflow:hidden;box-shadow:0 10px 26px -14px rgba(122,44,140,.55);background:#fff;aspect-ratio:210/148;display:grid;place-items:center"><span class="muted" style="font-size:13px">Menyiapkan sertifikat…</span></div>'+
   '<div class="row" style="margin-top:12px"><button type="button" class="btn btn-green" data-act="sertShare" style="flex:1 1 100%">Bagikan</button><button type="button" class="btn btn-line" data-act="sertPng" style="flex:1">Unduh gambar</button><button type="button" class="btn btn-line" data-act="sertPdf" style="flex:1">Unduh PDF</button></div>'+
   '<div class="label" style="margin:14px 0 6px">Atau bagikan tautan ke</div><div class="row">'+
-  [['WhatsApp','https://wa.me/?text='],['Facebook','https://www.facebook.com/sharer/sharer.php?u='],['X','https://twitter.com/intent/tweet?text='],['Telegram','https://t.me/share/url?url='+encodeURIComponent(SURL)+'&text=']].map(s=>'<a class="btn btn-line btn-sm" target="_blank" rel="noopener" href="'+s[1]+(s[0]==='Telegram'?encodeURIComponent('Saya resmi menjadi Partisipan Aren Jariyah.'):s[0]==='Facebook'?encodeURIComponent(SURL):encodeURIComponent('Saya resmi menjadi Partisipan Aren Jariyah. '+SURL))+'">'+s[0]+'</a>').join('')+'</div>'+
+  [['WhatsApp','https://wa.me/?text='],['Facebook','https://www.facebook.com/sharer/sharer.php?u='],['X','https://twitter.com/intent/tweet?text='],['Telegram','https://t.me/share/url?url='+encodeURIComponent(SURL)+'&text=']].map(s=>'<a class="btn btn-line btn-sm" target="_blank" rel="noopener" href="'+s[1]+(s[0]==='Telegram'?encodeURIComponent(m.share||'Saya resmi menjadi Partisipan Aren Jariyah.'):s[0]==='Facebook'?encodeURIComponent(SURL):encodeURIComponent((m.share||'Saya resmi menjadi Partisipan Aren Jariyah.')+' '+SURL))+'">'+s[0]+'</a>').join('')+'</div>'+
   '<p class="muted" style="font-size:12px;margin:8px 0 0">Untuk Instagram atau TikTok, unduh gambar lalu unggah dari galeri.</p>'+
   '<div class="row" style="margin-top:12px"><button type="button" class="btn btn-line" data-act="closeSheet" style="width:100%">Tutup</button></div>';
 }
 const sertBlob=()=>new Promise(r=>SERT.cv.toBlob(r,'image/png'));
 const sertSave=(href,name)=>{const a=document.createElement('a');a.href=href;a.download=name;document.body.appendChild(a);a.click();a.remove()};
+async function sertShow(m){
+  SERT.m=m;SERT.cv=null;SERT.fn=m.fn;sheet(sertSheet());
+  try{
+    const cv=await sertRender(m);if(SERT.m!==m)return;SERT.cv=cv;
+    const b=document.getElementById('sert-box');
+    if(b){const im=new Image();im.alt='Sertifikat '+(m.label||'partisipasi')+' '+m.nama;im.style.cssText='width:100%;height:auto;display:block';im.src=cv.toDataURL('image/png');b.style.display='block';b.innerHTML='';b.appendChild(im)}
+  }catch(e){const b=document.getElementById('sert-box');if(b)b.innerHTML='<span class="muted" style="font-size:13px;padding:12px">Sertifikat tidak dapat dibuat di perangkat ini.</span>'}
+}
 async function sertReady(){if(SERT.cv)return true;toast('Sertifikat masih disiapkan…');return false}
 Object.assign(A,{
   sertifikat0:async()=>{
     if(!ME)return;
-    sheet(sertSheet());SERT.cv=null;
     const tg=sertJoin(ME);if(ME.gabung!==tg)DB.update('P',ME.id,{gabung:tg});
-    const m={id:ME.id,nama:ME.nama,tgl:tg,nomor:'SP/'+ME.id+'/'+tg.slice(0,4)};
-    SERT.fn='Sertifikat-Partisipasi_'+ME.id;
-    try{
-      const cv=await sertRender(m);SERT.cv=cv;
-      const b=document.getElementById('sert-box');
-      if(b){const im=new Image();im.alt='Sertifikat partisipasi '+m.nama;im.style.cssText='width:100%;height:auto;display:block';im.src=cv.toDataURL('image/png');b.style.display='block';b.innerHTML='';b.appendChild(im)}
-    }catch(e){const b=document.getElementById('sert-box');if(b)b.innerHTML='<span class="muted" style="font-size:13px;padding:12px">Sertifikat tidak dapat dibuat di perangkat ini.</span>'}
+    sertShow({id:ME.id,nama:ME.nama,tgl:tg,nomor:'SP/'+ME.id+'/'+tg.slice(0,4),fn:'Sertifikat-Partisipasi_'+ME.id});
+  },
+  /* sertifikat untuk setiap peran yang dimiliki akun */
+  sertPeran:r=>{
+    const a=akCur();r=SERTR[r]?r:S.role;
+    if(!a||!r||!a.roles.includes(r)){toast('Anda tidak memiliki peran ini.');return}
+    if(hpLock()){toast('Verifikasi nomor HP dulu untuk membuka sertifikat.');return}
+    if(r==='partisipan'){if(ME)A.sertifikat0();else toast('Anda belum terdaftar sebagai partisipan.');return}
+    const d=SERTR[r];if(!d)return;
+    if(!a.sert)a.sert={};
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(a.sert[r]||'')){a.sert[r]=todayISO();akSave()}
+    const tg=a.sert[r];
+    sertShow({id:a.id,nama:a.nama,tgl:tg,nomor:'SR-'+d.k+'/'+a.id+'/'+tg.slice(0,4),judul:d.j,isi:d.i,cat:'Sertifikat ini menerangkan peran dan amanah di Aren Jariyah selama peran tersebut diemban, bukan surat berharga, produk investasi, maupun jaminan keuntungan.',sebagai:d.s+',',noLabel:'No. Akun ',pengesah:d.p||'Pengurus Aren Jariyah',pengesahSub:d.ps||'Koperasi Renco',label:d.l,share:d.sh,fn:'Sertifikat-'+d.k+'_'+a.id});
   },
   sertPng:async()=>{if(!await sertReady())return;sertSave(SERT.cv.toDataURL('image/png'),SERT.fn+'.png');toast('Gambar sertifikat diunduh.')},
   sertPdf:async()=>{
@@ -3315,11 +3367,11 @@ Object.assign(A,{
   },
   sertShare:async()=>{
     if(!await sertReady())return;
-    const txt='Saya resmi menjadi Partisipan Aren Jariyah. '+SURL;
+    const txt=((SERT.m&&SERT.m.share)||'Saya resmi menjadi Partisipan Aren Jariyah.')+' '+SURL,ttl='Sertifikat '+((SERT.m&&SERT.m.label)||'Partisipasi')+' Aren Jariyah';
     try{
       const b=await sertBlob(),f=new File([b],SERT.fn+'.png',{type:'image/png'});
-      if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'Sertifikat Partisipasi Aren Jariyah',text:txt});return}
-      if(navigator.share){await navigator.share({title:'Sertifikat Partisipasi Aren Jariyah',text:txt,url:SURL});sertSave(SERT.cv.toDataURL('image/png'),SERT.fn+'.png');toast('Gambar ikut diunduh untuk dilampirkan.');return}
+      if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:ttl,text:txt});return}
+      if(navigator.share){await navigator.share({title:ttl,text:txt,url:SURL});sertSave(SERT.cv.toDataURL('image/png'),SERT.fn+'.png');toast('Gambar ikut diunduh untuk dilampirkan.');return}
     }catch(e){if(e&&e.name==='AbortError')return}
     sertSave(SERT.cv.toDataURL('image/png'),SERT.fn+'.png');toast('Gambar diunduh. Lampirkan ke media sosial pilihan Anda, atau pakai tombol tautan di bawah.')
   }
