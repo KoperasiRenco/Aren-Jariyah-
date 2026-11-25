@@ -1661,7 +1661,7 @@ const SB=(()=>{
       if(!r1.ok){toast(r1.s===422||/already|registered|exists/i.test(String(r1.j&&(r1.j.msg||r1.j.message)||''))?'Nomor ini sudah terdaftar di akun lain.':'Nomor gagal diganti ['+r1.s+'].');return}
       if(r1.j&&r1.j.email&&r1.j.email!==mail(nh)){toast('Server belum menerapkan perubahan nomor. Di Supabase Auth, matikan "Confirm email" dan "Secure email change".');return}
       const r2=await rest('rpc/ganti_hp',{method:'POST',body:JSON.stringify({p_hp:nh})});
-      if(!r2.ok){await put(mail(lama));toast(r2.s===404?'Fungsi ganti_hp belum dipasang di Supabase. Jalankan patch SQL ganti nomor.':(/hp_dipakai/.test(JSON.stringify(r2.j||''))?'Nomor ini sudah dipakai akun lain.':'Nomor gagal disimpan ['+r2.s+'].'));return}
+      if(!r2.ok||r2.j!==true){await put(mail(lama));toast(r2.ok?'Nomor ini sudah dipakai akun lain atau profil tidak ditemukan.':r2.s===404?'Fungsi ganti_hp belum dipasang di Supabase. Jalankan patch SQL ganti nomor.':(/hp_dipakai/.test(JSON.stringify(r2.j||''))?'Nomor ini sudah dipakai akun lain.':'Nomor gagal disimpan ['+r2.s+'].'));return}
       const adm=a.roles.includes('admin');
       a.hp=nh;a.hpv=adm?'ok':'belum';delete a.vk;delete a.vts;
       try{bioClear()}catch(e){}
